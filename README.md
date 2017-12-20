@@ -1,6 +1,6 @@
 # My-AN-Nodes
 
-These nodes are to add to Version 2.0 or Animation Nodes, whci requires official releases from Blender, i.e. NOT Builbot versions!
+These nodes are to add to Version 2.0 or Animation Nodes, which requires official releases from Blender, i.e. NOT Buildbot versions!
 
 They come with no warranty, but have been extensively tested. I will produce a help file later, as time permits.
 
@@ -20,11 +20,11 @@ The other files should go into a new folder in this directory:
 
 That new directory should contain an empty file named \_init_\.py - create this with any text editor or copy one from another AN directory.
 
-Have fun and mail me clockmender@icloud.com with any questions. Operation is fairly intuitive, but be aware that the MIDI nodes require MIDI files in CSV format, not generic MIDI - search the web for a good converter - there are several out there, but this is the one i use:
+Have fun and mail me clockmender@icloud.com with any questions. Operation is fairly intuitive, but be aware that the MIDI nodes require MIDI files in CSV format, not generic MIDI - search the web for a good converter - there are several out there, but this is the one I use:
 
 http://www.fourmilab.ch/webtools/midicsv/
 
-Comments will be gratefully received, along with improvement/enahncement suggestions.
+Comments will be gratefully received, along with improvement/enhancement suggestions.
 
 Cheers, Clock.
 
