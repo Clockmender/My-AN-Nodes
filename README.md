@@ -2,7 +2,7 @@
 
 These nodes are to add to Version 2.0 or Animation Nodes, whci requires official releases from Blender, i.e. NOT Builbot versions!
 
-They come with no wartranty, but have been extensively tested. I will produce a help file later, as time permits.
+They come with no warranty, but have been extensively tested. I will produce a help file later, as time permits.
 
 The bone.py file should go in this directory:
 
@@ -24,4 +24,12 @@ Have fun and mail me clockmender@icloud.com with any questions. Operation is fai
 
 http://www.fourmilab.ch/webtools/midicsv/
 
+Comments will be gratefully received, along with improvement/enahncement suggestions.
+
 Cheers, Clock.
+
+PS, there are examples of the use of these nodes in my Youtube:
+
+https://www.youtube.com/channel/UCfOCIvThm1sCoG0NqZkgaAg/videos?shelf_id=0&view=0&sort=dd
+
+Or look on https://blenderartists.org/forum/forumdisplay.php?16-Works-in-Progress - just search for me by name: "clockmender"
