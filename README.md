@@ -20,7 +20,7 @@ The other files should go into a new folder in this directory:
 
 That new directory should contain an empty file named _init_.py - create this with any text editor or copy one from another AN directory.
 
-Have fun and mail me clockmender@icloud.com with any questions. Operation is fairly intuitive, but be aware that the MIDI nodes require MIDI files in CSV format, not generic MIDI - search the web for a good converter - there are sevela out there, but this is the one i use:
+Have fun and mail me clockmender@icloud.com with any questions. Operation is fairly intuitive, but be aware that the MIDI nodes require MIDI files in CSV format, not generic MIDI - search the web for a good converter - there are several out there, but this is the one i use:
 
 http://www.fourmilab.ch/webtools/midicsv/
 
