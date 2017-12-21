@@ -73,6 +73,7 @@ class clock_menu(bpy.types.Menu):
         layout.separator()
         insertNode(layout, "an_tickingSecondsNode","Maths Gen Functions")
         insertNode(layout, "an_bounceNode", "Bounce Generator")
+        insertNode(layout, "an_frameRangeNode", "Frame Range/Switch")
         layout.separator()
         insertNode(layout, "an_GetBonesNode", "Bones From Object")
         insertNode(layout, "an_BonesLocateNode", "Bones Locate Output")
