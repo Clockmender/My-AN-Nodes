@@ -16,7 +16,7 @@ class frameRangeNode(bpy.types.Node, AnimationNode):
         self.newInput("Float", "Input Value", "inp_v")
         self.newInput("Integer", "Start Frame", "frm_s")
         self.newInput("Integer", "End Frame", "frm_e")
-        self.newOutput("Integer", "Frame", "frm_r")
+        self.newOutput("Integer", "Frame (In Range)", "frm_r")
         self.newOutput("Float", "Output Value", "out_v")
         self.newOutput("Boolean", "In/Out of Range","out_b")
 
@@ -24,8 +24,6 @@ class frameRangeNode(bpy.types.Node, AnimationNode):
         layout.prop(self, "ins_v")
         if (self.message1 != ""):
             layout.label(self.message1, icon = "ERROR")
-            frm_r = 0
-            out_v = 0
 
     def execute(self, inp_v, frm_s, frm_e):
         frm_c = bpy.context.scene.frame_current
