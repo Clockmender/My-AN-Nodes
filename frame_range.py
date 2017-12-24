@@ -18,7 +18,8 @@ class frameRangeNode(bpy.types.Node, AnimationNode):
         self.newInput("Integer", "End Frame", "frm_e")
         self.newOutput("Integer", "Frame (In Range)", "frm_r")
         self.newOutput("Float", "Output Value", "out_v")
-        self.newOutput("Boolean", "In/Out of Range","out_b")
+        self.newOutput("Boolean", "In/Out of Range", "out_b")
+        self.newOutput("Float", "Combined Output", "out_c")
 
     def draw(self,layout):
         layout.prop(self, "ins_v")
@@ -45,4 +46,5 @@ class frameRangeNode(bpy.types.Node, AnimationNode):
             else:
                 out_b = frm_c not in range(frm_s,frm_e)
 
-        return frm_r, out_v, out_b
+        out_c = frm_r * out_v * out_b
+        return frm_r, out_v, out_b, out_c
