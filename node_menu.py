@@ -78,6 +78,7 @@ class clock_menu(bpy.types.Menu):
         layout.separator()
         insertNode(layout, "an_GetBoneNode", "1 Bone From Armature")
         insertNode(layout, "an_GetBonesNode", "Bones List From Armature")
+        insertNode(layout, "an_BoneInputNode", "Bone Transforms Input")
         insertNode(layout, "an_BonesLocateNode", "Bones Locate Output")
         insertNode(layout, "an_BonesRotateNode", "Bones Rotate Output")
         insertNode(layout, "an_BonesScaleNode", "Bones Scale Output")
