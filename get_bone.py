@@ -17,7 +17,7 @@ class GetBoneNode(bpy.types.Node, AnimationNode):
 
     def create(self):
         self.newInput("Object", "Armature", "arm")
-        self.newOutput("Bone", "Bone", "bone_ob")
+        self.newOutput("Bone", "Single Bone", "bone_ob")
 
     def execute(self, arm):
         if arm is None:
