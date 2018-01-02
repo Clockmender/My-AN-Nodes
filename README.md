@@ -47,7 +47,7 @@ Comments will be gratefully received, along with improvement/enhancement suggest
 
 Cheers, Clock.
 
-PS. I am rebuilding my website: https://clockmender.uk but it will take some time. There will eb a set of pages explaining how to use these nodes, I have started though!
+PS. I am rebuilding my website: https://clockmender.uk but it will take some time. There will be a set of pages explaining how to use these nodes, I have started though!
 
 PPS, there are examples of the use of these nodes in my Youtube:
 
