@@ -29,5 +29,9 @@ class GetBoneNode(bpy.types.Node, AnimationNode):
             else:
                 boneList = arm.pose.bones
             self.message1 = "First Bone of " + str(len(boneList)) + " match(es)"
-            bone_ob = boneList[0]
+            if boneList:
+                bone_ob = boneList[0]
+            else:
+                bone_ob = None
+                self.message1 = "No Matches"
             return bone_ob

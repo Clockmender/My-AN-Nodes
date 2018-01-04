@@ -29,4 +29,6 @@ class GetBonesNode(bpy.types.Node, AnimationNode):
             else:
                 boneList = arm.pose.bones
             self.message1 = str(len(boneList)) + " bone(s) in list"
+            if len(boneList) == 0:
+                boneList = None
             return boneList
