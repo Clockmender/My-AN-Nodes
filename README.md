@@ -47,7 +47,7 @@ Comments will be gratefully received, along with improvement/enhancement suggest
 
 EDIT 12 Feb 2018:
 
-I have added the MAterials nodes, Input and Output, don't forget that if you only want one or two of these, just load these into an empty folder in animation_nodes/nodes directory and don't forget the empty \_init_\.py file in the folder, or they won't work.
+I have added the Materials nodes, Input and Output, don't forget that if you only want one or two of these, just load these into an empty folder in animation_nodes/nodes directory and don't forget the empty \_init_\.py file in the folder, or they won't work.
 
 Cheers, Clock.
 
