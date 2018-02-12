@@ -45,6 +45,10 @@ http://www.fourmilab.ch/webtools/midicsv/
 
 Comments will be gratefully received, along with improvement/enhancement suggestions.
 
+EDIT 12 Feb 2018:
+
+I have added the MAterials nodes, Input and Output, don't forget that if you only want one or two of these, just load these into an empty folder in animation_nodes/nodes directory and don't forget the empty \_init_\.py file in the folder, or they won't work.
+
 Cheers, Clock.
 
 PS. I am rebuilding my website: https://clockmender.uk but it will take some time. There will be a set of pages explaining how to use these nodes, I have started though!
