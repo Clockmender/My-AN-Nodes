@@ -49,6 +49,8 @@ EDIT 12 Feb 2018:
 
 I have added the Materials nodes, Input and Output, don't forget that if you only want one or two of these, just load these into an empty folder in animation_nodes/nodes directory and don't forget the empty \_init_\.py file in the folder, or they won't work.
 
+Some updates may not be included in the latest release, the code can be obtained from the idividual files if required. All updates have a date when they were uploaded.
+
 Cheers, Clock.
 
 PS. I am rebuilding my website: https://clockmender.uk but it will take some time. There will be a set of pages explaining how to use these nodes, I have started though!
