@@ -18,6 +18,7 @@ class sequenceNode(bpy.types.Node, AnimationNode):
         self.newOutput("Integer", "Out 3", "out_3")
         self.newOutput("Integer", "Out 4", "out_4")
         self.newOutput("Integer", "Out 5", "out_5")
+        self.newOutput("Integer List", "Output as IntegerList", "out_l")
 
     def draw(self,layout):
         if (self.message1 != ""):
@@ -57,4 +58,5 @@ class sequenceNode(bpy.types.Node, AnimationNode):
             else:
                 self.message1 = ""
 
-        return out_1, out_2, out_3, out_4, out_5
+        out_l = [out_1,out_2,out_3,out_4,out_5]
+        return out_1, out_2, out_3, out_4, out_5, out_l
