@@ -16,6 +16,7 @@ class materialsInputNode(bpy.types.Node, AnimationNode):
             layout.label(self.message1, icon = "INFO")
 
     def create(self):
+        self.newOutput("Generic", "First/Single Material","mat")
         self.newOutput("Generic List", "Material(s)", "mats")
 
     def execute(self):
@@ -24,4 +25,8 @@ class materialsInputNode(bpy.types.Node, AnimationNode):
         else:
             mats = bpy.data.materials
         self.message1 = str(len(mats)) + " Materials in List"
-        return mats
+        if mats:
+            mat = mats[0]
+        else:
+            mat = None
+        return mat, mats
