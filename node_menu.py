@@ -76,7 +76,7 @@ class clock_menu(bpy.types.Menu):
         insertNode(layout, "an_angleNode","Angle/Cord/Radius Calculator")
         insertNode(layout, "an_frameRangeNode", "Frame Range/Switch")
         insertNode(layout, "an_frameRampNode", "Frame Ramp")
-        insertNode(layout, "an_sequenceNode", "5 Channel Sequencer")
+        insertNode(layout, "an_sequenceNode", "Multi-Channel Sequencer")
         layout.separator()
         insertNode(layout, "an_objectTransformNode", "Object World Transforms")
         layout.separator()
