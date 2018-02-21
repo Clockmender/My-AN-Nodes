@@ -78,8 +78,6 @@ class clock_menu(bpy.types.Menu):
         insertNode(layout, "an_frameRampNode", "Frame Ramp")
         insertNode(layout, "an_sequenceNode", "Multi-Channel Sequencer")
         layout.separator()
-        insertNode(layout, "an_objectTransformNode", "Object World Transforms")
-        layout.separator()
         insertNode(layout, "an_materialsInputNode", "Materials Input")
         insertNode(layout, "an_materialsOutputNode", "Materials Output")
         layout.separator()
@@ -93,6 +91,7 @@ class clock_menu(bpy.types.Menu):
         insertNode(layout, "an_CopyBoneLocationWithOffsetNode", "Bones Copy Location Offset")
         insertNode(layout, "an_CopyBoneRotationWithOffsetNode", "Bones Copy Rotation Offset")
         layout.separator()
+        insertNode(layout, "an_objectTransformNode", "Object World Transforms")
         insertNode(layout, "an_CopyLocationWithOffsetNode", "Copy Location With Offset")
         insertNode(layout, "an_CopyRotationWithOffsetNode", "Copy Rotation With Offset")
 
