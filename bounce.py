@@ -33,11 +33,15 @@ class bounceNode(bpy.types.Node, AnimationNode):
             layout.label(self.message1, icon = "ERROR")
 
     def execute(self):
+        frm_c = bpy.context.scene.frame_current
         if self.hgt_s <= (self.hgt_b + 0.1):
             self.message1 = "Height Errors!"
+            cos_w = 0
+        elif self.frm_s <= bpy.context.scene.frame_start:
+            self.message1 = "Start Frame Error!"
+            cos_w = 0
         else:
             self.message1 = ""
-            frm_c = bpy.context.scene.frame_current
             len_m = self.frm_e - self.frm_s
             if frm_c == (self.frm_s - 1):
                 self.spd_v = self.speed
@@ -57,4 +61,4 @@ class bounceNode(bpy.types.Node, AnimationNode):
             else:
                 cos_w = self.hgt_b
 
-            return cos_w
+        return cos_w
