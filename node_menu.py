@@ -94,6 +94,7 @@ class clock_menu(bpy.types.Menu):
         insertNode(layout, "an_objectTransformNode", "Object World Transforms")
         insertNode(layout, "an_CopyLocationWithOffsetNode", "Copy Location With Offset")
         insertNode(layout, "an_CopyRotationWithOffsetNode", "Copy Rotation With Offset")
+        insertNode(layout, "an_speedAccNode", "Object Speed & Acceleration")
 
 class NumberMenu(bpy.types.Menu):
     bl_idname = "an_number_menu"
