@@ -18,7 +18,7 @@ class speedAccNode(bpy.types.Node, AnimationNode):
         self.newInput("Float", "Frame - 2", "loc_t")
         self.newOutput("Float", "Speed units/sec", "spd_u")
         self.newOutput("Float", "Acceleration units/sec/sec", "acc_u")
-        self.newOutput("Float", "Acceleration - G", "acc_g")
+        self.newOutput("Float", "Acceleration - g", "acc_g")
 
     def draw(self,layout):
         layout.prop(self, "mod_g")
