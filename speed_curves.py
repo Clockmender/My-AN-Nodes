@@ -35,6 +35,7 @@ class createCurvesNode(bpy.types.Node, AnimationNode):
             frm_p = bpy.context.scene.frame_start
             if frm_e <= frm_s or frm_s <= frm_p + 1 or fac_x == 0 or fac_z == 0 or nam_c == "":
                 self.message1 = "Set Frames/Scales, etc."
+                self.exe_b = False
             else:
                 frm_c = bpy.context.scene.frame_current
                 if frm_c == frm_s - 1:
@@ -66,7 +67,7 @@ class createCurvesNode(bpy.types.Node, AnimationNode):
                     bpy.ops.object.mode_set(mode='OBJECT')  # return to object mode
                     bm.verts.new(vert)  # add a new vert
                     bm.verts.ensure_lookup_table() # reset table lookup
-                    if len(mesh.vertices) > 1:
+                    if len(mesh.vertices) > 0:
                         bm.edges.new((bm.verts[-1], bm.verts[-2])) # Add edge using last two verts
                     # make the bmesh the object's mesh
                     bm.to_mesh(mesh)
