@@ -22,7 +22,7 @@ class createCubeSphereNode(bpy.types.Node, AnimationNode):
         self.newInput("Float", "Diameter", "dia")
         self.newInput("Float", "X Scale", "fac_x")
         self.newInput("Float", "Y Offset", "fac_y")
-        self.newInput("Float", "Z Scale", "fac_z")
+        self.newInput("Float", "Z Offset", "fac_z")
         self.newInput("Integer", "U-Segs", "u_seg")
         self.newInput("Object", "Object", "obj")
         self.newOutput("Object", "Object", "obj")
