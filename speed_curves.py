@@ -13,6 +13,7 @@ class createCurvesNode(bpy.types.Node, AnimationNode):
     message2 = StringProperty("")
     frm_j = IntProperty(name = "Jump Frame", default = 1, min = 1)
     exe_b = BoolProperty(name = "Execute", default = False, update = propertyChanged)
+    del_b = BoolProperty(name = "Delete Existing Mesh", default = False, update = propertyChanged)
 
     def create(self):
         self.newInput("Float", "Input", "val_i")
@@ -26,6 +27,7 @@ class createCurvesNode(bpy.types.Node, AnimationNode):
 
     def draw(self,layout):
         layout.prop(self, "exe_b")
+        layout.prop(self, "del_b")
         layout.prop(self, "frm_j")
         if (self.message2 != ""):
             layout.label(self.message2, icon = "INFO")
@@ -60,6 +62,12 @@ class createCurvesNode(bpy.types.Node, AnimationNode):
                     # Add curve points
                     bpy.context.scene.objects.active = obj
                     mesh = obj.data
+                    if self.del_b and frm_c == frm_s:
+                        for v in bpy.context.object.data.vertices:
+                            v.select = True
+                        bpy.ops.object.mode_set(mode='EDIT')
+                        bpy.ops.mesh.delete(type='VERT')
+                        bpy.ops.object.mode_set(mode='OBJECT')
                     vert = ((frm_c * fac_x), fac_y, (val_i * fac_z)) # next vert made with XYZ coords
                     bm = bmesh.new()
                     # convert the current mesh to a bmesh (must be in edit mode)
