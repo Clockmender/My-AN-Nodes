@@ -47,6 +47,7 @@ class createCubeSphereNode(bpy.types.Node, AnimationNode):
                 run_b = False
         if not obj or u_seg < 8 or frm_e < frm_s or fac_x == 0:
             self.message1 = "Set Parameters/Object"
+            return None
         elif frm_c > frm_e:
             self.message1 = "Completed"
             self.exe_b = False
