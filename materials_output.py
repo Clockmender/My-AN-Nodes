@@ -17,6 +17,8 @@ class materialsOutputNode(bpy.types.Node, AnimationNode):
         self.newOutput("Object", "Object", "obj")
 
     def execute(self, obj, slot, inpt, trip, mat_1, mat_2):
+        if not obj:
+            return None
         if mat_1:
             if len(obj.material_slots) < 1:
                 obj.data.materials.append(mat_1)
