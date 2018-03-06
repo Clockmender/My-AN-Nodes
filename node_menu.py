@@ -18,7 +18,7 @@ def drawMenu(self, context):
 
     layout.operator("an.node_search", text = "Search", icon = "VIEWZOOM")
     layout.separator()
-    layout.menu("an_clock_menu", text = "Clockmender", icon = "RADIO")
+    layout.menu("an_clock_menu", text = "Clockworks", icon = "RADIO")
     layout.menu("an_number_menu", text = "Number", icon = "LINENUMBERS_ON")
     layout.menu("an_vector_menu", text = "Vector", icon = "MAN_TRANS")
     layout.menu("an_rotation_menu", text = "Rotation", icon = "MAN_ROT")
@@ -63,7 +63,7 @@ def createNodeTree():
 
 class clock_menu(bpy.types.Menu):
     bl_idname = "an_clock_menu"
-    bl_label = "Clockmender Menu"
+    bl_label = "Clockworks"
 
     def draw(self, context):
         layout = self.layout
