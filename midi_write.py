@@ -8,7 +8,7 @@ from ... utils.path import getAbsolutePathOfSound
 
 class MidiControlNode(bpy.types.Node, AnimationNode):
     bl_idname = "an_MidiControlNode"
-    bl_label = "MIDI Control Node; Version 1.1 (Multi Channel)"
+    bl_label = "MIDI Control Node (Multi Channel)"
     bl_width_default = 450
 
     useV = BoolProperty(name = "Use MIDI Velocity", default = False, update = propertyChanged)

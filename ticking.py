@@ -6,7 +6,7 @@ from ... events import propertyChanged
 
 class tickingSecondsNode(bpy.types.Node, AnimationNode):
     bl_idname = "an_tickingSecondsNode"
-    bl_label = "Maths Functions Node v 1.0"
+    bl_label = "Maths Functions Node"
     bl_width_default = 220
 
     tick = IntProperty()

@@ -6,7 +6,7 @@ from ... events import propertyChanged
 
 class bounceNode(bpy.types.Node, AnimationNode):
     bl_idname = "an_bounceNode"
-    bl_label = "Bounce Node v 1.0"
+    bl_label = "Bounce Node"
     bl_width_default = 200
 
     frm_s = IntProperty(name = "Start Frame", default = 1)

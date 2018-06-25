@@ -12,7 +12,7 @@ modeItems = [
 
 class angleNode(bpy.types.Node, AnimationNode):
     bl_idname = "an_angleNode"
-    bl_label = "Angle/Cord/Radius v 1.0"
+    bl_label = "Angle/Cord/Radius"
     bl_width_default = 260
 
     mode = EnumProperty(name = "Active Plane", default = "X-Y",
@@ -38,6 +38,9 @@ class angleNode(bpy.types.Node, AnimationNode):
             layout.label(self.message1, icon = "INFO")
 
     def execute(self, ob0, ob1, ob2):
+        if ob0 == None or ob1 == None or ob2 == None:
+            return 0, 0, 0, 0, 0
+
         ang_1 = 0
         ang_2 = 0
         chord = 0
@@ -78,7 +81,7 @@ class angleNode(bpy.types.Node, AnimationNode):
             ang_2 = ang_0
             ang_1 = 360 - ang_2
 
-        if ang_1 >= 90 and ang_1 < 180:
+        if ang_1 >= 89.9999 and ang_1 < 179.99:
             radius = (dist / cos((ang_1 - 90) * (pi / 180))) / 2
             chord = (2 * pi * radius) / (360 / (180 - (2 * (ang_1 - 90))))
             self.message1 = ""

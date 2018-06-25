@@ -18,7 +18,7 @@ class MidiNoteData(bpy.types.PropertyGroup):
 
 class MidiInputNode(bpy.types.Node, AnimationNode):
     bl_idname = "an_MidiInputNode"
-    bl_label = "MIDI Bake-To-Curve Node, Vers 1.1 (Single Channel)"
+    bl_label = "MIDI Bake-To-Curve Node (Single Channel)"
     bl_width_default = 450
 
     # Setup variables
@@ -34,12 +34,13 @@ class MidiInputNode(bpy.types.Node, AnimationNode):
     keys_grp = StringProperty(name = "Keys Group")
     message1 = StringProperty("")
     message2 = StringProperty("")
+    message3 = StringProperty("")
     midiFilePath = StringProperty()
     midiName = StringProperty()
 
     # I'd suggest to bake one channel per node for now.
     # You can have multiple nodes of course.
-    Channel_Number = StringProperty(name = "MIDI Channel Number") # e.g. Piano, ...
+    Channel_Number = StringProperty(name = "MIDI Channel Number",default = "2") # e.g. Piano, ...
     notes = CollectionProperty(type = MidiNoteData)
 
     def create(self):
@@ -71,6 +72,8 @@ class MidiInputNode(bpy.types.Node, AnimationNode):
             layout.label(self.message1, icon = "INFO")
         if (self.message2 != ""):
             layout.label(self.message2, icon = "INFO")
+        if (self.message3 != ""):
+            layout.label(self.message3, icon = "ERROR")
 
     def execute(self):
         notes = [item.noteName for item in self.notes]
@@ -110,6 +113,13 @@ class MidiInputNode(bpy.types.Node, AnimationNode):
 
     def bakeMidi(self, path):
         # remove previously baked data
+        if self.Channel_Number == '':
+            self.message1 = ''
+            self.message2 = ''
+            self.message3 = 'Set Channel Number First'
+            return
+        else:
+            self.message3 = ''
         self.notes.clear()
         self.removeFCurvesOfThisNode()
 

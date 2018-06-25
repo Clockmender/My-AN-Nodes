@@ -6,7 +6,7 @@ from ... events import propertyChanged
 
 class frameRangeNode(bpy.types.Node, AnimationNode):
     bl_idname = "an_frameRangeNode"
-    bl_label = "Frame Range/Switch v 1.0"
+    bl_label = "Frame Range/Switch"
     bl_width_default = 200
 
     message1 = StringProperty("")

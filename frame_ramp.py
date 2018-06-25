@@ -6,7 +6,7 @@ from ... events import propertyChanged
 
 class frameRampNode(bpy.types.Node, AnimationNode):
     bl_idname = "an_frameRampNode"
-    bl_label = "Frame Ramp v 1.0"
+    bl_label = "Frame Ramp"
     bl_width_default = 200
 
     message1 = StringProperty("")

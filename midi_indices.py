@@ -9,7 +9,7 @@ class MidiIndex(bpy.types.PropertyGroup):
 
 class MidiIndexNode(bpy.types.Node, AnimationNode):
     bl_idname = "an_MidiIndexNode"
-    bl_label = "MIDI Evaluation Node, Vers 1.1"
+    bl_label = "MIDI Evaluation Node"
     bl_width_default = 350
 
     notes = CollectionProperty(type = MidiIndex)
