@@ -9,12 +9,14 @@ from ... utils.path import getAbsolutePathOfSound
 class MidiControlNode(bpy.types.Node, AnimationNode):
     bl_idname = "an_MidiControlNode"
     bl_label = "MIDI Control Node (Multi Channel)"
-    bl_width_default = 450
+    bl_width_default = 350
 
+    # Set Variables
+    mid_c = BoolProperty(name = "Middle C = C4", default = True, update = propertyChanged)
     useV = BoolProperty(name = "Use MIDI Velocity", default = False, update = propertyChanged)
     square = BoolProperty(name = "Use Square Waveform", default = True, update = propertyChanged)
-    offset = IntProperty(name = "Offset", default = 0, min = -1000, max = 10000)
-    easing = FloatProperty(name = "Easing", default = 0.2, precision = 3)
+    offset = IntProperty(name = "Offset - Anim Start Frame", default = 0, min = -1000, max = 10000)
+    easing = FloatProperty(name = "Easing - Slopes Curves", default = 0.2, precision = 3)
     soundName = StringProperty(name = "Sound")
     message1 = StringProperty("")
     message2 = StringProperty("")
@@ -22,6 +24,9 @@ class MidiControlNode(bpy.types.Node, AnimationNode):
     midiName = StringProperty()
 
     def draw(self, layout):
+        layout.prop(self,"mid_c")
+        layout.label('(Uses C3 if Unchecked)', icon = "INFO")
+        layout.label('1) Load CSV, 2) Load Sound, 3) Create Controls', icon = "INFO")
         col = layout.column()
         col.scale_y = 1.5
         self.invokeSelector(col, "PATH", "loadMidi",
@@ -78,9 +83,17 @@ class MidiControlNode(bpy.types.Node, AnimationNode):
             self.message1 = "Making Controls for: " + self.midiName
             self.message2 = ""
 
-            note_list = ['a0','a0s','b0','c1','c1s','d1','d1s','e1','f1','f1s','g1','g1s','a1','a1s','b1','c2','c2s','d2','d2s','e2','f2','f2s','g2','g2s','a2','a2s','b2','c3','c3s','d3','d3s','e3','f3','f3s','g3','g3s','a3','a3s','b3',
-                'c4','c4s','d4','d4s','e4','f4','f4s','g4','g4s','a4','a4s','b4','c5','c5s','d5','d5s','e5','f5','f5s','g5','g5s','a5','a5s','b5','c6','c6s','d6','d6s','e6','f6','f6s','g6','g6s','a6','a6s','b6',
-                    'c7','c7s','d7','d7s','e7','f7','f7s','g7','g7s','a7','a7s','b7','c8']
+            note_list = [
+                'c0','cs0','d0','ds0','e0','f0','fs0','g0','gs0','a0','as0','b0',
+                'c1','cs1','d1','ds1','e1','f1','fs1','g1','gs1','a1','as1','b1',
+                'c2','cs2','d2','ds2','e2','f2','fs2','g2','gs2','a2','as2','b2',
+                'c3','cs3','d3','ds3','e3','f3','fs3','g3','gs3','a3','as3','b3',
+                'c4','cs4','d4','ds4','e4','f4','fs4','g4','gs4','a4','as4','b4',
+                'c5','cs5','d5','ds5','e5','f5','fs5','g5','gs5','a5','as5','b5',
+                'c6','cs6','d6','ds6','e6','f6','fs6','g6','gs6','a6','as6','b6',
+                'c7','cs7','d7','ds7','e7','f7','fs7','g7','gs7','a7','as7','b7',
+                'c8','cs8','d8','ds8','e8','f8','fs8','g8','gs8','a8','as8','b8',
+                'c9','cs9','d9','ds9','e9','f9','fs9','g9']
 
             events_list = []
             control_list = []
@@ -121,7 +134,11 @@ class MidiControlNode(bpy.types.Node, AnimationNode):
 
                     # Only process note events, ignore control events.
                     if ( len(in_l) == 6) and ( in_l[2].split('_')[0] == 'Note'):
-                        note_n = note_list[(int(in_l[4]) - 21)]
+                        # Use C4 if mid_c is True, else C3
+                        if self.mid_c:
+                            note_n = note_list[(int(in_l[4]) - 12)]
+                        else:
+                            note_n = note_list[int(in_l[4])]
                         in_n = [ in_l[0] , in_l[1] , in_l[2] , note_n , in_l[5] ]
                         events_list.append(in_n)
                         control = [ in_n[0] , note_n , int(in_l[4]) ]
@@ -130,7 +147,7 @@ class MidiControlNode(bpy.types.Node, AnimationNode):
 
             # Generate the controls from control_list, so each track starts at X = 0.
             # Keyframe all controls at frame 1 to be Z = 0.
-            cnt  = -2
+            cnt  = -1
             prev = int(control_list[2][0])
 
             # Delete last entry if no note events follow the channel name.
@@ -151,11 +168,11 @@ class MidiControlNode(bpy.types.Node, AnimationNode):
                     name = 't' + str(control[0]) + '_' + control[1]
                     track = int(control[0])
                     if (track == prev):
-                        cnt = cnt + 2
+                        cnt = cnt + 1
                     else:
                         cnt = 0
 
-                    bpy.ops.object.add(type='EMPTY',location=(cnt,(track * 2),0))
+                    bpy.ops.object.add(type='EMPTY',location=(cnt,(track),0),radius = 0.3)
                     bpy.context.active_object.name = name
                     bpy.context.active_object.empty_draw_type = "SINGLE_ARROW"
                     bpy.context.active_object.show_name = True
@@ -218,8 +235,6 @@ class MidiControlNode(bpy.types.Node, AnimationNode):
                     ob.select = False
 
             # MIDI Event Process complete, use controls to drive animations, they are named by track and note.
-
-            numb = ""
             numb = str(len(control_Objs))
             self.message1 = "Process Complete - " + numb + " controls on active layer(s)."
             self.message2 = ""

@@ -19,9 +19,10 @@ class MidiNoteData(bpy.types.PropertyGroup):
 class MidiInputNode(bpy.types.Node, AnimationNode):
     bl_idname = "an_MidiInputNode"
     bl_label = "MIDI Bake-To-Curve Node (Single Channel)"
-    bl_width_default = 450
+    bl_width_default = 400
 
     # Setup variables
+    mid_c = BoolProperty(name = "Middle C = C4", default = True, update = propertyChanged)
     useV = BoolProperty(name = "Use MIDI Velocity", default = False, update = propertyChanged)
     square = BoolProperty(name = "Use Square Waveforms", default = True, update = propertyChanged)
     offset = IntProperty(name = "Offset - Anim Start Frame", default = 0, min = -1000, max = 10000)
@@ -31,12 +32,12 @@ class MidiInputNode(bpy.types.Node, AnimationNode):
     dd = IntProperty(name = "Time Sig Denominator", default = 1, min = 1)
     easing = FloatProperty(name = "Easing - Slopes Curves", default = 1, precision = 1, min = 0.1)
     soundName = StringProperty(name = "Sound")
-    keys_grp = StringProperty(name = "Keys Group")
     message1 = StringProperty("")
     message2 = StringProperty("")
     message3 = StringProperty("")
     midiFilePath = StringProperty()
     midiName = StringProperty()
+    suffix = StringProperty(name = "Suffix", update = propertyChanged)
 
     # I'd suggest to bake one channel per node for now.
     # You can have multiple nodes of course.
@@ -44,22 +45,25 @@ class MidiInputNode(bpy.types.Node, AnimationNode):
     notes = CollectionProperty(type = MidiNoteData)
 
     def create(self):
-        self.newOutput("Text List", "Notes Played", "notes")
+        self.newOutput("Text List", "Details of Notes Played", "notes")
+        self.newOutput("Text List", "Note Names", "notes_s")
         self.newOutput("Float List", "Note Curve Values", "values")
-        self.newOutput("Integer List", "Keys Indices", "indices")
         self.newOutput("Integer", "Beats Per Minute", "bpm_int")
         self.newOutput("Integer", "Time Sig Numerator", "nn_int")
         self.newOutput("Integer", "Time Sig Denominator", "dd_int")
         self.newOutput("Integer", "Animation Offset Frame", "ot_off")
 
     def draw(self, layout):
+        layout.prop(self,"mid_c")
+        layout.prop(self, "suffix")
+        layout.label('(Uses C3 if Unchecked), Suffix added at Execute', icon = "INFO")
+        layout.label('')
         layout.prop(self, "Channel_Number")
         layout.prop(self, "square")
         layout.prop(self, "useV")
         layout.prop(self, "easing")
         layout.prop(self, "offset")
         layout.prop(self, "spacing")
-        layout.prop(self, "keys_grp")
         layout.separator()
         col = layout.column()
         col.scale_y = 1.5
@@ -77,13 +81,13 @@ class MidiInputNode(bpy.types.Node, AnimationNode):
 
     def execute(self):
         notes = [item.noteName for item in self.notes]
+        notes_s = [item.noteName.split(' ')[2].split('_')[1]+self.suffix for item in self.notes]
         values = [item.value for item in self.notes]
-        indices = [item.noteIndex for item in self.notes]
         bpm_int = int(self.bpm)
         nn_int = self.nn
         dd_int = self.dd
         ot_off = self.offset
-        return notes, DoubleList.fromValues(values), indices, bpm_int, nn_int, dd_int, ot_off
+        return notes, notes_s, DoubleList.fromValues(values), bpm_int, nn_int, dd_int, ot_off
 
     def loadSound(self, path):
         editor = getOrCreateSequencer(self.nodeTree.scene)
@@ -133,9 +137,17 @@ class MidiInputNode(bpy.types.Node, AnimationNode):
             self.message1 = ""
             self.message2 = ""
 
-            note_list = ['a0','a0s','b0','c1','c1s','d1','d1s','e1','f1','f1s','g1','g1s','a1','a1s','b1','c2','c2s','d2','d2s','e2','f2','f2s','g2','g2s','a2','a2s','b2','c3','c3s','d3','d3s','e3','f3','f3s','g3','g3s','a3','a3s','b3',
-                'c4','c4s','d4','d4s','e4','f4','f4s','g4','g4s','a4','a4s','b4','c5','c5s','d5','d5s','e5','f5','f5s','g5','g5s','a5','a5s','b5','c6','c6s','d6','d6s','e6','f6','f6s','g6','g6s','a6','a6s','b6',
-                    'c7','c7s','d7','d7s','e7','f7','f7s','g7','g7s','a7','a7s','b7','c8']
+            note_list = [
+                'c0','cs0','d0','ds0','e0','f0','fs0','g0','gs0','a0','as0','b0',
+                'c1','cs1','d1','ds1','e1','f1','fs1','g1','gs1','a1','as1','b1',
+                'c2','cs2','d2','ds2','e2','f2','fs2','g2','gs2','a2','as2','b2',
+                'c3','cs3','d3','ds3','e3','f3','fs3','g3','gs3','a3','as3','b3',
+                'c4','cs4','d4','ds4','e4','f4','fs4','g4','gs4','a4','as4','b4',
+                'c5','cs5','d5','ds5','e5','f5','fs5','g5','gs5','a5','as5','b5',
+                'c6','cs6','d6','ds6','e6','f6','fs6','g6','gs6','a6','as6','b6',
+                'c7','cs7','d7','ds7','e7','f7','fs7','g7','gs7','a7','as7','b7',
+                'c8','cs8','d8','ds8','e8','f8','fs8','g8','gs8','a8','as8','b8',
+                'c9','cs9','d9','ds9','e9','f9','fs9','g9']
 
             events_list = []
             control_list = []
@@ -181,7 +193,13 @@ class MidiInputNode(bpy.types.Node, AnimationNode):
 
                     # Only process note events, ignore control events.
                     if ( len(in_l) == 6) and ( in_l[2].split('_')[0] == 'Note') and (in_l[0] == self.Channel_Number):
-                        note_n = note_list[(int(in_l[4]) - 21)]
+                        # Use C4 if mid_c is True, else C3
+                        note_num = int(in_l[4])
+                        if self.mid_c:
+                            note_n = note_list[(note_num - 12)]
+                        else:
+                            note_n = note_list[note_num]
+
                         on_off = in_l[2]
                         velo = int(in_l[5]) / 127
                         if on_off == "Note_on_c":
@@ -211,17 +229,15 @@ class MidiInputNode(bpy.types.Node, AnimationNode):
                             frame_e = frame_e + l_spacing
                             frame_p = frame_p + l_spacing
                         if self.square:
-                            in_e = [str(pon_off), str(frame_p), note_n]
+                            in_e = [str(pon_off), str(frame_p), note_n, note_num]
                             events_list.append(in_e)
-                        in_n = [str(on_off), str(frame_e), note_n]
+                        in_n = [str(on_off), str(frame_e), note_n, note_num]
                         events_list.append(in_n)
                         control = note_n
                         if control not in control_list:
                             control_list.append(control)
 
             # Get list lengths
-            numb_1 = 0
-            numb_2 = 0
             numb_1 = len(control_list)
             numb_2 = int(len(events_list))
             if self.square:
@@ -250,27 +266,15 @@ class MidiInputNode(bpy.types.Node, AnimationNode):
         # Get Channel Name and process events for each note
         channelName = control_list[0]
         control_list.pop(0)
-        ke_names = []
-        group = bpy.data.groups.get(self.keys_grp)
-        if group is not None:
-            keys_objs = group.objects
-            for obj in keys_objs:
-                note = obj.name.split("_")[0]
-                ke_names.append(note)
         # Loop through Notes
         for rec in range(0, (numb_1 - 1)):
             f_n = control_list[rec]
             name = channelName + "_" + f_n
-            indx = 0
-            for i in range( 0, len(ke_names)):
-                if ke_names[i] == f_n:
-                    indx = i
-
             ev_list = [bit for bit in events_list if bit[2] == f_n]
             addKeyframe = createNote(name)
             # Value, then noteindex, then Frame
             # Fix value 0 at frame 1
-            addKeyframe(value = 0, noteIndex = indx, frame = 1)
+            addKeyframe(value = 0, noteIndex = int(ev_list[0][3]), frame = 1)
             # Range used so I can test a small section:
             for ind in range(0,len(ev_list)):
-                addKeyframe(value = float(ev_list[ind][0]), noteIndex = indx, frame = float(ev_list[ind][1]) )
+                addKeyframe(value = float(ev_list[ind][0]), noteIndex = int(ev_list[ind][3]), frame = float(ev_list[ind][1]) )

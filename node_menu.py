@@ -18,7 +18,8 @@ def drawMenu(self, context):
 
     layout.operator("an.node_search", text = "Search", icon = "VIEWZOOM")
     layout.separator()
-    layout.menu("an_clock_menu", text = "Clockworks", icon = "RADIO")
+    layout.menu("an_clock_menu", text = "Clockworx", icon = "RADIO")
+    layout.menu("an_zeecee_menu", text = "ZeeCee MIDI", icon = "RADIO")
     layout.menu("an_number_menu", text = "Number", icon = "LINENUMBERS_ON")
     layout.menu("an_vector_menu", text = "Vector", icon = "MAN_TRANS")
     layout.menu("an_rotation_menu", text = "Rotation", icon = "MAN_ROT")
@@ -67,19 +68,23 @@ class clock_menu(bpy.types.Menu):
 
     def draw(self, context):
         layout = self.layout
-        insertNode(layout, "an_MidiInputNode", "MIDI Bake")
-        insertNode(layout, "an_MidiControlNode", "MIDI Controls")
-        insertNode(layout, "an_MidiIndexNode", "MIDI Indices")
-        layout.separator()
         insertNode(layout, "an_tickingSecondsNode","Maths Gen Functions")
         insertNode(layout, "an_bounceNode", "Bounce Generator")
         insertNode(layout, "an_angleNode","Angle/Cord/Radius Calculator")
         insertNode(layout, "an_frameRangeNode", "Frame Range/Switch")
         insertNode(layout, "an_frameRampNode", "Frame Ramp")
         insertNode(layout, "an_sequenceNode", "Multi-Channel Sequencer")
+        insertNode(layout, "an_cumNode", "Accumulate Variable")
+        layout.separator()
+        insertNode(layout, "an_triggerNode", "Periodic Trigger")
+        insertNode(layout, "an_variableCPStore", "Variable CP Store")
+        insertNode(layout, "an_objCPConvertNode", "Read & Convert CPs")
+        insertNode(layout, "getCPfromObj", "List CP Names")
+        insertNode(layout, "manCPfromObj", "Manage Variables")
         layout.separator()
         insertNode(layout, "an_materialsInputNode", "Materials Input")
         insertNode(layout, "an_materialsOutputNode", "Materials Output")
+        insertNode(layout, "an_SetLampColStr", "Control Lamps")
         layout.separator()
         insertNode(layout, "an_GetBoneNode", "1 Bone From Armature")
         insertNode(layout, "an_GetBonesNode", "Bones List From Armature")
@@ -97,6 +102,34 @@ class clock_menu(bpy.types.Menu):
         insertNode(layout, "an_speedAccNode", "Object Speed & Acceleration")
         insertNode(layout, "an_createCurvesNode", "Plot Animation Graph in 3D View")
         insertNode(layout, "createCubeSphereNode", "Plot Spheres/Cubes in 3D View")
+        insertNode(layout, "an_angleNode", "Angle/Cord/Radius")
+
+class zeecee_menu(bpy.types.Menu):
+    bl_idname = "an_zeecee_menu"
+    bl_label = "ZeeCee MIDI"
+
+    def draw(self, context):
+        layout = self.layout
+        insertNode(layout, "an_AudioSDNode", "AUDIO Server")
+        insertNode(layout, "an_AudioAMPNode", "AUDIO Amplitude Splitter")
+        insertNode(layout, "an_AudioPlayNode", "AUDIO Play Music File")
+        layout.separator()
+        insertNode(layout, "an_MidiInputNode", "MIDI Bake")
+        insertNode(layout, "an_MidiControlNode", "MIDI Controls")
+        #insertNode(layout, "an_MidiIndexNode", "MIDI Indices")
+        insertNode(layout, "an_MidiCTMNode", "MIDI Controls to Meshes")
+        layout.separator()
+        insertNode(layout, "an_MidiInitNode", "MIDI Init PyGame")
+        insertNode(layout, "an_ZodiacMidiHandlerNode", "MIDI Single-Event Handler")
+        insertNode(layout, "an_ClockMidiHandlerNode","MIDI Multi-Event handler")
+        insertNode(layout, "an_midiStoreParamsNode","MIDI Store Params")
+        insertNode(layout, "an_NoteValueToName", "MIDI Note Values To Names")
+        insertNode(layout, "an_MidiNameNode", "MIDI Name Object(s)")
+        layout.separator()
+        insertNode(layout, "an_MidiImpKBNode", "MIDI Load Keyboards, etc.")
+        insertNode(layout, "an_midiCumNode", "MIDI Accumulate Variable")
+        insertNode(layout, "an_MidiGuitarNode", "MIDI Guitar Strings/Frets")
+        insertNode(layout, "an_guitarPlayNode", "MIDI Play Guitar")
 
 class NumberMenu(bpy.types.Menu):
     bl_idname = "an_number_menu"
