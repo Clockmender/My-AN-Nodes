@@ -63,6 +63,8 @@ I have not included a relaease at this stage, nor have I updated the manual page
 
 I need to make the Live MIDI into an Add-on at some stage, or maybe even all the nodes, but this will require more time.
 
+My Vimeo Channel https://vimeo.com/user85352464
+
 Cheers, Clock.
 
 PS. I am rebuilding my website: https://clockmender.uk but it will take some time. There will be a set of pages explaining how to use these nodes, I have started though!
