@@ -55,7 +55,7 @@ EDIT 26 Feb 2019:
 
 Updated the repo with the latest nodes today. MIDI nodes have been altered to reflect increased knowledge by myself and better working methods. MIDI/AUDO Live nodes are now loaded for user testing, these nodes are designed to take input from MIDI devices and sound input to drive animations.
 
-DAW nodes are new and VERY EXPERIMENTAL, i.e. not ready for use, they are here for collagboration purposes just now and require a great deal more work.
+DAW nodes are new and VERY EXPERIMENTAL, i.e. not ready for use, they are here for collaboration purposes just now and require a great deal more work.
 
 Menu has been altered to separate the "Clockworx" and "ZeeCee MIDI" sections, DAW nodes are not in the menu yet.
 
