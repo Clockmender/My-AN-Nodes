@@ -18,6 +18,21 @@ Created by Alan Odom
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
     
+AIMS & OBJECTIVES:
+
+The initial reason behind developing these nodes was to provide a system to read MIDI files and produce animations from them, rather than having to keyframe everything - a long and labour intensive process.
+
+From there, I have developed other nodes that take complex tasks, with standard nodes, and turn them into easily achievable node trees. Everything these nodes do can be done with either script nodes, or expression nodes, but that requires a great deal of knowledge of Python and Blender structures, so these nodes take all that away.
+
+I also added a "Bone" socket to allow for easy manipulation of bones in AN. I know this can be done without the new socket and nodes built around it. However, the collection of bone nodes make it easier to animate bones without having to use script, or expression nodes.
+
+Some of the nodes are very "niche" in what they do, but they make my life as an animator easier, in that they take away the need to develop complex python code in script nodes each time I want to do something out of the ordinary (this hapens a lot!).
+
+Some nodes, particularly the DAW ones, may be "experimental" and are included for collaboration purposes, they are not yet ready for full production. On-going experimentation has always been part of my IT objectives and I am quite happy to share this code here and open it up to critique and comment.
+
+If you would like to help with developemnt, or suggest more nodes you would find useful, please contact me via email.
+
+GENERAL:
 
 These nodes are to add to Version 2.0 or Animation Nodes, which requires official releases from Blender, i.e. NOT Buildbot versions!
 
@@ -64,6 +79,10 @@ I have not included a relaease at this stage, nor have I updated the manual page
 I need to make the Live MIDI into an Add-on at some stage, or maybe even all the nodes, but this will require more time.
 
 My Vimeo Channel https://vimeo.com/user85352464
+
+EDIT 28 Feb 2019:
+
+Major revisions and new release- 2.0.3
 
 Cheers, Clock.
 
