@@ -76,6 +76,7 @@ class clock_menu(bpy.types.Menu):
         insertNode(layout, "an_sequenceNode", "Multi-Channel Sequencer")
         insertNode(layout, "an_cumNode", "Accumulate By Frame")
         layout.separator()
+        insertNode(layout, "an_triggerNode", "Periodic Trigger")
         insertNode(layout, "an_variableATTRStore", "Variable Store")
         layout.separator()
         insertNode(layout, "an_materialsInputNode", "Materials Input")
