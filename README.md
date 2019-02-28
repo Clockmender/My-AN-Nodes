@@ -26,7 +26,7 @@ From there, I have developed other nodes that take complex tasks, with standard 
 
 I also added a "Bone" socket to allow for easy manipulation of bones in AN. I know this can be done without the new socket and nodes built around it. However, the collection of bone nodes make it easier to animate bones without having to use script, or expression nodes.
 
-Some of the nodes are very "niche" in what they do, but they make my life as an animator easier, in that they take away the need to develop complex python code in script nodes each time I want to do something out of the ordinary (this hapens a lot!).
+Some of the nodes are very "niche" in what they do, but they make my life as an animator easier, in that they take away the need to develop complex python code in script nodes each time I want to do something out of the ordinary (this happens a lot!).
 
 Some nodes, particularly the DAW ones, may be "experimental" and are included for collaboration purposes, they are not yet ready for full production. On-going experimentation has always been part of my IT objectives and I am quite happy to share this code here and open it up to critique and comment.
 
