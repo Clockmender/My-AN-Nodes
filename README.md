@@ -30,7 +30,7 @@ Some of the nodes are very "niche" in what they do, but they make my life as an 
 
 Some nodes, particularly the DAW ones, may be "experimental" and are included for collaboration purposes, they are not yet ready for full production. On-going experimentation has always been part of my IT objectives and I am quite happy to share this code here and open it up to critique and comment.
 
-If you would like to help with developemnt, or suggest more nodes you would find useful, please contact me via email.
+If you would like to help with development, or suggest more nodes you would find useful, please contact me via email.
 
 GENERAL:
 
