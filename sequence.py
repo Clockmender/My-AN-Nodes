@@ -22,9 +22,12 @@ class sequenceNode(bpy.types.Node, AnimationNode):
             layout.label(self.message1, icon = "ERROR")
 
     def execute(self, start, endf, st_n, step):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         frame = bpy.context.scene.frame_current
 
-        if endf < (start + (step * st_n)) or step < 1 or st_n < 2:
+        if endf < (start + (step * st_n)) or step < 0.01 or st_n < 2:
             self.message1 = "Check Input Values"
             out_l = None
             idx = None
@@ -35,9 +38,9 @@ class sequenceNode(bpy.types.Node, AnimationNode):
             for i in range(0,st_n):
                 out_l.append(0)
 
-            if frame >= start and frame <= endf:
+            if frame in range(start,endf):
                 frm = (frame - start) % (step * st_n)
                 idx = int(frm // step)
-                out_l[idx] = 1
+                out_l[idx] = step
 
         return out_l, idx

@@ -38,6 +38,9 @@ class angleNode(bpy.types.Node, AnimationNode):
             layout.label(self.message1, icon = "INFO")
 
     def execute(self, ob0, ob1, ob2):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         if ob0 == None or ob1 == None or ob2 == None:
             return 0, 0, 0, 0, 0
 

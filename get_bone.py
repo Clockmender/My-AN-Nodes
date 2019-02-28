@@ -20,8 +20,11 @@ class GetBoneNode(bpy.types.Node, AnimationNode):
         self.newOutput("Bone", "Single Bone", "bone_ob")
 
     def execute(self, arm):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         if arm is None:
-            return
+             None
 
         if arm.type == "ARMATURE":
             if self.Search != "":
@@ -29,9 +32,11 @@ class GetBoneNode(bpy.types.Node, AnimationNode):
             else:
                 boneList = arm.pose.bones
             self.message1 = "First Bone of " + str(len(boneList)) + " match(es)"
-            if boneList:
+            if len(boneList) > 0:
                 bone_ob = boneList[0]
+                return bone_ob
             else:
-                bone_ob = None
                 self.message1 = "No Matches"
-            return bone_ob
+                return None
+        else:
+            return None

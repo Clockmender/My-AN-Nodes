@@ -22,6 +22,9 @@ class MidiCTMNode(bpy.types.Node, AnimationNode):
         self.newOutput("Float", "Control Z", "z_cont")
 
     def execute(self, control, m_suff, multV):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (1,1,0.75)
         # Check for correct inputs
         if m_suff == '':
             self.message = 'No Suffix Specified'

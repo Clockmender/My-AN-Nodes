@@ -39,6 +39,9 @@ class AudioAMPNode(bpy.types.Node, AnimationNode):
         self.newOutput("Float List", "Output List", "output")
 
     def execute(self,input):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.85,1,0.85)
         addRem = True
         negInp = False
         if input < 0:

@@ -72,6 +72,9 @@ class MidiInitNode(bpy.types.Node, AnimationNode):
             text = "Stop MIDI Feed")
 
     def execute(self, num_p):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (1,1,0.75)
         if self.MidiDevicesNbr == 0 or self.MidiDevicesNbr > 2:
              return [],[],self.MidiDevicesNbr
         buffer = []

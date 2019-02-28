@@ -25,6 +25,9 @@ class tankSuspensionNode(bpy.types.Node, AnimationNode):
             layout.label(self.message2, icon = "ERROR")
 
     def execute(self, wheel, z_off, s_high, f_long, base_h, max_v):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         if wheel is None or max_v == 0:
             self.message2 = 'Set Parameters'
         else:

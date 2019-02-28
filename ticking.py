@@ -43,6 +43,9 @@ class tickingSecondsNode(bpy.types.Node, AnimationNode):
 
 
     def execute(self):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         frm = bpy.context.scene.frame_start
         tick = int(bpy.context.scene.frame_current / (bpy.context.scene.render.fps * self.tic_t))
         rpm_w = ((bpy.context.scene.frame_current - frm) * self.rpm) / (bpy.context.scene.render.fps * 60)

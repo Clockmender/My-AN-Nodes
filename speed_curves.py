@@ -35,6 +35,9 @@ class createCurvesNode(bpy.types.Node, AnimationNode):
             layout.label(self.message1, icon = "INFO")
 
     def execute(self, val_i, frm_s, frm_e, fac_x, fac_y, fac_z, obj):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         if not obj:
             # MAke sure mesh object is selected
             self.message1 = "No Mesh Object"

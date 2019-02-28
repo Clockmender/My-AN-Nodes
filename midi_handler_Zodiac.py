@@ -31,6 +31,9 @@ class MidiInitNode(bpy.types.Node, AnimationNode):
         col.scale_y = 1.5
 
     def execute(self, MidiBuffer, Velocity):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (1,1,0.75)
         cleanBuffer = []
         notesBuffer = []
         paramsBuffer = []

@@ -15,6 +15,9 @@ class boneTransformNode(bpy.types.Node, AnimationNode):
         self.newOutput("Vector", "W-Scale", "scale")
 
     def execute(self, bone):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         if bone:
             loc, rot, scale = bone.matrix.decompose()
         else:

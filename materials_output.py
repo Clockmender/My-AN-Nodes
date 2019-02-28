@@ -17,6 +17,9 @@ class materialsOutputNode(bpy.types.Node, AnimationNode):
         self.newOutput("Object", "Object", "obj")
 
     def execute(self, obj, slot, inpt, trip, mat_1, mat_2):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         if not obj:
             return None
         if mat_1:

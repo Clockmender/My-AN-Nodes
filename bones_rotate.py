@@ -35,6 +35,9 @@ class BonesRotateNode(bpy.types.Node, AnimationNode):
             return "execute_bones"
 
     def execute_bone(self, bone, loc_w, loc_x, loc_y, loc_z):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         if bone:
             if bone.rotation_mode == 'QUATERNION':
                 bone.rotation_quaternion.w = loc_w
@@ -59,6 +62,9 @@ class BonesRotateNode(bpy.types.Node, AnimationNode):
         return bone
 
     def execute_bones(self, bones, loc_w, loc_x, loc_y, loc_z):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         if bones:
             for b in bones:
                 if b.rotation_mode == 'QUATERNION':

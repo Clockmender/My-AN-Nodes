@@ -15,6 +15,9 @@ class SeqCamControl(bpy.types.Node, AnimationNode):
         self.newOutput("Integer","Start Frame","osFrame")
 
     def execute(self, sFrame, sShift, cZoom):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (1,0.8,1)
         camObj = bpy.data.objects.get('Cam-Seq')
         camCam = bpy.data.cameras.get('Cam_Seq')
         #scObjs = [ob for ob in bpy.data.objects if ob.name.startswith('Scale')]

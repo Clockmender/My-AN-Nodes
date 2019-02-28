@@ -5,7 +5,7 @@ from ... base_types import AnimationNode
 
 class cumNode(bpy.types.Node, AnimationNode):
     bl_idname = "an_cumNode"
-    bl_label = "Accumulate Node"
+    bl_label = "Accumulate By Frame"
     bl_width_default = 200
 
     str_f = IntProperty(name="Reset Frame #")
@@ -17,10 +17,12 @@ class cumNode(bpy.types.Node, AnimationNode):
         self.newOutput("Float","Output","c_num")
 
     def draw(self,layout):
-        layout.prop(self, "cum_v")
         layout.prop(self, "str_f")
 
     def execute(self,num_p,num_m):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         if bpy.context.scene.frame_current == self.str_f:
             self.cum_v = 0
         elif num_p > 0 and num_m == 0:

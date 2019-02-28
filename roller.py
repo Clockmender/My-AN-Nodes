@@ -28,6 +28,9 @@ class rollerNode(bpy.types.Node, AnimationNode):
             layout.label(self.message1, icon = "ERROR")
 
     def execute(self,obj):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         if obj is None:
             return
         if len(obj.animation_data.action.fcurves) < 3:

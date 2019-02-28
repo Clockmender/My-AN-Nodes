@@ -39,6 +39,9 @@ class objCPConvertNode(bpy.types.Node, AnimationNode):
             self.dataType = dataType
 
     def execute(self, inpObj, cpName):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         cpObj = bpy.data.objects.get('VAR_Store')
         if cpObj is not None and inpObj is None:
             cps = cpObj.keys()

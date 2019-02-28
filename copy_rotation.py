@@ -29,6 +29,9 @@ class CopyRotationWithOffsetNode(bpy.types.Node, AnimationNode):
             layout.label(self.message1, icon = "ERROR")
 
     def execute(self, source, target, offset_e, offset_q):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         if source is None or target is None:
             return
 

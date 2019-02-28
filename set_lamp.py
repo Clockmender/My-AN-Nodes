@@ -26,6 +26,9 @@ class SetLampColStr(bpy.types.Node, AnimationNode):
         self.newOutput("Generic List","Lamps","lamps")
 
     def execute(self,col,red,green,blue,stren,lsize):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         if self.Search is None:
             return
         else:

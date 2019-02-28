@@ -52,6 +52,9 @@ class fluidNode(bpy.types.Node, AnimationNode):
         self.newOutput("Float", "Y Acceleration", "ay1")
 
     def execute(self, obj, obb, dec, s_f, cyc, d_f):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         if obj is None or cyc == 0 or d_f < 0.79 or d_f > 1 or s_f < 0.1:
             self.message1 = 'No Input Object/Bad Parameters'
             return 0,0,0,0

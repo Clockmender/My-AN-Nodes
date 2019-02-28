@@ -32,6 +32,9 @@ class guitarPlayNode(bpy.types.Node, AnimationNode):
         self.newOutput("Text", "Note, Fret & Idx", "noteFret")
 
     def execute(self, sixBool, finger, plectrum, nutScale, contObjs, strMat, plyMat):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (1,1,0.75)
         noteFret = 'None,None,0,None'
         brObj = bpy.data.objects.get('Bridge')
         nuObj = bpy.data.objects.get('NUT')

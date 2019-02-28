@@ -24,6 +24,9 @@ class midiStoreParamsNode(bpy.types.Node, AnimationNode):
         layout.prop(self, "pedal")
 
     def execute(self, MidiBuffer):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (1,1,0.75)
         cleanBuffer = []
         for data in MidiBuffer:
             cleanBuffer.append(data)

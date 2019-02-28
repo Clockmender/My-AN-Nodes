@@ -34,6 +34,9 @@ class tankTrackNode(bpy.types.Node, AnimationNode):
             layout.label(self.message2, icon = "ERROR")
 
     def execute(self, fix_o, trg_o, str_s, trk_l, trk_r, spc, rev_b, delta, hull_d, str_a, fix_a):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         if fix_o is None or trg_o is None or trk_l is None or trk_r is None:
             self.message2 = 'Set the Objects...'
             self.message1 = ''

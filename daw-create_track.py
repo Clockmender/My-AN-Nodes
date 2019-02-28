@@ -34,6 +34,11 @@ class SeqCreateTrack(bpy.types.Node, AnimationNode):
         if self.mess is not '':
             layout.label(self.mess, icon='INFO')
 
+    def execute(self):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (1,0.8,1)
+
     def createTrack(self):
         numV = int(self.timS.split(',')[0])     # Sig Numerator
         denV = int(self.timS.split(',')[1])     # Sig Denominator

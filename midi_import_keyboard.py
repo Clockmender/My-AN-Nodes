@@ -33,6 +33,11 @@ class MidiImpKBNode(bpy.types.Node, AnimationNode):
         if self.message != '':
             layout.label(self.message, icon = "ERROR")
 
+    def execute(self):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (1,1,0.75)
+
     def impKeyb88(self):
         for ob in bpy.data.objects:
             ob.select = False

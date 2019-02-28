@@ -80,6 +80,9 @@ class MidiInputNode(bpy.types.Node, AnimationNode):
             layout.label(self.message3, icon = "ERROR")
 
     def execute(self):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (1,1,0.75)
         notes = [item.noteName for item in self.notes]
         notes_s = [item.noteName.split(' ')[2].split('_')[1]+self.suffix for item in self.notes]
         values = [item.value for item in self.notes]

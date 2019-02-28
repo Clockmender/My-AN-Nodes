@@ -27,6 +27,11 @@ class AudioPlayNode(bpy.types.Node, AnimationNode):
         self.invokeFunction(col, "stopFile", icon = "NEW",
             text = "Stop Playback")
 
+    def execute(self):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.85,1,0.85)
+
     def loadFile(self,path):
         pgm.music.load(path)
         self.message = str(path)

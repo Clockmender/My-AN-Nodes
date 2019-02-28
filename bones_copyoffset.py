@@ -23,6 +23,9 @@ class CopyBoneLocationWithOffsetNode(bpy.types.Node, AnimationNode):
         layout.prop(self, "useZ")
 
     def execute(self, source, targets, offset):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         if source is None or targets is None:
             return
 

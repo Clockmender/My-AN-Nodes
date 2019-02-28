@@ -58,12 +58,31 @@ class variableATTRtore(bpy.types.Node, AnimationNode):
         self.newInput("Boolean", "Update Variable", "boolInput")
 
     def execute(self,varInput,boolInput):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         if '.' in self.name:
-            key = 'VAR_'+self.name.split('.')[1]
+            key = 'VAR'+self.name.split('.')[1]
         else:
-            key = 'VAR_000'
+            key = 'VAR000'
         self.label = 'Var Key: '+key
         if boolInput:
             varStore[key] = varInput
-
-        return varStore.get(key)
+        if key in varStore:
+            return varStore.get(key)
+        else:
+            # Trap for no value if Trigger Node is used
+            if self.mode == "STRING":
+                return ''
+            elif self.mode == "INTEGER":
+                return 0
+            elif self.mode == "FLOAT":
+                return 0
+            elif self.mode == "VECTOR":
+                return Vector((0,0,0))
+            elif self.mode == "EULER":
+                return Euler((0,0,0))
+            elif self.mode == "QUATERNION":
+                return Quaternion((1,0,0,0))
+            elif self.mode == "BOOLEAN":
+                return False

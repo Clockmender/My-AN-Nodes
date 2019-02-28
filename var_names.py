@@ -17,6 +17,9 @@ class getCPfromObj(bpy.types.Node, AnimationNode):
         layout.prop(self, "indX")
 
     def execute(self):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         cpObj = bpy.data.objects.get('VAR_Store')
         if cpObj is not None:
             if self.indX >= len(cpObj.keys()):

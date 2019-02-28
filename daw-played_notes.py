@@ -20,6 +20,9 @@ class PlayedNotes(bpy.types.Node, AnimationNode):
         self.newOutput("Text List","Output Notes","outNotes")
 
     def execute(self,sFrame):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (1,0.8,1)
         outN = []
         matP = bpy.data.materials['play']   # Play Material
         frameC = (bpy.context.scene.frame_current - sFrame) * 0.1

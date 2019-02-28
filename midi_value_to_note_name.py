@@ -22,6 +22,9 @@ class MidiInitNode(bpy.types.Node, AnimationNode):
         self.newOutput("Integer"    , "Note Index"  , "NoteIdx")
 
     def execute(self, NoteValue, NoteNme, suff):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (1,1,0.75)
         note_list = [
             'c0','cs0','d0','ds0','e0','f0','fs0','g0','gs0','a0','as0','b0',
             'c1','cs1','d1','ds1','e1','f1','fs1','g1','gs1','a1','as1','b1',

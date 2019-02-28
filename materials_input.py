@@ -20,6 +20,9 @@ class materialsInputNode(bpy.types.Node, AnimationNode):
         self.newOutput("Generic List", "Material(s)", "mats")
 
     def execute(self):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         if self.search != "":
             mats = [item for item in bpy.data.materials if item.name.startswith(self.search)]
         else:

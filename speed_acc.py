@@ -26,6 +26,9 @@ class speedAccNode(bpy.types.Node, AnimationNode):
             layout.label(self.message1, icon = "ERROR")
 
     def execute(self, dec_n, loc_c, loc_o, loc_t):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         fps = bpy.context.scene.render.fps
         if loc_c == 0 and loc_o == 0 and loc_t ==0:
             spd_u = 0

@@ -23,6 +23,9 @@ class MidiNameNode(bpy.types.Node, AnimationNode):
         layout.label("Check Process to Start/Stop", icon = "INFO")
 
     def execute(self, start_i, suff, objs):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (1,1,0.75)
         if self.proc and len(objs) > 0 and start_i != 0:
             idx = start_i
             note_list = [

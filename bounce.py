@@ -6,10 +6,10 @@ from ... events import propertyChanged
 
 class bounceNode(bpy.types.Node, AnimationNode):
     bl_idname = "an_bounceNode"
-    bl_label = "Bounce Node"
+    bl_label = "Bounce Generator"
     bl_width_default = 200
 
-    frm_s = IntProperty(name = "Start Frame", default = 1)
+    frm_s = IntProperty(name = "Start Frame", default = 2, min = 2)
     frm_e = IntProperty(name = "End Frame", default = 10, min = 10)
     speed = FloatProperty(name = "Cycle Speed", default = 4, min = 4)
     spd_d = FloatProperty(name = "Speed Decay Factor", default = 1, precision = 3, min = 0.8, max = 1)
@@ -26,13 +26,15 @@ class bounceNode(bpy.types.Node, AnimationNode):
         layout.prop(self, "frm_e")
         layout.prop(self, "speed")
         layout.prop(self, "spd_d")
-        layout.prop(self, "spd_v")
         layout.prop(self, "hgt_s")
         layout.prop(self, "hgt_b")
         if (self.message1 != ""):
             layout.label(self.message1, icon = "ERROR")
 
     def execute(self):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         frm_c = bpy.context.scene.frame_current
         if self.hgt_s <= (self.hgt_b + 0.1):
             self.message1 = "Height Errors!"

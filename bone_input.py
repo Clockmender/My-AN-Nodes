@@ -17,6 +17,9 @@ class BoneInputNode(bpy.types.Node, AnimationNode):
         self.newOutput("Vector", "Scale", "scales")
 
     def execute(self, bone):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         if bone:
             locations = bone.location
             rotations = bone.rotation_quaternion

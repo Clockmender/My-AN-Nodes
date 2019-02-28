@@ -63,6 +63,9 @@ class AudioSDNode(bpy.types.Node, AnimationNode):
         self.newOutput("Float", "Right Channel", "r_chan")
 
     def execute(self):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.85,1,0.85)
         inpDev = int(self.modeI)
         outDev = int(self.modeO)
         channI = sd.query_devices(int(inpDev)).get('max_input_channels')

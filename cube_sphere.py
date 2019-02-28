@@ -36,6 +36,9 @@ class createCubeSphereNode(bpy.types.Node, AnimationNode):
             layout.label(self.message1, icon = "INFO")
 
     def execute(self, typ_b, frm_s, frm_e, dia, fac_x, fac_y, fac_z, u_seg, obj):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         frm_c = bpy.context.scene.frame_current
         frm_i = frm_c - frm_s
         if self.frm_j == 1:

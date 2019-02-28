@@ -24,6 +24,9 @@ class manCPfromObj(bpy.types.Node, AnimationNode):
                 sc.update()
 
     def execute(self):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         cpObj = bpy.data.objects.get('VAR_Store')
         if cpObj is not None:
             cps = cpObj.keys()

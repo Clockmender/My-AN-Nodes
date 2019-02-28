@@ -20,6 +20,9 @@ class GetBonesNode(bpy.types.Node, AnimationNode):
         self.newOutput("Bone List", "Bones List", "boneList")
 
     def execute(self, arm):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         if arm is None:
             return
 
@@ -30,5 +33,8 @@ class GetBonesNode(bpy.types.Node, AnimationNode):
                 boneList = arm.pose.bones
             self.message1 = str(len(boneList)) + " bone(s) in list"
             if len(boneList) == 0:
-                boneList = None
-            return boneList
+                return None
+            else:
+                return boneList
+        else:
+            return None

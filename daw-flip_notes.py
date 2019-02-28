@@ -14,6 +14,9 @@ class SeqFlipNote(bpy.types.Node, AnimationNode):
         layout.prop(self,'procN')
 
     def execute(self):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (1,0.8,1)
         matO = bpy.data.materials['open']   # Open Material
         matP = bpy.data.materials['play']   # Play Material
         # Get list of "Note" obejcts

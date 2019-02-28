@@ -59,6 +59,9 @@ class variableCPStore(bpy.types.Node, AnimationNode):
         self.newInput("Text", "Variable Name", "cpName")
 
     def execute(self,varInput,boolInput,cpName):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
         if cpName == '':
             self.mess = 'Enter Variable Name'
             return None

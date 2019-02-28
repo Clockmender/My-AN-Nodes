@@ -38,6 +38,11 @@ class IgcInputNode(bpy.types.Node, AnimationNode):
         if (self.message2 != ""):
             layout.label(self.message2, icon = "ERROR")
 
+    def execute(self):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (0.8,0.9,1)
+
     def loadIGC(self, path):
         self.message1 = ''
         self.igcFilePath = str(path)

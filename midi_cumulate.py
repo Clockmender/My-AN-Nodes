@@ -20,6 +20,9 @@ class midiCumNode(bpy.types.Node, AnimationNode):
         layout.prop(self, "str_f")
 
     def execute(self,num_p,num_m):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (1,1,0.75)
         if bpy.context.scene.frame_current == self.str_f:
             self.cum_v = 0
         elif num_p > 0 and num_m == 0:

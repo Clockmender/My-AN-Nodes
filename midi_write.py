@@ -50,6 +50,11 @@ class MidiControlNode(bpy.types.Node, AnimationNode):
         if (self.message2 != ""):
             layout.label(self.message2, icon = "INFO")
 
+    def execute(self):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (1,1,0.75)
+
     def loadMidi(self, path):
         self.message1 = "Midi File Loaded: " + str(os.path.basename(path))
         self.message2 = "Check/Load Sound File, Use Velocity, Easing & Offset"

@@ -22,6 +22,9 @@ class ClockMidiHandlerNode(bpy.types.Node, AnimationNode):
         self.newOutput("Float"      , "MIDI Timer"          , "time_s")
 
     def execute(self, MidiBuffer, Velocity):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (1,1,0.75)
         cleanBuffer = []
         for data in MidiBuffer:
             #if there is data

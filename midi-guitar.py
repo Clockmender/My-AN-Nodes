@@ -38,6 +38,9 @@ class MidiGuitarNode(bpy.types.Node, AnimationNode):
         self.newOutput("Text List", "Bass", "bass")
 
     def execute(self,idx):
+        self.use_custom_color = True
+        self.useNetworkColor = False
+        self.color = (1,1,0.75)
         if not self.mid_c:
             idx = idx + 12
         # 6 string
