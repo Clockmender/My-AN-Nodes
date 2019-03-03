@@ -38,6 +38,8 @@ These nodes are to add to Version 2.0 or Animation Nodes, which requires officia
 
 They come with no warranty, but have been extensively tested. I will produce a help file later, as time permits.
 
+INSTALLATION
+
 The bone.py file should go in this directory:
 
 .../Blender/[version number]/scripts/addons/animation_nodes/sockets
@@ -54,11 +56,15 @@ The other files should go into a new folder in this directory:
 
 That new directory should contain an empty file named \_init_\.py - create this with any text editor or copy one from another AN directory.
 
+COMMENTS
+
 Have fun and mail me clockmender@icloud.com with any questions. Operation is fairly intuitive, but be aware that the MIDI nodes require MIDI files in CSV format, not generic MIDI - search the web for a good converter - there are several out there, but this is the one I use:
 
 http://www.fourmilab.ch/webtools/midicsv/
 
 Comments will be gratefully received, along with improvement/enhancement suggestions.
+
+RELEASE NOTES
 
 EDIT 12 Feb 2018:
 
