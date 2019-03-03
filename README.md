@@ -90,6 +90,10 @@ EDIT 28 Feb 2019:
 
 Major revisions and new release- 2.0.3
 
+EDIT 3 Mar 2019:
+
+Changed directory structure to separate nodes, menus and sockets, searated ndoes in DAW, MIDI and General
+
 Cheers, Clock.
 
 PS. I am rebuilding my website: https://clockmender.uk but it will take some time. There will be a set of pages explaining how to use these nodes, I have started though!
