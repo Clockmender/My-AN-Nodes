@@ -40,10 +40,16 @@ class MidiInitNode(bpy.types.Node, AnimationNode):
         NoteIdx = next((i for i, x in enumerate(note_list) if x == NoteNme), -1)
 
         if self.mid_c:
-            NoteName = note_list[NoteValue - 12]
-            NoteIdx = NoteIdx + 12
+            if NoteValue < len(note_list):
+                NoteName = note_list[NoteValue - 12]
+                NoteIdx = NoteIdx + 12
+            else:
+                NoteName = 'Out Of Range'
         else:
-            NoteName = note_list[NoteValue]
+            if NoteValue < len(note_list):
+                NoteName = note_list[NoteValue]
+            else:
+                NoteName = 'Out Of Range'
         if suff != '':
             NoteName = NoteName + suff
 
