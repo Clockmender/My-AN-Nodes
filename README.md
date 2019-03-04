@@ -96,7 +96,7 @@ Changed directory structure to separate nodes, menus and sockets, searated ndoes
 
 EDIT 4 March 2019:
 
-Added \__init\__.py - top be placed in any node directories constaining these nodes
+Added /__init/__.py - top be placed in any node directories containing these nodes
 
 Cheers, Clock.
 
