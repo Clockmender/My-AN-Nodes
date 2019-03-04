@@ -18,7 +18,7 @@ Created by Alan Odom
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
     
-AIMS & OBJECTIVES:
+# AIMS & OBJECTIVES:
 
 The initial reason behind developing these nodes was to provide a system to read MIDI files and produce animations from them, rather than having to keyframe everything - a long and labour intensive process.
 
@@ -32,13 +32,13 @@ Some nodes, particularly the DAW ones, may be "experimental" and are included fo
 
 If you would like to help with development, or suggest more nodes you would find useful, please contact me via email.
 
-GENERAL:
+# GENERAL:
 
 These nodes are to add to Version 2.0 or Animation Nodes, which requires official releases from Blender, i.e. NOT Buildbot versions!
 
 They come with no warranty, but have been extensively tested. I will produce a help file later, as time permits.
 
-INSTALLATION
+# INSTALLATION
 
 The bone.py file should go in this directory:
 
@@ -56,7 +56,7 @@ The other files should go into a new folder in this directory:
 
 That new directory should contain an empty file named \_\_init\_\_.py - create this with any text editor or copy one from another AN directory. This can be downloaed from the top level directory as an option.
 
-COMMENTS
+# COMMENTS
 
 Have fun and mail me clockmender@icloud.com with any questions. Operation is fairly intuitive, but be aware that the MIDI nodes require MIDI files in CSV format, not generic MIDI - search the web for a good converter - there are several out there, but this is the one I use:
 
@@ -64,15 +64,15 @@ http://www.fourmilab.ch/webtools/midicsv/
 
 Comments will be gratefully received, along with improvement/enhancement suggestions.
 
-RELEASE NOTES
+# RELEASE NOTES
 
-EDIT 12 Feb 2018:
+# EDIT 12 Feb 2018:
 
 I have added the Materials nodes, Input and Output, don't forget that if you only want one or two of these, just load these into an empty folder in animation_nodes/nodes directory and don't forget the empty \_\_init\_\_.py file in the folder, or they won't work.
 
 Some updates may not be included in the latest release, the code can be obtained from the idividual files if required. All updates have a date when they were uploaded.
 
-EDIT 26 Feb 2019:
+# EDIT 26 Feb 2019:
 
 Updated the repo with the latest nodes today. MIDI nodes have been altered to reflect increased knowledge by myself and better working methods. MIDI/AUDO Live nodes are now loaded for user testing, these nodes are designed to take input from MIDI devices and sound input to drive animations.
 
@@ -86,15 +86,15 @@ I need to make the Live MIDI into an Add-on at some stage, or maybe even all the
 
 My Vimeo Channel https://vimeo.com/user85352464
 
-EDIT 28 Feb 2019:
+# EDIT 28 Feb 2019:
 
 Major revisions and new release- 2.0.3
 
-EDIT 3 Mar 2019:
+# EDIT 3 Mar 2019:
 
 Changed directory structure to separate nodes, menus and sockets, searated ndoes in DAW, MIDI and General.
 
-EDIT 4 March 2019:
+# EDIT 4 March 2019:
 
 Added \_\_init\_\_.py - top be placed in any node directories containing these nodes
 
