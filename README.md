@@ -92,7 +92,11 @@ Major revisions and new release- 2.0.3
 
 EDIT 3 Mar 2019:
 
-Changed directory structure to separate nodes, menus and sockets, searated ndoes in DAW, MIDI and General
+Changed directory structure to separate nodes, menus and sockets, searated ndoes in DAW, MIDI and General.
+
+EDIT 4 March 2019:
+
+Added \__init\__.py - top be placed in any node directories constaining these nodes
 
 Cheers, Clock.
 
