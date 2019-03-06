@@ -3,6 +3,7 @@ from ... base_types import AnimationNode
 from bpy.props import *
 from ... events import propertyChanged
 from math import sin
+from . midi_functions import getIndex, getFretS, getFretB
 
 class guitarPlayNode(bpy.types.Node, AnimationNode):
     bl_idname = "an_guitarPlayNode"
@@ -18,7 +19,7 @@ class guitarPlayNode(bpy.types.Node, AnimationNode):
     def draw(self,layout):
         layout.prop(self, "suffix")
         layout.prop(self, "octS")
-        if self.mess != '':
+        if self.mess is not '':
             layout.label(self.mess, icon = 'INFO')
 
     def create(self):
@@ -46,31 +47,6 @@ class guitarPlayNode(bpy.types.Node, AnimationNode):
             self.mess = 'No Control Objects'
         else:
             self.mess = ''
-            note_list = [
-                'c0','cs0','d0','ds0','e0','f0','fs0','g0','gs0','a0','as0','b0',
-                'c1','cs1','d1','ds1','e1','f1','fs1','g1','gs1','a1','as1','b1',
-                'c2','cs2','d2','ds2','e2','f2','fs2','g2','gs2','a2','as2','b2',
-                'c3','cs3','d3','ds3','e3','f3','fs3','g3','gs3','a3','as3','b3',
-                'c4','cs4','d4','ds4','e4','f4','fs4','g4','gs4','a4','as4','b4',
-                'c5','cs5','d5','ds5','e5','f5','fs5','g5','gs5','a5','as5','b5',
-                'c6','cs6','d6','ds6','e6','f6','fs6','g6','gs6','a6','as6','b6',
-                'c7','cs7','d7','ds7','e7','f7','fs7','g7','gs7','a7','as7','b7',
-                'c8','cs8','d8','ds8','e8','f8','fs8','g8','gs8','a8','as8','b8',
-                'c9','cs9','d9','ds9','e9','f9','fs9','g9']
-            fretListS = [
-                'NUT','F1','F2','F3','F4',
-                'NUT','F1','F2','F3','F4',
-                'NUT','F1','F2','F3','F4',
-                'NUT','F1','F2','F3',
-                'NUT','F1','F2','F3','F4',
-                'NUT','F1','F2','F3','F4','F5','F6','F7','F8','F9','F10','F11','F12',
-                'F13','F14','F15','F16','F17','F18','F19','F20','F21','F22','F23','F24']
-            fretListB = [
-                'NUT','F1','F2','F3','F4',
-                'NUT','F1','F2','F3','F4',
-                'NUT','F1','F2','F3','F4',
-                'NUT','F1','F2','F3','F4','F5','F6','F7','F8','F9','F10','F11','F12',
-                'F13','F14','F15','F16','F17','F18','F19','F20','F21','F22','F23','F24']
             if sixBool:
                 for ob in [bpy.data.objects.get('El'+self.suffix),bpy.data.objects.get('A'+self.suffix),
                         bpy.data.objects.get('D'+self.suffix),bpy.data.objects.get('G'+self.suffix),
@@ -91,45 +67,45 @@ class guitarPlayNode(bpy.types.Node, AnimationNode):
 
             for obj in contObjs:
                 zLoc = obj.location.z
-                noteN = obj.name.split('_')[1]
-                idx = next((i for i, x in enumerate(note_list) if x == noteN), -1)
-                idx = idx + 12 + (self.octS * 12)
+                noteName = obj.name.split('_')[1]
+                Idx = getIndex(noteName)
+                Idx = Idx + 12 + (self.octS * 12)
                 if sixBool:
                     # Use 6 Strings Lead
-                    if idx >= 52 and idx < 57:
+                    if Idx >= 52 and Idx < 57:
                         string = 'El'+self.suffix
-                    elif idx >= 57 and idx < 62:
+                    elif Idx >= 57 and Idx < 62:
                         string = 'A'+self.suffix
-                    elif idx >= 62 and idx < 67:
+                    elif Idx >= 62 and Idx < 67:
                         string = 'D'+self.suffix
-                    elif idx >= 67 and idx < 71:
+                    elif Idx >= 67 and Idx < 71:
                         string = 'G'+self.suffix
-                    elif idx >= 71 and idx < 76:
+                    elif Idx >= 71 and Idx < 76:
                         string = 'B'+self.suffix
-                    elif idx >= 76 and idx < 101:
+                    elif Idx >= 76 and Idx < 101:
                         string = 'Et'+self.suffix
                     else:
                         string = 'null'
                         fret = 'null'
                     # Get the Fret
-                    if string != 'null':
-                        fret = fretListS[idx - 52]
+                    if string is not 'null':
+                        fret = getFretS(Idx, -52)
                 else:
                     # Use 4 Strings Bass
-                    if idx >= 40 and idx < 45:
+                    if Idx >= 40 and Idx < 45:
                         string = 'El'+self.suffix
-                    elif idx >= 45 and idx < 50:
+                    elif Idx >= 45 and Idx < 50:
                         string = 'A'+self.suffix
-                    elif idx >= 50 and idx < 55:
+                    elif Idx >= 50 and Idx < 55:
                         string = 'D'+self.suffix
-                    elif idx >= 55 and idx < 80:
+                    elif Idx >= 55 and Idx < 80:
                         string = 'G'+self.suffix
                     else:
                         string = 'null'
                         fret = 'null'
                     # Get the Fret
-                    if string != 'null':
-                        fret = fretListB[idx - 40]
+                    if string is not 'null':
+                        fret = getFretB(Idx, -40)
 
                 if string == 'null':
                     # Note is off guitar
@@ -157,14 +133,14 @@ class guitarPlayNode(bpy.types.Node, AnimationNode):
                     if strgObj is not None and fretObj is not None:
                         yLoc = strgObj.location.y * nutScale
                         xLoc = fretObj.location.x
-                        if fret != 'NUT':
+                        if fret is not 'NUT':
                             finger.location = (xLoc,yLoc,(0.008* dist))
                         else:
                             finger.location.z = (0.012 * dist)
                         if pObj is not None and plectrum is not None:
                             plectrum.location = pObj.matrix_world.decompose()[0]
-                            if idx is not self.cIdx:
-                                self.cIdx = idx
+                            if Idx is not self.cIdx:
+                                self.cIdx = Idx
                                 self.sFrm = bpy.context.scene.frame_current
                             if bpy.context.scene.frame_current in range((self.sFrm +1), (self.sFrm + 2)):
                                 plectrum.location.z = pObj.matrix_world.decompose()[0].z - (0.0015 * dist)
@@ -172,10 +148,10 @@ class guitarPlayNode(bpy.types.Node, AnimationNode):
                                 plectrum.location.z = pObj.matrix_world.decompose()[0].z
 
                         strgObj.material_slots[0].material = plyMat
-                        noteFret = string+','+fret+',' + str(idx)+','+noteN
+                        noteFret = string+','+fret+',' + str(Idx)+','+noteName
 
                     elif string == 'null':
-                        noteFret = 'Info,Note off Guitar,' + str(idx)+','+noteN
+                        noteFret = 'Info,Note off Guitar,' + str(Idx)+','+noteName
                         self.cIdx = 0
 
         if noteFret == 'None,None,0,None':
