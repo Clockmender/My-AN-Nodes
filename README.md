@@ -98,6 +98,11 @@ Changed directory structure to separate nodes, menus and sockets, searated ndoes
 
 Added \_\_init\_\_.py - top be placed in any node directories containing these nodes
 
+# EDIT 6 March 2019:
+
+Moved out of date nodes to old-nodes directory, you can ignore these, but I have left them there if they are of any use to anyone.
+Major changes to MIDI nodes, old Bake and Control nodes combined into new node, updtaed working practices for this system. Common functions now moved to new python file midi_functions.py - this MUST be in the same directory as the MIDI nodes.
+
 Cheers, Clock.
 
 PS. I am rebuilding my website: https://clockmender.uk but it will take some time. There will be a set of pages explaining how to use these nodes, I have started though!
