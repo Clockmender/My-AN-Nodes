@@ -101,7 +101,7 @@ Added \_\_init\_\_.py - top be placed in any node directories containing these n
 # EDIT 6 March 2019:
 
 Moved out of date nodes to old-nodes directory, you can ignore these, but I have left them there if they are of any use to anyone.
-Major changes to MIDI nodes, old Bake and Control nodes combined into new node, updtaed working practices for this system. Common functions now moved to new python file midi_functions.py - this MUST be in the same directory as the MIDI nodes.
+Major changes to MIDI nodes, old Bake and Control nodes combined into new node, updated working practices for this system. Common functions now moved to new python file "midi_functions.py" - this MUST be in the same directory as the MIDI nodes.
 
 Cheers, Clock.
 
