@@ -39,12 +39,12 @@ class MidiCTMNode(bpy.types.Node, AnimationNode):
             self.message = 'Multiplier is 0; not a good idea!'
             return None, 0
         else:
-            c_nam = control.name.split('_')[1]
+            c_nam = control.name.split('_')[0]
             m_nam = c_nam+m_suff
             self.message = ''
             m_obj = bpy.data.objects.get(m_nam)
             if m_obj is None:
-                self.message = 'Mesh Object Not Found'
+                self.message = 'Mesh Object Not Found'+m_nam
                 return None, 0
             else:
                 z_cont = control.location.z * multV
