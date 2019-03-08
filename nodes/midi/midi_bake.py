@@ -199,17 +199,12 @@ class MidiBakeNode(bpy.types.Node, AnimationNode):
             eventD.clear()
             self.writeEvents()
             # Make Control Empties.
-            grp = bpy.data.groups.get(self.dataD.get('Track Name'))
-            grp = str(grp).find(self.dataD.get('Track Name'))
-            if (grp == -1):
-                bpy.data.groups.new(self.dataD.get('Track Name'))
             xLoc = 0
             for k in eventD.keys():
                 bpy.ops.object.add(type='EMPTY',location=(xLoc,self.chnN/10,0),radius = 0.03)
                 bpy.context.active_object.name = str(k)+'_'+self.suffix+str(self.chnN)
                 bpy.context.active_object.empty_draw_type = "SINGLE_ARROW"
                 bpy.context.active_object.show_name = True
-                bpy.ops.object.group_link(group=self.dataD.get('Track Name'))
                 indV = True
                 for v in eventD.get(k):
                     frm = v[0]

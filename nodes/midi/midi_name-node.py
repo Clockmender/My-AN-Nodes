@@ -38,7 +38,7 @@ class MidiNameNode(bpy.types.Node, AnimationNode):
                 else:
                     note_name = getNote(Idx, 0)
                 if suff != '':
-                    note_name = note_name + suff
+                    note_name = note_name +'_'+ suff
                 i.name = note_name
                 Idx = Idx + 1
 

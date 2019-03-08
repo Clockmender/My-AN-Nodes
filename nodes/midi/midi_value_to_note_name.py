@@ -42,6 +42,6 @@ class MidiInitNode(bpy.types.Node, AnimationNode):
             NoteName = 'Out Of Range'
 
         if suff is not '':
-            NoteName = NoteName + suff
+            NoteName = NoteName +'_'+ suff
 
         return NoteName, NoteIdx

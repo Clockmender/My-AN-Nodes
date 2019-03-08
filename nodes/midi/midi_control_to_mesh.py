@@ -16,17 +16,17 @@ class MidiCTMNode(bpy.types.Node, AnimationNode):
 
     def create(self):
         self.newInput("Object", "Control", "control")
-        self.newInput("Text", "Suffix", "m_suff")
+        self.newInput("Text", "Suffix", "suff")
         self.newInput("Float", "Multiplier", "multV")
         self.newOutput("Object", "Mesh Object", "m_obj")
         self.newOutput("Float", "Control Z", "z_cont")
 
-    def execute(self, control, m_suff, multV):
+    def execute(self, control, suff, multV):
         self.use_custom_color = True
         self.useNetworkColor = False
         self.color = (1,1,0.75)
         # Check for correct inputs
-        if m_suff == '':
+        if suff == '':
             self.message = 'No Suffix Specified'
             return None, 0
         elif control is None:
@@ -40,7 +40,7 @@ class MidiCTMNode(bpy.types.Node, AnimationNode):
             return None, 0
         else:
             c_nam = control.name.split('_')[0]
-            m_nam = c_nam+m_suff
+            m_nam = c_nam+'_'+suff
             self.message = ''
             m_obj = bpy.data.objects.get(m_nam)
             if m_obj is None:

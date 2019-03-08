@@ -29,17 +29,17 @@ class MidiGuitarNode(bpy.types.Node, AnimationNode):
             Idx = Idx + 12
         # 6 string
         if Idx >= 52 and Idx < 57:
-            string = 'El'+self.suffix
+            string = 'El'+'_'+self.suffix
         elif Idx >= 57 and Idx < 62:
-            string = 'A'+self.suffix
+            string = 'A'+'_'+self.suffix
         elif Idx >= 62 and Idx < 67:
-            string = 'D'+self.suffix
+            string = 'D'+'_'+self.suffix
         elif Idx >= 67 and Idx < 71:
-            string = 'G'+self.suffix
+            string = 'G'+'_'+self.suffix
         elif Idx >= 71 and Idx < 76:
-            string = 'B'+self.suffix
+            string = 'B'+'_'+self.suffix
         elif Idx >= 76 and Idx < 101:
-            string = 'Et'+self.suffix
+            string = 'Et'+'_'+self.suffix
         else:
             string = 'null'
             fret = 'null'
@@ -48,13 +48,13 @@ class MidiGuitarNode(bpy.types.Node, AnimationNode):
             fret = getFretS(Idx, -52)
         # Bass
         if Idx >= 40 and Idx < 45:
-            stringb = 'El'+self.suffix
+            stringb = 'El'+'_'+self.suffix
         elif Idx >= 45 and Idx < 50:
-            stringb = 'A'+self.suffix
+            stringb = 'A'+'_'+self.suffix
         elif Idx >= 50 and Idx < 55:
-            stringb = 'D'+self.suffix
+            stringb = 'D'+'_'+self.suffix
         elif Idx >= 55 and Idx < 80:
-            stringb = 'G'+self.suffix
+            stringb = 'G'+'_'+self.suffix
         else:
             stringb = 'null'
             fretb = 'null'

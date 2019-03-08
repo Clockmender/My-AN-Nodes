@@ -48,17 +48,17 @@ class guitarPlayNode(bpy.types.Node, AnimationNode):
         else:
             self.mess = ''
             if sixBool:
-                for ob in [bpy.data.objects.get('El'+self.suffix),bpy.data.objects.get('A'+self.suffix),
-                        bpy.data.objects.get('D'+self.suffix),bpy.data.objects.get('G'+self.suffix),
-                            bpy.data.objects.get('B'+self.suffix),bpy.data.objects.get('Et'+self.suffix)]:
+                for ob in [bpy.data.objects.get('El'+'_'+self.suffix),bpy.data.objects.get('A'+'_'+self.suffix),
+                        bpy.data.objects.get('D'+'_'+self.suffix),bpy.data.objects.get('G'+'_'+self.suffix),
+                            bpy.data.objects.get('B'+'_'+self.suffix),bpy.data.objects.get('Et'+'_'+self.suffix)]:
                     if ob is not None:
                         ob.material_slots[0].material = strMat
                     else:
                         self.mess = 'Some Strings are Missing'
                         return 'String,Error,0'
             else:
-                for ob in [bpy.data.objects.get('El'+self.suffix),bpy.data.objects.get('A'+self.suffix),
-                        bpy.data.objects.get('D'+self.suffix),bpy.data.objects.get('G'+self.suffix)]:
+                for ob in [bpy.data.objects.get('El'+'_'+self.suffix),bpy.data.objects.get('A'+'_'+self.suffix),
+                        bpy.data.objects.get('D'+'_'+self.suffix),bpy.data.objects.get('G'+'_'+self.suffix)]:
                     if ob is not None:
                         ob.material_slots[0].material = strMat
                     else:
@@ -73,17 +73,17 @@ class guitarPlayNode(bpy.types.Node, AnimationNode):
                 if sixBool:
                     # Use 6 Strings Lead
                     if Idx >= 52 and Idx < 57:
-                        string = 'El'+self.suffix
+                        string = 'El'+'_'+self.suffix
                     elif Idx >= 57 and Idx < 62:
-                        string = 'A'+self.suffix
+                        string = 'A'+'_'+self.suffix
                     elif Idx >= 62 and Idx < 67:
-                        string = 'D'+self.suffix
+                        string = 'D'+'_'+self.suffix
                     elif Idx >= 67 and Idx < 71:
-                        string = 'G'+self.suffix
+                        string = 'G'+'_'+self.suffix
                     elif Idx >= 71 and Idx < 76:
-                        string = 'B'+self.suffix
+                        string = 'B'+'_'+self.suffix
                     elif Idx >= 76 and Idx < 101:
-                        string = 'Et'+self.suffix
+                        string = 'Et'+'_'+self.suffix
                     else:
                         string = 'null'
                         fret = 'null'
@@ -93,13 +93,13 @@ class guitarPlayNode(bpy.types.Node, AnimationNode):
                 else:
                     # Use 4 Strings Bass
                     if Idx >= 40 and Idx < 45:
-                        string = 'El'+self.suffix
+                        string = 'El'+'_'+self.suffix
                     elif Idx >= 45 and Idx < 50:
-                        string = 'A'+self.suffix
+                        string = 'A'+'_'+self.suffix
                     elif Idx >= 50 and Idx < 55:
-                        string = 'D'+self.suffix
+                        string = 'D'+'_'+self.suffix
                     elif Idx >= 55 and Idx < 80:
-                        string = 'G'+self.suffix
+                        string = 'G'+'_'+self.suffix
                     else:
                         string = 'null'
                         fret = 'null'
