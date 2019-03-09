@@ -10,7 +10,7 @@ class MidiInitNode(bpy.types.Node, AnimationNode):
     bl_width_default = 180
 
     # Setup variables
-    mid_c = BoolProperty(name = "Middle C = C4", default = True, update = propertyChanged)
+    mid_c: BoolProperty(name = "Middle C = C4", default = True, update = propertyChanged)
 
     def draw(self, layout):
         layout.prop(self,"mid_c")
@@ -25,7 +25,7 @@ class MidiInitNode(bpy.types.Node, AnimationNode):
     def execute(self, NoteValue, NoteNme, suff):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (1,1,0.75)
+        self.color = (0.85,0.75,0.5)
 
         if NoteNme is not '':
             NoteIdx = getIndex(NoteNme)

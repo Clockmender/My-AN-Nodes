@@ -10,7 +10,7 @@ class ClockMidiHandlerNode(bpy.types.Node, AnimationNode):
 
     note_buff = []
     param_buff = []
-    time_s = FloatProperty()
+    time_s: FloatProperty()
 
     def create(self):
         self.newInput("Vector List"	, "Midi Buffer"	        , "MidiBuffer")
@@ -24,7 +24,7 @@ class ClockMidiHandlerNode(bpy.types.Node, AnimationNode):
     def execute(self, MidiBuffer, Velocity):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (1,1,0.75)
+        self.color = (0.85,0.75,0.5)
         cleanBuffer = []
         for data in MidiBuffer:
             #if there is data

@@ -8,33 +8,33 @@ from ... utils.sequence_editor import getOrCreateSequencer, getEmptyChannel
 from ... utils.path import getAbsolutePathOfSound
 from . midi_functions import getNote, getIndex
 
+dataD = {}
 eventD = {}
 
 class MidiNoteData(bpy.types.PropertyGroup):
-    noteName = StringProperty()
-    noteIndex = IntProperty()
+    noteName: StringProperty()
+    noteIndex: IntProperty()
     # This value can be keyframed.
-    value = FloatProperty()
+    value: FloatProperty()
 
 class MidiBakeNode(bpy.types.Node, AnimationNode):
     bl_idname = "an_MidiBakeNode"
     bl_label = "MIDI Bake & Controls"
     bl_width_default = 300
 
-    midC = BoolProperty(name = "Middle C = C4", default = True, update = propertyChanged)
-    useV = BoolProperty(name = "Use MIDI Velocity", default = False, update = propertyChanged)
-    squV = BoolProperty(name = "Use Square Waveforms", default = True, update = propertyChanged)
-    offSet = IntProperty(name = "Offset - Anim Start Frame", default = 0, min = -1000, max = 10000)
-    easing = FloatProperty(name = "Easing - Slopes Curves", default = 1, precision = 1, min = 0.1)
-    spacing = FloatProperty(name = "Note Spacing", default = 0, precision =1, min = 0)
-    chnN = IntProperty(name = "Process Channel", min = 2, default = 2)
-    suffix = StringProperty(name = "Note Suffix")
-    midiFilePath = StringProperty()
-    midiName = StringProperty()
-    message1 = StringProperty()
-    message2 = StringProperty()
-    dataD = {}
-    notes = CollectionProperty(type = MidiNoteData)
+    midC: BoolProperty(name = "Middle C = C4", default = True, update = propertyChanged)
+    useV: BoolProperty(name = "Use MIDI Velocity", default = False, update = propertyChanged)
+    squV: BoolProperty(name = "Use Square Waveforms", default = True, update = propertyChanged)
+    offSet: IntProperty(name = "Offset - Anim Start Frame", default = 0, min = -1000, max = 10000)
+    easing: FloatProperty(name = "Easing - Slopes Curves", default = 1, precision = 1, min = 0.1)
+    spacing: FloatProperty(name = "Note Spacing", default = 0, precision =1, min = 0)
+    chnN: IntProperty(name = "Process Channel", min = 2, default = 2)
+    suffix: StringProperty(name = "Note Suffix")
+    midiFilePath: StringProperty()
+    midiName: StringProperty()
+    message1: StringProperty()
+    message2: StringProperty()
+    notes: CollectionProperty(type = MidiNoteData)
 
     def draw(self,layout):
         layout.prop(self, "midC")
@@ -48,36 +48,38 @@ class MidiBakeNode(bpy.types.Node, AnimationNode):
         col = layout.column()
         col.scale_y = 1.5
         self.invokeSelector(col, "PATH", "loadMidi",
-            text = "Load MIDI CSV File", icon = "NEW")
+            text = "Load MIDI CSV File", icon = "FILE_NEW")
         self.invokeSelector(col, "PATH", "loadSound",
-            text = "Load Sound for MIDI File (Uses Offset)", icon = "NEW")
-        self.invokeFunction(col, "resetNode", icon = "X",
+            text = "Load Sound for MIDI File (Uses Offset)", icon = "SOUND")
+        self.invokeFunction(col, "resetNode", icon = "CANCEL",
             text = "Reset Node for new CSV File")
-        self.invokeFunction(col, "createControls", icon = "NEW",
-            text = "Create MIDI Controls on Active Layer(s)")
-        self.invokeFunction(col, "bakeMidi", icon = "NEW",
+        self.invokeFunction(col, "createControls", icon = "ADD",
+            text = "Create MIDI Controls in Active Collection")
+        self.invokeFunction(col, "bakeMidi", icon = "FCURVE",
             text = "Bake MIDI F-Curves")
         if (self.message1 is not ""):
-            layout.label(self.message1, icon = "INFO")
+            layout.label(text = self.message1, icon = "INFO")
         if (self.message2 is not ""):
-            layout.label(self.message2, icon = "INFO")
+            layout.label(text = self.message2, icon = "INFO")
 
     def create(self):
         self.newOutput("Integer", "Animation Offset Frame", "ot_off")
         self.newOutput("Generic", "Tracks Info (Load MIDI File First)", "tracL")
         self.newOutput("Text List", "Note Mesh Names", "notes")
         self.newOutput("Float List", "Note Curve Values", "values")
+        self.newOutput("Integer List", "Note Indices Values", "indXs")
 
     def execute(self):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (1,1,0.75)
-        self.message1 = 'NO Data Stored - Load MIDI file' if 'TimeSig' not in self.dataD.keys() else self.message1
-        tracL = self.dataD.get('Tracks') if 'Tracks' in self.dataD.keys() else []
+        self.color = (0.85,0.75,0.5)
+        self.message1 = 'NO Data Stored - Load MIDI file' if 'TimeSig' not in dataD.keys() else self.message1
+        tracL = dataD.get('Tracks') if 'Tracks' in dataD.keys() else []
         notes = [item.noteName+'_'+self.suffix for item in self.notes]
         values = [item.value for item in self.notes]
+        indXs = [item.noteIndex for item in self.notes]
 
-        return self.offSet, tracL, notes, DoubleList.fromValues(values)
+        return self.offSet, tracL, notes, DoubleList.fromValues(values), indXs
 
     def loadMidi(self, path):
         # Load MIDI file and write basic info to dataD Dictionary
@@ -86,7 +88,7 @@ class MidiBakeNode(bpy.types.Node, AnimationNode):
         self.midiFilePath = str(path)
         self.midiName = str(os.path.basename(path))
         fps = bpy.context.scene.render.fps
-        self.dataD.clear()
+        dataD.clear()
         # Populate the dictionaries for processing.
         with open(path) as f1:
             for line in f1:
@@ -94,31 +96,31 @@ class MidiBakeNode(bpy.types.Node, AnimationNode):
                 if (in_l[2] == 'Header'):
                     # Get Pulse variable.
                     pulse = int(in_l[5])
-                    self.dataD['Pulse'] = pulse
+                    dataD['Pulse'] = pulse
                 elif (in_l[2] == 'Tempo'):
                     if (in_l[1] == '0'):
                         # Get Initial Tempo.
                         tempo = in_l[3]
                         bpm = float( round( (60000000 / int(tempo)), 3) )
-                        self.dataD['BPM'] = bpm
-                        self.dataD['Tempo'] = [[0,tempo]]
+                        dataD['BPM'] = bpm
+                        dataD['Tempo'] = [[0,tempo]]
                     elif in_l[0] == '1' and in_l[2] == 'Tempo':
                         # Add Tempo Changes & timings to Tempo Key in dataD.
                         frame = round(int(in_l[1]) * (60 * fps) / (bpm * pulse),2)
-                        self.dataD.get('Tempo').append([str(frame),in_l[3]])
+                        dataD.get('Tempo').append([str(frame),in_l[3]])
                 elif (in_l[2] == 'Time_signature'):
                     # Get Time Signature
-                    self.dataD['TimeSig'] = [int(in_l[3]),int(in_l[4])]
+                    dataD['TimeSig'] = [int(in_l[3]),int(in_l[4])]
                 elif (in_l[2] == 'Title_t') and (int(in_l[0]) > 1) and (in_l[3] != "Master Section"):
                     # Get Track Names & Numbers
                     if (in_l[0] == str(self.chnN)):
                         tName = in_l[3].strip('"')
-                        self.dataD['Track Name'] = tName
+                        dataD['Track Name'] = tName
                     otName = in_l[3].strip('"')
-                    if 'Tracks' not in self.dataD.keys():
-                        self.dataD['Tracks'] = [[otName,int(in_l[0])]]
+                    if 'Tracks' not in dataD.keys():
+                        dataD['Tracks'] = [[otName,int(in_l[0])]]
                     else:
-                        self.dataD.get('Tracks').append([otName,int(in_l[0])])
+                        dataD.get('Tracks').append([otName,int(in_l[0])])
 
     def removeFCurvesOfThisNode(self):
         try: action = self.id_data.animation_data.action
@@ -156,7 +158,8 @@ class MidiBakeNode(bpy.types.Node, AnimationNode):
         self.easing = 0.2
         self.spacing = 0
         self.suffix = ''
-        self.dataD.clear()
+        self.removeFCurvesOfThisNode()
+        dataD.clear()
         eventD.clear()
 
     def writeEvents(self):
@@ -174,7 +177,7 @@ class MidiBakeNode(bpy.types.Node, AnimationNode):
                         onOff = velo if in_l[2] == 'Note_on_c' else 0
                     else:
                         onOff = 1 if in_l[2] == 'Note_on_c' else 0
-                    frame = int(in_l[1]) * (60 * fps) / (self.dataD.get('BPM') * self.dataD.get('Pulse'))
+                    frame = int(in_l[1]) * (60 * fps) / (dataD.get('BPM') * dataD.get('Pulse'))
                     frame = frame + self.spacing + self.offSet
                     if noteName not in eventD.keys():
                         eventD[noteName] = [[round(frame,2),onOff]]
@@ -193,7 +196,7 @@ class MidiBakeNode(bpy.types.Node, AnimationNode):
 
     def createControls(self):
         # Create Controls from eventD Dictionary
-        if (self.midiFilePath == "") or 'TimeSig' not in self.dataD.keys():
+        if (self.midiFilePath == "") or 'TimeSig' not in dataD.keys():
             self.message1 = "Load MIDI File, Check All Parameters?"
         else:
             eventD.clear()
@@ -201,9 +204,8 @@ class MidiBakeNode(bpy.types.Node, AnimationNode):
             # Make Control Empties.
             xLoc = 0
             for k in eventD.keys():
-                bpy.ops.object.add(type='EMPTY',location=(xLoc,self.chnN/10,0),radius = 0.03)
+                bpy.ops.object.empty_add(type='SINGLE_ARROW',location=(xLoc,self.chnN/10,0),radius = 0.03)
                 bpy.context.active_object.name = str(k)+'_'+self.suffix+str(self.chnN)
-                bpy.context.active_object.empty_draw_type = "SINGLE_ARROW"
                 bpy.context.active_object.show_name = True
                 indV = True
                 for v in eventD.get(k):
@@ -216,7 +218,7 @@ class MidiBakeNode(bpy.types.Node, AnimationNode):
                         indV = False
                     bpy.context.active_object.location.z = val/10
                     bpy.context.active_object.keyframe_insert( data_path='location', index=2, frame=frm )
-                bpy.context.active_object.select = False
+                bpy.context.active_object.select_set(state=False)
                 xLoc = xLoc + 0.1
                 self.message2 = 'Channel '+str(self.chnN)+' Processed, Events: '+str(sum(len(v) for v in eventD.values()))
 
@@ -226,7 +228,7 @@ class MidiBakeNode(bpy.types.Node, AnimationNode):
         if self.chnN == '':
             self.message1 = 'Set Channel Number'
             self.message2 = ''
-        elif (self.midiFilePath == "") or 'TimeSig' not in self.dataD.keys():
+        elif (self.midiFilePath == "") or 'TimeSig' not in dataD.keys():
             self.message1 = 'Load MIDI File, Check All Parameters?'
             self.message2 = ''
         else:

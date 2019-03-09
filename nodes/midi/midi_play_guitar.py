@@ -10,17 +10,17 @@ class guitarPlayNode(bpy.types.Node, AnimationNode):
     bl_label = "MIDI Play Guitar"
     bl_width_default = 200
 
-    mess = StringProperty()
-    suffix = StringProperty(name = 'String Suffix', update = propertyChanged)
-    octS = IntProperty(name = 'Octave Shift', default = 0, min = -2, max = 2)
-    sFrm = IntProperty(name = 'Note Change Frame', update = propertyChanged)
-    cIdx = IntProperty(update = propertyChanged)
+    message: StringProperty()
+    suffix: StringProperty(name = 'String Suffix', update = propertyChanged)
+    octS: IntProperty(name = 'Octave Shift', default = 0, min = -2, max = 2)
+    sFrm: IntProperty(name = 'Note Change Frame', update = propertyChanged)
+    cIdx: IntProperty(update = propertyChanged)
 
     def draw(self,layout):
         layout.prop(self, "suffix")
         layout.prop(self, "octS")
-        if self.mess is not '':
-            layout.label(self.mess, icon = 'INFO')
+        if self.message is not '':
+            layout.label(text = self.message, icon = 'INFO')
 
     def create(self):
         self.newInput("Boolean", "6 String (4 String if False)", "sixBool", default = True)
@@ -35,7 +35,7 @@ class guitarPlayNode(bpy.types.Node, AnimationNode):
     def execute(self, sixBool, finger, plectrum, nutScale, contObjs, strMat, plyMat):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (1,1,0.75)
+        self.color = (0.85,0.75,0.5)
         noteFret = 'None,None,0,None'
         brObj = bpy.data.objects.get('Bridge')
         nuObj = bpy.data.objects.get('NUT')
@@ -44,9 +44,9 @@ class guitarPlayNode(bpy.types.Node, AnimationNode):
         else:
             dist = 1
         if len(contObjs) == 0:
-            self.mess = 'No Control Objects'
+            self.message = 'No Control Objects'
         else:
-            self.mess = ''
+            self.message = ''
             if sixBool:
                 for ob in [bpy.data.objects.get('El'+'_'+self.suffix),bpy.data.objects.get('A'+'_'+self.suffix),
                         bpy.data.objects.get('D'+'_'+self.suffix),bpy.data.objects.get('G'+'_'+self.suffix),
@@ -54,7 +54,7 @@ class guitarPlayNode(bpy.types.Node, AnimationNode):
                     if ob is not None:
                         ob.material_slots[0].material = strMat
                     else:
-                        self.mess = 'Some Strings are Missing'
+                        self.message = 'Some Strings are Missing'
                         return 'String,Error,0'
             else:
                 for ob in [bpy.data.objects.get('El'+'_'+self.suffix),bpy.data.objects.get('A'+'_'+self.suffix),
@@ -62,7 +62,7 @@ class guitarPlayNode(bpy.types.Node, AnimationNode):
                     if ob is not None:
                         ob.material_slots[0].material = strMat
                     else:
-                        self.mess = 'Some Strings are Missing!'
+                        self.message = 'Some Strings are Missing!'
                         return 'String,Error,0'
 
             for obj in contObjs:

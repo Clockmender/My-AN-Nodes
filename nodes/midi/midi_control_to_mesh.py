@@ -8,11 +8,11 @@ class MidiCTMNode(bpy.types.Node, AnimationNode):
     bl_label = "MIDI Control To Mesh"
     bl_width_default = 220
 
-    message = StringProperty()
+    message: StringProperty()
 
     def draw(self,layout):
         if (self.message != ""):
-            layout.label(self.message, icon = "ERROR")
+            layout.label(text = self.message, icon = "ERROR")
 
     def create(self):
         self.newInput("Object", "Control", "control")
@@ -24,7 +24,7 @@ class MidiCTMNode(bpy.types.Node, AnimationNode):
     def execute(self, control, suff, multV):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (1,1,0.75)
+        self.color = (0.85,0.75,0.5)
         # Check for correct inputs
         if suff == '':
             self.message = 'No Suffix Specified'

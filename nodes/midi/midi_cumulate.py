@@ -7,8 +7,8 @@ class midiCumNode(bpy.types.Node, AnimationNode):
     bl_label = "MIDI Accumulate Node"
     bl_width_default = 200
 
-    str_f = IntProperty(name="Reset Frame #")
-    cum_v = FloatProperty(name="Cumulative Float")
+    str_f: IntProperty(name="Reset Frame #")
+    cum_v: FloatProperty(name="Cumulative Float")
 
     def create(self):
         self.newInput("Float","Input Plus","num_p")
@@ -22,7 +22,7 @@ class midiCumNode(bpy.types.Node, AnimationNode):
     def execute(self,num_p,num_m):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (1,1,0.75)
+        self.color = (0.85,0.75,0.5)
         if bpy.context.scene.frame_current == self.str_f:
             self.cum_v = 0
         elif num_p > 0 and num_m == 0:

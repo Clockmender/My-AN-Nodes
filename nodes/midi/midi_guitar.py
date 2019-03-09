@@ -9,8 +9,8 @@ class MidiGuitarNode(bpy.types.Node, AnimationNode):
     bl_label = "MIDI Guitar Strings/Frets"
     bl_width_default = 150
 
-    mid_c = BoolProperty(name = "Middle C = C4", default = True, update = propertyChanged)
-    suffix = StringProperty(name = "Suffix", update = propertyChanged)
+    mid_c: BoolProperty(name = "Middle C = C4", default = True, update = propertyChanged)
+    suffix: StringProperty(name = "Suffix", update = propertyChanged)
 
     def draw(self,layout):
         layout.prop(self, "mid_c")
@@ -24,7 +24,7 @@ class MidiGuitarNode(bpy.types.Node, AnimationNode):
     def execute(self,Idx):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (1,1,0.75)
+        self.color = (0.85,0.75,0.5)
         if not self.mid_c:
             Idx = Idx + 12
         # 6 string

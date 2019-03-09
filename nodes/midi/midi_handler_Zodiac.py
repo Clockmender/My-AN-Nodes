@@ -9,10 +9,10 @@ class MidiInitNode(bpy.types.Node, AnimationNode):
     bl_width_default = 150
 
     out_buff = []
-    noteID = IntProperty(name = "Midi Note", default = 0, update = propertyChanged)
-    noteVelocity = IntProperty(name = "Note Velocity", default = 0, update = propertyChanged)
-    paramID = IntProperty(name = "Midi Parameter", default = 0, update = propertyChanged)
-    paramValue = IntProperty(name = "Parameter Value", default = 0, update = propertyChanged)
+    noteID: IntProperty(name = "Midi Note", default = 0, update = propertyChanged)
+    noteVelocity: IntProperty(name = "Note Velocity", default = 0, update = propertyChanged)
+    paramID: IntProperty(name = "Midi Parameter", default = 0, update = propertyChanged)
+    paramValue: IntProperty(name = "Parameter Value", default = 0, update = propertyChanged)
     time_s = FloatProperty()
 
     def create(self):
@@ -33,7 +33,7 @@ class MidiInitNode(bpy.types.Node, AnimationNode):
     def execute(self, MidiBuffer, Velocity):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (1,1,0.75)
+        self.color = (0.85,0.75,0.5)
         cleanBuffer = []
         notesBuffer = []
         paramsBuffer = []
