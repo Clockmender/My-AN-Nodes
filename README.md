@@ -54,7 +54,7 @@ The other files should go into a new folder in this directory:
 
 .../Blender/[version number]/scripts/addons/animation_nodes/nodes
 
-That new directory should contain an empty file named \_\_init\_\_.py - create this with any text editor or copy one from another AN directory. This can be downloaed from the top level directory as an option.
+That new directory should contain an empty file named \_\_init\_\_.py - create this with any text editor or copy one from another AN directory. This can be downloaded from the top level directory as an option.
 
 # COMMENTS
 
