@@ -1,4 +1,5 @@
 # Functions to get note Names and Indices & Frets from input
+# Checked for B-2.8 AN-2.1
 # MIDI Note List
 noteList = [
     'c0','cs0','d0','ds0','e0','f0','fs0','g0','gs0','a0','as0','b0',
