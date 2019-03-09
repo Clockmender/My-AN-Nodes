@@ -1,4 +1,4 @@
-# My-AN-Nodes
+# My-AN-Nodes for Blender 2.8, An 2.1
 
 Copyright (C) 2017 Alan Odom
 clockmender@icloud.com
