@@ -8,9 +8,9 @@ class CopyBoneLocationWithOffsetNode(bpy.types.Node, AnimationNode):
     bl_label = "Bones Copy Location with Offset"
     bl_width_default = 180
 
-    useX = BoolProperty(name = "Use X", default = False, update = propertyChanged)
-    useY = BoolProperty(name = "Use Y", default = False, update = propertyChanged)
-    useZ = BoolProperty(name = "Use Z", default = False, update = propertyChanged)
+    useX: BoolProperty(name = "Use X", default = False, update = propertyChanged)
+    useY: BoolProperty(name = "Use Y", default = False, update = propertyChanged)
+    useZ: BoolProperty(name = "Use Z", default = False, update = propertyChanged)
 
     def create(self):
         self.newInput("Bone", "Source Bone", "source")
@@ -25,7 +25,7 @@ class CopyBoneLocationWithOffsetNode(bpy.types.Node, AnimationNode):
     def execute(self, source, targets, offset):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         if source is None or targets is None:
             return
 

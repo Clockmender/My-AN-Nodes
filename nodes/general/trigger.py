@@ -16,7 +16,7 @@ class triggerNode(bpy.types.Node, AnimationNode):
     def execute(self, cycLen, offset):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         if offset >= cycLen:
             offset = offset % cycLen
         return bpy.context.scene.frame_current % cycLen == offset

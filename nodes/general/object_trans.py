@@ -17,7 +17,7 @@ class objectTransformNode(bpy.types.Node, AnimationNode):
     def execute(self, obj):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         if obj:
             loc, rot, scale = obj.matrix_world.decompose()
         else:

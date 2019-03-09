@@ -18,8 +18,8 @@ class angleNode(bpy.types.Node, AnimationNode):
     mode = EnumProperty(name = "Active Plane", default = "X-Y",
         items = modeItems, update = AnimationNode.refresh)
 
-    message1 = StringProperty("")
-    use_t = BoolProperty(name = "Use Transform Space", default = True, update = propertyChanged)
+    message1: StringProperty("")
+    use_t: BoolProperty(name = "Use Transform Space", default = True, update = propertyChanged)
 
     def create(self):
         self.newInput("Object", "Fulcrum Object", "ob0")
@@ -35,12 +35,12 @@ class angleNode(bpy.types.Node, AnimationNode):
         layout.prop(self, "mode")
         layout.prop(self, "use_t")
         if (self.message1 != ""):
-            layout.label(self.message1, icon = "INFO")
+            layout.label(text=self.message1, icon = "INFO")
 
     def execute(self, ob0, ob1, ob2):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         if ob0 == None or ob1 == None or ob2 == None:
             return 0, 0, 0, 0, 0
 

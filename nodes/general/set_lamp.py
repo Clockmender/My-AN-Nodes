@@ -8,13 +8,13 @@ class SetLampColStr(bpy.types.Node, AnimationNode):
     bl_label = "Set Lamp Colour & Strength"
     bl_width_default = 220
 
-    Search = StringProperty(name = "Lamp")
-    message1 = StringProperty()
+    Search: StringProperty(name = "Lamp")
+    message1: StringProperty()
 
     def draw(self, layout):
         layout.prop(self, "Search")
         if (self.message1 != ""):
-            layout.label(self.message1, icon = "INFO")
+            layout.label(text=self.message1, icon = "INFO")
 
     def create(self):
         self.newInput("Color","Color","col")
@@ -28,7 +28,7 @@ class SetLampColStr(bpy.types.Node, AnimationNode):
     def execute(self,col,red,green,blue,stren,lsize):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         if self.Search is None:
             return
         else:

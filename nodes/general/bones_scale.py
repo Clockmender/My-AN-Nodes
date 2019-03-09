@@ -8,7 +8,7 @@ class BonesScaleNode(bpy.types.Node, AnimationNode):
     bl_label = "Bone(s) Transform Scale"
     bl_width_default = 180
 
-    use_s = BoolProperty(name = "Single Bone", default = True, update = AnimationNode.refresh)
+    use_s: BoolProperty(name = "Single Bone", default = True, update = AnimationNode.refresh)
 
     def create(self):
         if self.use_s:
@@ -31,7 +31,7 @@ class BonesScaleNode(bpy.types.Node, AnimationNode):
     def execute_bone(self, bone, sclV):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         if bone:
             bone.scale = sclV
             return bone

@@ -10,16 +10,16 @@ class IgcInputNode(bpy.types.Node, AnimationNode):
     bl_width_default = 400
 
     # Setup vartiables
-    offset = IntProperty(name = "Offset - Anim Start Frame", default = 1, min = -1000, max = 1000)
-    skip = IntProperty(name = "Skip Entries Size", default = 1, min = 1, max = 10)
-    e_off = IntProperty(name = "Start Easting Value", default = 0, min = 0, max = 170)
-    n_off = IntProperty(name = "Start Northing Value", default = 0, min = 0, max = 80)
-    g_scale = FloatProperty(name = "Geographic Scale", default = 1, min = 0.05, max = 10)
-    t_scale = FloatProperty(name = "Time Scale", default = 1, min = 0.05, max = 10)
-    message1 = StringProperty("")
-    message2 = StringProperty("")
-    igcFilePath = StringProperty()
-    igcName = StringProperty()
+    offset: IntProperty(name = "Offset - Anim Start Frame", default = 1, min = -1000, max = 1000)
+    skip: IntProperty(name = "Skip Entries Size", default = 1, min = 1, max = 10)
+    e_off: IntProperty(name = "Start Easting Value", default = 0, min = 0, max = 170)
+    n_off: IntProperty(name = "Start Northing Value", default = 0, min = 0, max = 80)
+    g_scale: FloatProperty(name = "Geographic Scale", default = 1, min = 0.05, max = 10)
+    t_scale: FloatProperty(name = "Time Scale", default = 1, min = 0.05, max = 10)
+    message1: StringProperty("")
+    message2: StringProperty("")
+    igcFilePath: StringProperty()
+    igcName: StringProperty()
 
     def draw(self, layout):
         layout.prop(self, "offset")
@@ -34,14 +34,14 @@ class IgcInputNode(bpy.types.Node, AnimationNode):
         self.invokeSelector(col ,"PATH", "loadIGC", icon = "NEW",
             text = "Select IGC File & Animate")
         if (self.message1 != ""):
-            layout.label(self.message1, icon = "INFO")
+            layout.label(text=self.message1, icon = "INFO")
         if (self.message2 != ""):
-            layout.label(self.message2, icon = "ERROR")
+            layout.label(text=self.message2, icon = "ERROR")
 
     def execute(self):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
 
     def loadIGC(self, path):
         self.message1 = ''

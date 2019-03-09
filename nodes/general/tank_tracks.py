@@ -9,8 +9,8 @@ class tankTrackNode(bpy.types.Node, AnimationNode):
     bl_label = "Caterpillar Tracks"
     bl_width_default = 240
 
-    message1 = StringProperty("")
-    message2 = StringProperty("")
+    message1: StringProperty("")
+    message2: StringProperty("")
     rev_b = BoolProperty(name = "Reverse Tracks", default = False, update = propertyChanged)
 
     def create(self):
@@ -29,14 +29,14 @@ class tankTrackNode(bpy.types.Node, AnimationNode):
 
     def draw(self, layout):
         if (self.message1 != ""):
-            layout.label(self.message1, icon = "INFO")
+            layout.label(text=self.message1, icon = "INFO")
         if (self.message2 != ""):
-            layout.label(self.message2, icon = "ERROR")
+            layout.label(text=self.message2, icon = "ERROR")
 
     def execute(self, fix_o, trg_o, str_s, trk_l, trk_r, spc, rev_b, delta, hull_d, str_a, fix_a):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         if fix_o is None or trg_o is None or trk_l is None or trk_r is None:
             self.message2 = 'Set the Objects...'
             self.message1 = ''

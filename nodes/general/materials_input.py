@@ -7,13 +7,13 @@ class materialsInputNode(bpy.types.Node, AnimationNode):
     bl_label = "Materials from Project"
     bl_width_default = 180
 
-    search = StringProperty(name = "Search String")
-    message1 = StringProperty()
+    search: StringProperty(name = "Search String")
+    message1: StringProperty()
 
     def draw(self, layout):
         layout.prop(self, "search")
         if (self.message1 != ""):
-            layout.label(self.message1, icon = "INFO")
+            layout.label(text=self.message1, icon = "INFO")
 
     def create(self):
         self.newOutput("Generic", "First/Single Material","mat")
@@ -22,7 +22,7 @@ class materialsInputNode(bpy.types.Node, AnimationNode):
     def execute(self):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         if self.search != "":
             mats = [item for item in bpy.data.materials if item.name.startswith(self.search)]
         else:

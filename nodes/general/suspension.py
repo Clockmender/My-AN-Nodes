@@ -7,8 +7,8 @@ class tankSuspensionNode(bpy.types.Node, AnimationNode):
     bl_label = "Suspension Wheel Tracker"
     bl_width_default = 200
 
-    message1 = StringProperty("")
-    message2 = StringProperty("")
+    message1: StringProperty("")
+    message2: StringProperty("")
 
     def create(self):
         self.newInput("Object", "Wheel Control", "wheel")
@@ -20,14 +20,14 @@ class tankSuspensionNode(bpy.types.Node, AnimationNode):
 
     def draw(self, layout):
         if (self.message1 != ""):
-            layout.label(self.message1, icon = "INFO")
+            layout.label(text=self.message1, icon = "INFO")
         if (self.message2 != ""):
-            layout.label(self.message2, icon = "ERROR")
+            layout.label(text=self.message2, icon = "ERROR")
 
     def execute(self, wheel, z_off, s_high, f_long, base_h, max_v):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         if wheel is None or max_v == 0:
             self.message2 = 'Set Parameters'
         else:

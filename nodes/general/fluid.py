@@ -10,20 +10,20 @@ class fluidNode(bpy.types.Node, AnimationNode):
     bl_width_default = 200
 
     # Force stored variables:
-    x_1 = FloatProperty(name = 'X1', default = 0)
-    x_2 = FloatProperty(name = 'X2', default = 0)
-    x_3 = FloatProperty(name = 'X3', default = 0)
-    y_1 = FloatProperty(name = 'Y1', default = 0)
-    y_2 = FloatProperty(name = 'Y2', default = 0)
-    y_3 = FloatProperty(name = 'Y3', default = 0)
+    x_1: FloatProperty(name = 'X1', default = 0)
+    x_2: FloatProperty(name = 'X2', default = 0)
+    x_3: FloatProperty(name = 'X3', default = 0)
+    y_1: FloatProperty(name = 'Y1', default = 0)
+    y_2: FloatProperty(name = 'Y2', default = 0)
+    y_3: FloatProperty(name = 'Y3', default = 0)
 
     # Decay stored variables:
-    c_f = IntProperty(name = "DSF", default = 0) # Start frame for decay cycle
-    d_s = FloatProperty(name = "DSV", default = 0) # Last/Decayed Accel Value
-    a_f = FloatProperty(name = 'DSA', default = 0) # Last Angle of fluid obj
+    c_f: IntProperty(name = "DSF", default = 0) # Start frame for decay cycle
+    d_s: FloatProperty(name = "DSV", default = 0) # Last/Decayed Accel Value
+    a_f: FloatProperty(name = 'DSA', default = 0) # Last Angle of fluid obj
 
     # Message String:
-    message1 = StringProperty("")
+    message1: StringProperty("")
 
     def draw(self, layout):
         layout.prop(self, "x_1")
@@ -37,7 +37,7 @@ class fluidNode(bpy.types.Node, AnimationNode):
         layout.prop(self, "d_s")
         layout.prop(self, "a_f")
         if self.message1 != "":
-            layout.label(self.message1, icon = "ERROR")
+            layout.label(text=self.message1, icon = "ERROR")
 
     def create(self):
         self.newInput("Object", "Input Object", "obj")
@@ -54,7 +54,7 @@ class fluidNode(bpy.types.Node, AnimationNode):
     def execute(self, obj, obb, dec, s_f, cyc, d_f):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         if obj is None or cyc == 0 or d_f < 0.79 or d_f > 1 or s_f < 0.1:
             self.message1 = 'No Input Object/Bad Parameters'
             return 0,0,0,0

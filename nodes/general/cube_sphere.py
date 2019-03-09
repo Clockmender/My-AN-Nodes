@@ -10,10 +10,10 @@ class createCubeSphereNode(bpy.types.Node, AnimationNode):
     bl_label = "Plot Spheres/Cubes in 3D View"
     bl_width_default = 180
 
-    message1 = StringProperty("")
-    frm_j = IntProperty(name = "Jump Frame", default = 1, min = 1)
-    exe_b = BoolProperty(name = "Execute", default = False, update = propertyChanged)
-    del_b = BoolProperty(name = "Delete Existing Mesh", default = False, update = propertyChanged)
+    message1: StringProperty("")
+    frm_j: IntProperty(name = "Jump Frame", default = 1, min = 1)
+    exe_b: BoolProperty(name = "Execute", default = False, update = propertyChanged)
+    del_b: BoolProperty(name = "Delete Existing Mesh", default = False, update = propertyChanged)
 
     def create(self):
         self.newInput("Boolean", "Sphere/Cube", "typ_b", default = False)
@@ -33,12 +33,12 @@ class createCubeSphereNode(bpy.types.Node, AnimationNode):
         layout.prop(self, "typ_b")
         layout.prop(self, "frm_j")
         if (self.message1 != ""):
-            layout.label(self.message1, icon = "INFO")
+            layout.label(text=self.message1, icon = "INFO")
 
     def execute(self, typ_b, frm_s, frm_e, dia, fac_x, fac_y, fac_z, u_seg, obj):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         frm_c = bpy.context.scene.frame_current
         frm_i = frm_c - frm_s
         if self.frm_j == 1:

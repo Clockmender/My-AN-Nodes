@@ -7,13 +7,13 @@ class GetBoneNode(bpy.types.Node, AnimationNode):
     bl_label = "Bone From Armature Object"
     bl_width_default = 220
 
-    Search = StringProperty(name = "Search String")
-    message1 = StringProperty()
+    Search: StringProperty(name = "Search String")
+    message1: StringProperty()
 
     def draw(self, layout):
         layout.prop(self, "Search")
         if (self.message1 != ""):
-            layout.label(self.message1, icon = "INFO")
+            layout.label(text=self.message1, icon = "INFO")
 
     def create(self):
         self.newInput("Object", "Armature", "arm")
@@ -22,7 +22,7 @@ class GetBoneNode(bpy.types.Node, AnimationNode):
     def execute(self, arm):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         if arm is None:
              None
 

@@ -7,7 +7,7 @@ class sequenceNode(bpy.types.Node, AnimationNode):
     bl_label = "Multi-Channel Sequencer"
     bl_width_default = 180
 
-    message1 = StringProperty("")
+    message1: StringProperty("")
 
     def create(self):
         self.newInput("Integer", "Start Frame", "start")
@@ -19,12 +19,12 @@ class sequenceNode(bpy.types.Node, AnimationNode):
 
     def draw(self,layout):
         if (self.message1 != ""):
-            layout.label(self.message1, icon = "ERROR")
+            layout.label(text=self.message1, icon = "ERROR")
 
     def execute(self, start, endf, st_n, step):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         frame = bpy.context.scene.frame_current
 
         if endf < (start + (step * st_n)) or step < 0.01 or st_n < 2:

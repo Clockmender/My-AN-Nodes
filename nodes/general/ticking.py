@@ -9,19 +9,19 @@ class tickingSecondsNode(bpy.types.Node, AnimationNode):
     bl_label = "Maths Functions Node"
     bl_width_default = 220
 
-    tick = IntProperty()
-    tic_t = FloatProperty(name = "Tick Speed (sec)", default = 1, min = 0.01)
-    Speed = FloatProperty(name = "Speed (fpc)", default = 1, min = 1)
-    Amplitude = FloatProperty(default = 1, min = 0.01)
-    sin_w = FloatProperty()
-    cos_w = FloatProperty()
-    tan_w = FloatProperty()
-    pul_s = FloatProperty()
-    pul_c = FloatProperty()
-    pul_a = FloatProperty(name = "Pulse Trigger", default = 0.95, min = 0.001)
-    trig = BoolProperty(name = "Produce Trig Waves", default = False, update = propertyChanged)
-    rpm = FloatProperty(name = "Revs per min", default = 1, min = 0.001)
-    Max_t = FloatProperty(name = "Tangent Max", default = 1000, min = 10)
+    tic_t: FloatProperty(name = "Tick Speed (sec)", default = 1, min = 0.01)
+    Speed: FloatProperty(name = "Speed (fpc)", default = 1, min = 1)
+    Amplitude: FloatProperty(default = 1, min = 0.01)
+    pul_a: FloatProperty(name = "Pulse Trigger", default = 0.95, min = 0.001)
+    trig: BoolProperty(name = "Produce Trig Waves", default = False, update = propertyChanged)
+    rpm: FloatProperty(name = "Revs per min", default = 1, min = 0.001)
+    Max_t: FloatProperty(name = "Tangent Max", default = 1000, min = 10)
+    tick: IntProperty()
+    sin_w: FloatProperty()
+    cos_w: FloatProperty()
+    tan_w: FloatProperty()
+    pul_s: FloatProperty()
+    pul_c: FloatProperty()
 
     def create(self):
         self.newOutput("Integer", "Seconds Tick", "tick")
@@ -45,7 +45,7 @@ class tickingSecondsNode(bpy.types.Node, AnimationNode):
     def execute(self):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         frm = bpy.context.scene.frame_start
         tick = int(bpy.context.scene.frame_current / (bpy.context.scene.render.fps * self.tic_t))
         rpm_w = ((bpy.context.scene.frame_current - frm) * self.rpm) / (bpy.context.scene.render.fps * 60)

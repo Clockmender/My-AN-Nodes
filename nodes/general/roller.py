@@ -9,11 +9,11 @@ class rollerNode(bpy.types.Node, AnimationNode):
     bl_label = "Roller Node"
     bl_width_default = 200
 
-    val_x = FloatProperty(name = "Datum X", default = 0, precision = 2)
-    val_y = FloatProperty(name = "Datum Y", default = 0, precision = 2)
-    val_z = FloatProperty(name = "Datum Z", default = 0, precision = 2)
-    cum_d = FloatProperty(name = "Cum Dist", default = 0, precision = 2)
-    message1 = StringProperty("")
+    val_x: FloatProperty(name = "Datum X", default = 0, precision = 2)
+    val_y: FloatProperty(name = "Datum Y", default = 0, precision = 2)
+    val_z: FloatProperty(name = "Datum Z", default = 0, precision = 2)
+    cum_d: FloatProperty(name = "Cum Dist", default = 0, precision = 2)
+    message1: StringProperty("")
 
     def create(self):
         self.newInput("Object","Parent","obj")
@@ -25,12 +25,12 @@ class rollerNode(bpy.types.Node, AnimationNode):
         layout.prop(self, "val_z")
         layout.prop(self, "cum_d")
         if (self.message1 != ""):
-            layout.label(self.message1, icon = "ERROR")
+            layout.label(text=self.message1, icon = "ERROR")
 
     def execute(self,obj):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         if obj is None:
             return
         if len(obj.animation_data.action.fcurves) < 3:

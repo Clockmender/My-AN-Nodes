@@ -8,8 +8,8 @@ class speedAccNode(bpy.types.Node, AnimationNode):
     bl_label = "Object Speed & Acceleration"
     bl_width_default = 180
 
-    message1 = StringProperty("")
-    mod_g = BoolProperty(name = "Metric Units", default = True, update = propertyChanged)
+    message1: StringProperty("")
+    mod_g: BoolProperty(name = "Metric Units", default = True, update = propertyChanged)
 
     def create(self):
         self.newInput("Integer", "Decimal Places", "dec_n")
@@ -23,12 +23,12 @@ class speedAccNode(bpy.types.Node, AnimationNode):
     def draw(self,layout):
         layout.prop(self, "mod_g")
         if (self.message1 != ""):
-            layout.label(self.message1, icon = "ERROR")
+            layout.label(text=self.message1, icon = "ERROR")
 
     def execute(self, dec_n, loc_c, loc_o, loc_t):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         fps = bpy.context.scene.render.fps
         if loc_c == 0 and loc_o == 0 and loc_t ==0:
             spd_u = 0

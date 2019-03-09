@@ -9,9 +9,9 @@ class frameRampNode(bpy.types.Node, AnimationNode):
     bl_label = "Frame Ramp"
     bl_width_default = 200
 
-    message1 = StringProperty("")
-    useEX = BoolProperty(name = "Expo Function", default = False, update = propertyChanged)
-    exp_v = IntProperty(name = "Exp Factor", default = 0, min = 1, max = 10)
+    message1: StringProperty("")
+    useEX: BoolProperty(name = "Expo Function", default = False, update = propertyChanged)
+    exp_v: IntProperty(name = "Exp Factor", default = 0, min = 1, max = 10)
 
     def create(self):
         self.newInput("Float", "Input Value", "inp_v",minValue = 0,maxValue = 1)
@@ -23,12 +23,12 @@ class frameRampNode(bpy.types.Node, AnimationNode):
         layout.prop(self, "useEX")
         layout.prop(self, "exp_v")
         if (self.message1 != ""):
-            layout.label(self.message1, icon = "ERROR")
+            layout.label(text=self.message1, icon = "ERROR")
 
     def execute(self, inp_v, frm_s, frm_e):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         self.message1 = ""
         rng_v = frm_e - frm_s
         frm_c = bpy.context.scene.frame_current

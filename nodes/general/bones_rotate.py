@@ -9,8 +9,8 @@ class BonesRotateNode(bpy.types.Node, AnimationNode):
     bl_label = "Bone(s) Transform Rotate"
     bl_width_default = 180
 
-    use_d = BoolProperty(name = "Use Degrees", default = False, update = propertyChanged)
-    use_s = BoolProperty(name = "Single Bone", default = True, update = AnimationNode.refresh)
+    use_d: BoolProperty(name = "Use Degrees", default = False, update = propertyChanged)
+    use_s: BoolProperty(name = "Single Bone", default = True, update = AnimationNode.refresh)
 
     def create(self):
         if self.use_s:
@@ -37,7 +37,7 @@ class BonesRotateNode(bpy.types.Node, AnimationNode):
     def execute_bone(self, bone, loc_w, loc_x, loc_y, loc_z):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         if bone:
             if bone.rotation_mode == 'QUATERNION':
                 bone.rotation_quaternion.w = loc_w

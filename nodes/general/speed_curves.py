@@ -9,11 +9,11 @@ class createCurvesNode(bpy.types.Node, AnimationNode):
     bl_label = "Plot Graph in 3D View"
     bl_width_default = 180
 
-    message1 = StringProperty("")
-    message2 = StringProperty("")
-    frm_j = IntProperty(name = "Jump Frame", default = 1, min = 1)
-    exe_b = BoolProperty(name = "Execute", default = False, update = propertyChanged)
-    del_b = BoolProperty(name = "Delete Existing Mesh", default = False, update = propertyChanged)
+    message1: StringProperty("")
+    message2: StringProperty("")
+    frm_j: IntProperty(name = "Jump Frame", default = 1, min = 1)
+    exe_b: BoolProperty(name = "Execute", default = False, update = propertyChanged)
+    del_b: BoolProperty(name = "Delete Existing Mesh", default = False, update = propertyChanged)
 
     def create(self):
         self.newInput("Float", "Input", "val_i")
@@ -30,14 +30,14 @@ class createCurvesNode(bpy.types.Node, AnimationNode):
         layout.prop(self, "del_b")
         layout.prop(self, "frm_j")
         if (self.message2 != ""):
-            layout.label(self.message2, icon = "INFO")
+            layout.label(text=self.message2, icon = "INFO")
         if (self.message1 != ""):
-            layout.label(self.message1, icon = "INFO")
+            layout.label(text=self.message1, icon = "INFO")
 
     def execute(self, val_i, frm_s, frm_e, fac_x, fac_y, fac_z, obj):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         if not obj:
             # MAke sure mesh object is selected
             self.message1 = "No Mesh Object"

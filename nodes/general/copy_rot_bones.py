@@ -8,11 +8,11 @@ class CopyBoneRotationWithOffsetNode(bpy.types.Node, AnimationNode):
     bl_label = "Copy Bone Rotation with Offset"
     bl_width_default = 180
 
-    useW = BoolProperty(name = "Use W", default = False, update = propertyChanged)
-    useX = BoolProperty(name = "Use X", default = False, update = propertyChanged)
-    useY = BoolProperty(name = "Use Y", default = False, update = propertyChanged)
-    useZ = BoolProperty(name = "Use Z", default = False, update = propertyChanged)
-    message1 = StringProperty("")
+    useW: BoolProperty(name = "Use W", default = False, update = propertyChanged)
+    useX: BoolProperty(name = "Use X", default = False, update = propertyChanged)
+    useY: BoolProperty(name = "Use Y", default = False, update = propertyChanged)
+    useZ: BoolProperty(name = "Use Z", default = False, update = propertyChanged)
+    message1: StringProperty("")
 
     def create(self):
         self.newInput("Bone", "Source Bone", "source")
@@ -26,12 +26,12 @@ class CopyBoneRotationWithOffsetNode(bpy.types.Node, AnimationNode):
         layout.prop(self, "useY")
         layout.prop(self, "useZ")
         if (self.message1 != ""):
-            layout.label(self.message1, icon = "ERROR")
+            layout.label(text=self.message1, icon = "ERROR")
 
     def execute(self, source, targets, offset_e, offset_q):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         if source is None or targets is None:
             return
 

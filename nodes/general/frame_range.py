@@ -9,8 +9,8 @@ class frameRangeNode(bpy.types.Node, AnimationNode):
     bl_label = "Frame Range/Switch"
     bl_width_default = 200
 
-    message1 = StringProperty("")
-    ins_v = BoolProperty(name = "Inside Frame Range", default = True, update = propertyChanged)
+    message1: StringProperty("")
+    ins_v: BoolProperty(name = "Inside Frame Range", default = True, update = propertyChanged)
 
     def create(self):
         self.newInput("Float", "Input Value", "inp_v")
@@ -24,12 +24,12 @@ class frameRangeNode(bpy.types.Node, AnimationNode):
     def draw(self,layout):
         layout.prop(self, "ins_v")
         if (self.message1 != ""):
-            layout.label(self.message1, icon = "ERROR")
+            layout.label(text=self.message1, icon = "ERROR")
 
     def execute(self, inp_v, frm_s, frm_e):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         frm_c = bpy.context.scene.frame_current
         if frm_e < (frm_s + 1):
             self.message1 = "Start Frame > End Frame - 1"
