@@ -66,46 +66,9 @@ Comments will be gratefully received, along with improvement/enhancement suggest
 
 # RELEASE NOTES
 
-# EDIT 12 Feb 2018:
+# IITIAL: 9 March 2019:
 
-I have added the Materials nodes, Input and Output, don't forget that if you only want one or two of these, just load these into an empty folder in animation_nodes/nodes directory and don't forget the empty \_\_init\_\_.py file in the folder, or they won't work.
-
-Some updates may not be included in the latest release, the code can be obtained from the idividual files if required. All updates have a date when they were uploaded.
-
-# EDIT 26 Feb 2019:
-
-Updated the repo with the latest nodes today. MIDI nodes have been altered to reflect increased knowledge by myself and better working methods. MIDI/AUDO Live nodes are now loaded for user testing, these nodes are designed to take input from MIDI devices and sound input to drive animations.
-
-DAW nodes are new and VERY EXPERIMENTAL, i.e. not ready for use, they are here for collaboration purposes just now and require a great deal more work.
-
-Menu has been altered to separate the "Clockworx" and "ZeeCee MIDI" sections, DAW nodes are not in the menu yet.
-
-I have not included a relaease at this stage, nor have I updated the manual pages on my website yet.
-
-I need to make the Live MIDI into an Add-on at some stage, or maybe even all the nodes, but this will require more time.
-
-My Vimeo Channel https://vimeo.com/user85352464
-
-# EDIT 28 Feb 2019:
-
-Major revisions and new release- 2.0.3
-
-# EDIT 3 Mar 2019:
-
-Changed directory structure to separate nodes, menus and sockets, searated ndoes in DAW, MIDI and General.
-
-# EDIT 4 March 2019:
-
-Added \_\_init\_\_.py - top be placed in any node directories containing these nodes
-
-# EDIT 6 March 2019:
-
-Moved out of date nodes to old-nodes directory, you can ignore these, but I have left them there if they are of any use to anyone.
-Major changes to MIDI nodes, old Bake and Control nodes combined into new node, updated working practices for this system. Common functions now moved to new python file "midi_functions.py" - this MUST be in the same directory as the MIDI nodes.
-
-# EDIT: 9 March 2019:
-
-Opened branch for Blender 2.8, AN 2.1 all working nodes uploaded, there is one issue to resolve for the Bake node in that the Bake to F-curve function is not yet fully functional.
+Opened branch for Blender 2.8, AN 2.1 All working nodes uploaded, there is one issue to resolve for the MIDI Bake Node in that the Bake to F-curve function is not yet fully functional. Tested against latest Blender 2.8 Beta form blender.org (dated 7 March 2019) and latest Test release of Animation Nodes 2.1 on MacOs only.
 
 Cheers, Clock.
 
