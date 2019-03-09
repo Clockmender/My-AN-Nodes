@@ -103,6 +103,10 @@ Added \_\_init\_\_.py - top be placed in any node directories containing these n
 Moved out of date nodes to old-nodes directory, you can ignore these, but I have left them there if they are of any use to anyone.
 Major changes to MIDI nodes, old Bake and Control nodes combined into new node, updated working practices for this system. Common functions now moved to new python file "midi_functions.py" - this MUST be in the same directory as the MIDI nodes.
 
+# EDIT: 9 March 2019:
+
+Opened branch for Blender 2.8, AN 2.1 all working nodes uploaded, there is one issue to resolve for the Bake node in that the Bake to F-curve function is not yet fully functional.
+
 Cheers, Clock.
 
 PS. I am rebuilding my website: https://clockmender.uk but it will take some time. There will be a set of pages explaining how to use these nodes, I have started though!
