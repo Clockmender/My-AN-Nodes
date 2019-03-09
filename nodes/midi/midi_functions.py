@@ -1,6 +1,6 @@
 # Functions to get note Names and Indices & Frets from input
 # Checked for B-2.8 AN-2.1
-# MIDI Note List
+# MIDI Note List, 127 notes allowed by MIDI
 noteList = [
     'c0','cs0','d0','ds0','e0','f0','fs0','g0','gs0','a0','as0','b0',
     'c1','cs1','d1','ds1','e1','f1','fs1','g1','gs1','a1','as1','b1',
