@@ -35,6 +35,7 @@ class MidiBakeNode(bpy.types.Node, AnimationNode):
     message1: StringProperty()
     message2: StringProperty()
     notes: CollectionProperty(type = MidiNoteData)
+    channels: StringProperty()
 
     def draw(self,layout):
         layout.prop(self, "midC")
@@ -64,8 +65,8 @@ class MidiBakeNode(bpy.types.Node, AnimationNode):
 
     def create(self):
         self.newOutput("Integer", "Animation Offset Frame", "ot_off")
-        self.newOutput("Generic", "Tracks Info (Load MIDI File First)", "tracL")
-        self.newOutput("Text List", "Note Mesh Names", "notes")
+        self.newOutput("Text", "Channels List", "chanList")
+        self.newOutput("Text List", "Note Mesh Names", "notesO")
         self.newOutput("Float List", "Note Curve Values", "values")
         self.newOutput("Integer List", "Note Indices Values", "indXs")
 
@@ -74,12 +75,16 @@ class MidiBakeNode(bpy.types.Node, AnimationNode):
         self.useNetworkColor = False
         self.color = (0.85,0.75,0.5)
         self.message1 = 'NO Data Stored - Load MIDI file' if 'TimeSig' not in dataD.keys() else self.message1
-        tracL = dataD.get('Tracks') if 'Tracks' in dataD.keys() else []
-        notes = [item.noteName+'_'+self.suffix for item in self.notes]
+        if '&' in self.channels:
+            chanList = self.channels.split("&")
+        else:
+            chanList = [[self.channels]]
+        notesO = [item.noteName+'_'+self.suffix for item in self.notes]
         values = [item.value for item in self.notes]
         indXs = [item.noteIndex for item in self.notes]
 
-        return self.offSet, tracL, notes, DoubleList.fromValues(values), indXs
+
+        return self.offSet, chanList, notesO, DoubleList.fromValues(values), indXs
 
     def loadMidi(self, path):
         # Load MIDI file and write basic info to dataD Dictionary
@@ -119,8 +124,10 @@ class MidiBakeNode(bpy.types.Node, AnimationNode):
                     otName = in_l[3].strip('"')
                     if 'Tracks' not in dataD.keys():
                         dataD['Tracks'] = [[otName,int(in_l[0])]]
+                        self.channels = in_l[0]+' - '+otName
                     else:
                         dataD.get('Tracks').append([otName,int(in_l[0])])
+                        self.channels = self.channels+'&'+in_l[0]+' - '+otName
 
     def removeFCurvesOfThisNode(self):
         try: action = self.id_data.animation_data.action
@@ -158,7 +165,9 @@ class MidiBakeNode(bpy.types.Node, AnimationNode):
         self.easing = 0.2
         self.spacing = 0
         self.suffix = ''
+        self.channels = ''
         self.removeFCurvesOfThisNode()
+        self.notes.clear()
         dataD.clear()
         eventD.clear()
 
@@ -178,7 +187,13 @@ class MidiBakeNode(bpy.types.Node, AnimationNode):
                     else:
                         onOff = 1 if in_l[2] == 'Note_on_c' else 0
                     frame = int(in_l[1]) * (60 * fps) / (dataD.get('BPM') * dataD.get('Pulse'))
-                    frame = frame + self.spacing + self.offSet
+                    # Check frame does not overlap last entry
+                    # Note cannot start before previous same note has finished!
+                    if noteName in eventD.keys(): # Is not the first note event
+                        lastFrame = eventD.get(noteName)[-1][0]
+                        if frame <= lastFrame:
+                            frame = lastFrame + self.spacing if self.spacing > 0 else lastFrame + self.easing
+                    frame = frame + self.offSet
                     if noteName not in eventD.keys():
                         eventD[noteName] = [[round(frame,2),onOff]]
                     else:
@@ -264,4 +279,7 @@ class MidiBakeNode(bpy.types.Node, AnimationNode):
                     if indV:
                         addKeyframe(value = 0, noteIndex = ind, frame = frame-self.easing)
                         indV = False
+                    print(val,ind,frame)
                     addKeyframe(value = val, noteIndex = ind, frame = frame)
+            self.message1 = 'Channel '+str(self.chnN)+' Processed, Notes '+str(len(eventD.keys()))+' Events: '+str(sum(len(v) for v in eventD.values()))
+            self.message2 = 'Complete'

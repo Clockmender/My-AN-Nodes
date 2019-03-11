@@ -44,7 +44,7 @@ class MidiCTMNode(bpy.types.Node, AnimationNode):
             self.message = ''
             m_obj = bpy.data.objects.get(m_nam)
             if m_obj is None:
-                self.message = 'Mesh Object Not Found'+m_nam
+                self.message = 'Mesh Object Not Found '+m_nam
                 return None, 0
             else:
                 z_cont = control.location.z * multV

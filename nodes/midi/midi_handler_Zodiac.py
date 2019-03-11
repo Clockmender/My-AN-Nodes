@@ -7,13 +7,12 @@ class MidiInitNode(bpy.types.Node, AnimationNode):
     bl_idname = "an_ZodiacMidiHandlerNode"
     bl_label = "MIDI Single-Event Handler"
     bl_width_default = 150
-
-    out_buff = []
+ 
     noteID: IntProperty(name = "Midi Note", default = 0, update = propertyChanged)
     noteVelocity: IntProperty(name = "Note Velocity", default = 0, update = propertyChanged)
     paramID: IntProperty(name = "Midi Parameter", default = 0, update = propertyChanged)
     paramValue: IntProperty(name = "Parameter Value", default = 0, update = propertyChanged)
-    time_s = FloatProperty()
+    time_s: FloatProperty()
 
     def create(self):
         self.newInput("Vector List"	, "Midi Buffer"	        , "MidiBuffer")

@@ -8,9 +8,9 @@ class midiStoreParamsNode(bpy.types.Node, AnimationNode):
     bl_label = "MIDI Store Params"
     bl_width_default = 150
 
-    modul = IntProperty(name = "Last Modulo")
-    after = IntProperty(name = "Aftertouch")
-    pedal = IntProperty(name = "last Pedal")
+    modul: IntProperty(name = "Last Modulo")
+    after: IntProperty(name = "Aftertouch")
+    pedal: IntProperty(name = "last Pedal")
 
     def create(self):
         self.newInput("Vector List", "Midi Buffer", "MidiBuffer")
