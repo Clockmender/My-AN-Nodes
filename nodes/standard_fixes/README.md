@@ -1,5 +1,5 @@
 
-# Fixes to standard AN Nodes
+# Fixes to Standard AN Nodes
 
 This folder contains any fixes to standard nodes that I have altered, so they work better for me, they are not approved by AN developers, but have been properly tested.
 
