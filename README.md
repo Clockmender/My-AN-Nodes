@@ -66,7 +66,7 @@ Comments will be gratefully received, along with improvement/enhancement suggest
 
 # RELEASE NOTES
 
-# IITIAL: 9 March 2019:
+# INITIAL: 9 March 2019:
 
 Opened branch for Blender 2.8, AN 2.1 All working nodes uploaded, there is one issue to resolve for the MIDI Bake Node in that the Bake to F-curve function is not yet fully functional. Tested against latest Blender 2.8 Beta form blender.org (dated 7 March 2019) and latest Test release of Animation Nodes 2.1 on MacOs only.
 
