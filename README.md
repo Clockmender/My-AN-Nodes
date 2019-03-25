@@ -72,9 +72,9 @@ Opened branch for Blender 2.8, AN 2.1 All working nodes uploaded, there is one i
 
 # EDIT: 25 March 2019:
 
-Switch node added - switches between two inputs either at a fixed frame, or on an input condidtion. uses Dynamic Sockets, so first connected input determines socket type. To use Input condidtion, set frame to large number, e.g. beyond end frame of project as condition to switch is Either Frame exceeded, or Condition is True.
+Switch node added - switches between two inputs either at a fixed frame, or on an input condidtion. uses Dynamic Sockets, so first connected input determines socket type. To use Input condidtion, set frame to large number, e.g. beyond end frame of project as condition to switch from input A to input B is "Either Frame Exceeded, or Condition is True".
 
-There are still some bugs in the nodes that creae geometry as Blender methods have changed... I wil look at these over the next week, or so.
+There are still some bugs in the nodes that create geometry as Blender methods have changed... I wil look at these over the next week, or so.
 
 Cheers, Clock.
 
