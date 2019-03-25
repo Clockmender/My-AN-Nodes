@@ -70,6 +70,12 @@ Comments will be gratefully received, along with improvement/enhancement suggest
 
 Opened branch for Blender 2.8, AN 2.1 All working nodes uploaded, there is one issue to resolve for the MIDI Bake Node in that the Bake to F-curve function is not yet fully functional. Tested against latest Blender 2.8 Beta form blender.org (dated 7 March 2019) and latest Test release of Animation Nodes 2.1 on MacOs only.
 
+# EDIT: 25 March 2019:
+
+Switch node added - switches between two inputs either at a fixed frame, or on an input condidtion. uses Dynamic Sockets, so first connected input determines socket type. To use Input condidtion, set frame to large number, e.g. beyond end frame of project as condition to switch is Either Frame exceeded, or Condition is True.
+
+There are still some bugs in the nodes that creae geometry as Blender methods have changed... I wil look at these over the next week, or so.
+
 Cheers, Clock.
 
 PS. I am rebuilding my website: https://clockmender.uk but it will take some time. There will be a set of pages explaining how to use these nodes, I have started though!
