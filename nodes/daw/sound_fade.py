@@ -10,9 +10,6 @@ class fadeSound(bpy.types.Node, AnimationNode):
     bl_label = "SOUND Fader"
     bl_width_default = 180
 
-    def draw(self,layout):
-        layout.prop(self,"typeB")
-
     def create(self):
         self.newInput("an_FloatSocket","Start","start",minValue=0)
         self.newInput("an_FloatSocket","Length","length",default=1,minValue=0)
