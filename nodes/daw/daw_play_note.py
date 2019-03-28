@@ -11,27 +11,24 @@ class PlayNote(bpy.types.Node, AnimationNode):
     bl_width_default = 180
 
     store    = {}
-    squaB    = BoolProperty(name="Square Wave",default=False)
     chordB   = BoolProperty(name="Play Chord",default=False)
-    squaV    = FloatProperty(name="Square Trip",default=0.5,min=-0.999,max=0.999)
     message  = StringProperty()
 
     def create(self):
         self.newInput("an_TextSocket","Note","noteName")
-        self.newInput("an_FloatSocket","Duration","duration",default=1,minValue=0.1)
+        self.newInput("an_FloatSocket","Square Value","squaV",default=0,minValue=-0.99,maxValue=0.99)
+        self.newInput("an_FloatSocket","Duration (s)","duration",default=1,minValue=0.1)
         self.newInput("an_FloatSocket","Volume","volume",default=0.2,minValue=0.001,maxValue=1)
         self.newInput("an_FloatSocket","Samples","samples",default=44100,minValue=5000)
         self.newInput("an_BooleanSocket","Process","process",default = True)
         self.newOutput("an_GenericSocket","Stored Information","store")
 
     def draw(self,layout):
-        layout.prop(self,"squaB")
-        layout.prop(self,"squaV")
         layout.prop(self,"chordB")
         if self.message is not '':
             layout.label(self.message,icon="NONE")
 
-    def execute(self,noteName,duration,volume,samples,process):
+    def execute(self,noteName,squaV,duration,volume,samples,process):
         self.use_custom_color = True
         self.useNetworkColor = False
         self.color = (1,0.8,1)
@@ -43,7 +40,7 @@ class PlayNote(bpy.types.Node, AnimationNode):
             self.store.clear()
             stopF = 1
             dev.stopAll()
-            self.message = 'Node Reset'
+            self.color = (0.9,0.7,0.8)
             return self.store
 
         if '.' in self.name:
@@ -64,10 +61,9 @@ class PlayNote(bpy.types.Node, AnimationNode):
             if indX in range(0,107):
                 freq = getFreq(indX)
             else:
-                freq = 261.6256 # Default to Middle C
                 self.message = 'Note Invalid'
                 return self.store
-                
+
             snd = aud.Factory.sine(freq,samples)
 
             if self.chordB:
@@ -79,20 +75,13 @@ class PlayNote(bpy.types.Node, AnimationNode):
                     snd3 = aud.Factory.sine(idxList[2],samples)
                     snd = snd1.mix(snd2)
                     snd = snd.mix(snd3)
-
                 else:
                     self.message = 'Invalid Input Note Name'
                     return self.store
-
-            if self.squaB:
-                snd = snd.square(self.squaV)
+            if squaV != 0:
+                snd = snd.square(squaV)
             snd = snd.limit(0,duration)
             handle = dev.play(snd)
-            if self.squaB:
-                # Reduce volume for Square wave
-                handle.volume = volume/2.5
-            else:
-                handle.volume = volume
             self.store[name]=handle
             self.store[name+'_start']=int(frameC)
             self.store[name+'_stop']=int(frameC + (duration*fps))

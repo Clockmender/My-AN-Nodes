@@ -6,7 +6,7 @@ from ... base_types import AnimationNode
 from ... events import propertyChanged
 
 class PlayFile(bpy.types.Node, AnimationNode):
-    bl_idname = "an_PlayNote"
+    bl_idname = "an_PlayFile"
     bl_label = "DAW Play File"
     bl_width_default = 150
 

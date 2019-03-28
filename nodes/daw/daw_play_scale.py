@@ -11,15 +11,14 @@ class PlayScale(bpy.types.Node, AnimationNode):
     bl_width_default = 180
 
     store    = {}
-    squaB    = BoolProperty(name="Square Wave",default=False)
     revS     = BoolProperty(name="Reverse",default=False)
-    squaV    = FloatProperty(name="Square Trip",default=0.5,min=-0.999,max=0.999)
     message  = StringProperty()
     nextExec = IntProperty()
 
     def create(self):
         self.newInput("an_TextSocket","Note","noteName")
-        self.newInput("an_FloatSocket","Duration","duration",default=1,minValue=0.1)
+        self.newInput("an_FloatSocket","Square Value","squaV",default=0,minValue=-0.99,maxValue=0.99)
+        self.newInput("an_FloatSocket","Duration (s)","duration",default=1,minValue=0.1)
         self.newInput("an_FloatSocket","Volume","volume",default=0.2,minValue=0.001,maxValue=1)
         self.newInput("an_FloatSocket","Samples","samples",default=44100,minValue=5000)
         self.newInput("an_BooleanSocket","Process","process",default = True)
@@ -27,13 +26,11 @@ class PlayScale(bpy.types.Node, AnimationNode):
         self.newOutput("an_TextSocket","Last Note Played","lastNote")
 
     def draw(self,layout):
-        layout.prop(self,"squaB")
-        layout.prop(self,"squaV")
         layout.prop(self,"revS")
         if self.message is not '':
             layout.label(self.message,icon="NONE")
 
-    def execute(self,noteName,duration,volume,samples,process):
+    def execute(self,noteName,squaV,duration,volume,samples,process):
         self.use_custom_color = True
         self.useNetworkColor = False
         self.color = (1,0.8,1)
@@ -45,7 +42,7 @@ class PlayScale(bpy.types.Node, AnimationNode):
             self.store.clear()
             stopF = 1
             dev.stopAll()
-            self.message = 'Node Reset'
+            self.color = (0.9,0.7,0.8)
             self.nextExec = 0
             return self.store, ''
 
@@ -88,20 +85,14 @@ class PlayScale(bpy.types.Node, AnimationNode):
                 return self.store
 
             self.store[name+'_last']=indX
-            #self.message = str(indX)+' '+str(self.nextExec)+' '+str(self.store[name+'_last'])
             freq = getFreq(indX)
             snd = aud.Factory.sine(freq,samples)
             self.nextExec = self.nextExec + 1
-
-            if self.squaB:
-                snd = snd.square(self.squaV)
+            if squaV != 0:
+                snd = snd.square(squaV)
             snd = snd.limit(0,duration)
             handle = dev.play(snd)
-            if self.squaB:
-                # Reduce volume for Square wave
-                handle.volume = volume/2.5
-            else:
-                handle.volume = volume
+            handle.volume = volume
             self.store[name]=handle
             self.store[name+'_start']=int(frameC)
             self.store[name+'_stop']=int(frameC + (duration*fps))
