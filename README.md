@@ -34,7 +34,7 @@ If you would like to help with development, or suggest more nodes you would find
 
 # GENERAL:
 
-These nodes are to add to Version 2.0 or Animation Nodes, which requires official releases from Blender, i.e. NOT Buildbot versions!
+These nodes are to add to Version 2.1 or Animation Nodes, which requires official releases from Blender 2.8, i.e. NOT Buildbot versions!
 
 They come with no warranty, but have been extensively tested. I will produce a help file later, as time permits.
 
