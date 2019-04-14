@@ -7,12 +7,13 @@ class MidiInitNode(bpy.types.Node, AnimationNode):
     bl_idname = "an_ZodiacMidiHandlerNode"
     bl_label = "MIDI Single-Event Handler"
     bl_width_default = 150
- 
-    noteID: IntProperty(name = "Midi Note", default = 0, update = propertyChanged)
+
+    noteID:       IntProperty(name = "Midi Note", default = 0, update = propertyChanged)
     noteVelocity: IntProperty(name = "Note Velocity", default = 0, update = propertyChanged)
-    paramID: IntProperty(name = "Midi Parameter", default = 0, update = propertyChanged)
-    paramValue: IntProperty(name = "Parameter Value", default = 0, update = propertyChanged)
-    time_s: FloatProperty()
+    paramID:      IntProperty(name = "Midi Parameter", default = 0, update = propertyChanged)
+    paramValue:   IntProperty(name = "Parameter Value", default = 0, update = propertyChanged)
+    time_s:       FloatProperty()
+    presData:     BoolProperty(name = "Preserve Data",default=True,update = propertyChanged)
 
     def create(self):
         self.newInput("Vector List"	, "Midi Buffer"	        , "MidiBuffer")
@@ -26,19 +27,15 @@ class MidiInitNode(bpy.types.Node, AnimationNode):
         self.newOutput("Float"      , "MIDI Timer"          , "time_s")
 
     def draw(self,layout):
-        col = layout.column()
-        col.scale_y = 1.5
+        layout.prop(self,"presData")
 
     def execute(self, MidiBuffer, Velocity):
         self.use_custom_color = True
         self.useNetworkColor = False
         self.color = (0.85,0.75,0.5)
-        cleanBuffer = []
-        notesBuffer = []
-        paramsBuffer = []
         for data in MidiBuffer:
             #if there is data
-            if len(data) > 0 and len(data[0]) > 0 and data[0][1]:
+            if len(data) > 0 and len(data[0]) > 0:
                 self.time_s = data[1]
                 #if the message is a parameter data
                 if data[0][0] == 176:
@@ -58,4 +55,8 @@ class MidiInitNode(bpy.types.Node, AnimationNode):
                                 self.noteVelocity = 0
                             else:
                                 self.noteVelocity = Velocity
+        if self.noteVelocity == 0 and not self.presData:
+            self.noteID = 0
+            self.NoteVelocity = 0
+
         return self.noteID, self.noteVelocity, self.paramID, self.paramValue,self.time_s

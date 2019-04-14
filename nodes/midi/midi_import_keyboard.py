@@ -39,15 +39,15 @@ class MidiImpKBNode(bpy.types.Node, AnimationNode):
         self.color = (0.85,0.75,0.5)
 
     def impKeyb88(self):
-        for ob in bpy.data.objects:
-            ob.select_set(state=False)
+        #for ob in bpy.data.objects:
+        #    ob.select_set(state=False)
         path = str(bpy.utils.user_resource('SCRIPTS', "addons")) + '/zeecee_midi/88keys.dae'
         bpy.ops.wm.collada_import(filepath=path)
         self.message = ''
 
     def impKeyb61(self):
-        for ob in bpy.data.objects:
-            ob.select_set(state=False)
+        #for ob in bpy.data.objects:
+        #    ob.select_set(state=False)
         path = str(bpy.utils.user_resource('SCRIPTS', "addons")) + '/zeecee_midi/61keys.dae'
         bpy.ops.wm.collada_import(filepath=path)
         self.message = ''
