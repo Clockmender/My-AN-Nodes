@@ -58,7 +58,7 @@ That new directory should contain an empty file named \_\_init\_\_.py - create t
 
 # Update:
 
-As of 18 April 2019, you will need to have PyGame and SoundDevice Python libraries loaded into Blender's Python area for the MIDI and Audio nodes to work. if you have these nodes installed and don't have these two libraries, Animation Nodes WILL NOT LOAD. Some day I will have a proper install for this, in the meantime I have added a zip file for MacOs ONLY that contains the site-packages directory for Blender 2.8, with the required libraries. Blender 2.8 now has pip so you can install these libraris much easier than in Blender 2.79.
+As of 18 April 2019, you will need to have PyGame and SoundDevice Python libraries loaded into Blender's Python area for the MIDI and Audio nodes to work. if you have these nodes installed and don't have these two libraries, Animation Nodes WILL NOT LOAD. Some day I will have a proper install for this, in the meantime I have added a zip file for MacOs ONLY that contains the site-packages directory for Blender 2.8, with the required libraries. Blender 2.8 now has pip so you can install these libraries much easier than in Blender 2.79.
 
 # COMMENTS
 
