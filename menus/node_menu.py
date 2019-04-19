@@ -109,6 +109,7 @@ class zeecee_menu(bpy.types.Menu):
         insertNode(layout, "an_MidiBakeNode", "MIDI Bake & Controls")
         insertNode(layout, "an_MidiCTMNode", "MIDI Controls to Meshes")
         layout.separator()
+        insertNode(layout, "an_MidiInitNode", "MIDI Intit PyGame")
         insertNode(layout, "an_ZodiacMidiHandlerNode", "MIDI Single-Event Handler")
         insertNode(layout, "an_ClockMidiHandlerNode","MIDI Multi-Event handler")
         insertNode(layout, "an_midiStoreParamsNode","MIDI Store Params")
