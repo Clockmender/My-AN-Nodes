@@ -37,7 +37,7 @@ class MidiInitNode(bpy.types.Node, AnimationNode):
             mid1Valid = False
         if m_info2.split(',')[2].strip() == '1':
             if mid1Valid: # Set second midiInput to this pygame input
-                midiInput1 = pygame.midi.Input(1)
+                midiInput2 = pygame.midi.Input(1)
             else: # Set first midiInput to this pygame input (only this is valid)
                 midiInput = pygame.midi.Input(1)
         else:
