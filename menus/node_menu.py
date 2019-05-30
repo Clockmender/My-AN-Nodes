@@ -79,6 +79,7 @@ class clock_menu(bpy.types.Menu):
         layout.separator()
         insertNode(layout, "an_triggerNode", "Periodic Trigger")
         insertNode(layout, "an_variableATTRStore", "Variable Store")
+        insertNode(layout, "an_switchInputNode", "Input Switch")
         layout.separator()
         insertNode(layout, "an_materialsInputNode", "Materials Input")
         insertNode(layout, "an_materialsOutputNode", "Materials Output")
