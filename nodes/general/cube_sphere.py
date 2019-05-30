@@ -80,17 +80,15 @@ class createCubeSphereNode(bpy.types.Node, AnimationNode):
                                 v_segments=(u_seg//2),
                                 diameter=(dia/2),
                                 matrix=locMatrix)
-                    for v in mesh['verts']:
-                        for f in v.link_faces:
-                            f.material_index = 0
+                    for p in bm.faces:
+                        p.material_slot = 0
                 else:
                     self.message1 = "Processing Cubes"
                     mesh = bmesh.ops.create_cube(bm,
                                 size=dia,
                                 matrix=locMatrix)
-                    for v in mesh['verts']:
-                        for f in v.link_faces:
-                            f.material_index = 1
+                    for p in bm.faces:
+                        p.material_slot = 1
                 bm.to_mesh(sphereMesh)
                 bm.free()
                 for f in sphereMesh.polygons:

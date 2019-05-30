@@ -15,7 +15,7 @@ class angleNode(bpy.types.Node, AnimationNode):
     bl_label = "Angle/Cord/Radius"
     bl_width_default = 260
 
-    mode = EnumProperty(name = "Active Plane", default = "X-Y",
+    mode: EnumProperty(name = "Active Plane", default = "X-Y",
         items = modeItems, update = AnimationNode.refresh)
 
     message1: StringProperty("")

@@ -9,14 +9,14 @@ class bounceNode(bpy.types.Node, AnimationNode):
     bl_label = "Bounce Generator"
     bl_width_default = 200
 
-    frm_s = IntProperty(name = "Start Frame", default = 2, min = 2)
-    frm_e = IntProperty(name = "End Frame", default = 10, min = 10)
-    speed = FloatProperty(name = "Cycle Speed", default = 4, min = 4)
-    spd_d = FloatProperty(name = "Speed Decay Factor", default = 1, precision = 3, min = 0.8, max = 1)
-    spd_v = FloatProperty(name = "Compute Factor", default = 1, precision = 2)
-    hgt_s = FloatProperty(name = "Start Height", default = 1)
-    hgt_b = FloatProperty(name = "Base Height",default = 0)
-    message1 = StringProperty("")
+    frm_s: IntProperty(name = "Start Frame", default = 2, min = 2)
+    frm_e: IntProperty(name = "End Frame", default = 10, min = 10)
+    speed: FloatProperty(name = "Cycle Speed", default = 4, min = 4)
+    spd_d: FloatProperty(name = "Speed Decay Factor", default = 1, precision = 3, min = 0.8, max = 1)
+    spd_v: FloatProperty(name = "Compute Factor", default = 1, precision = 2)
+    hgt_s: FloatProperty(name = "Start Height", default = 1)
+    hgt_b: FloatProperty(name = "Base Height",default = 0)
+    message1: StringProperty("")
 
     def create(self):
         self.newOutput("Float", "Output Height", "cos_w")
@@ -29,12 +29,12 @@ class bounceNode(bpy.types.Node, AnimationNode):
         layout.prop(self, "hgt_s")
         layout.prop(self, "hgt_b")
         if (self.message1 != ""):
-            layout.label(self.message1, icon = "ERROR")
+            layout.label(text=self.message1, icon = "ERROR")
 
     def execute(self):
         self.use_custom_color = True
         self.useNetworkColor = False
-        self.color = (0.8,0.9,1)
+        self.color = (0.4,0.6,1)
         frm_c = bpy.context.scene.frame_current
         if self.hgt_s <= (self.hgt_b + 0.1):
             self.message1 = "Height Errors!"
