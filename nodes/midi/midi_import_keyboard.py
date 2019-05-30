@@ -10,17 +10,23 @@ class MidiImpKBNode(bpy.types.Node, AnimationNode):
     bl_label = "MIDI Load Keyboards, etc."
     bl_width_default = 200
 
-    message: StringProperty()
-    bridgeLen: FloatProperty(name = "Bridge Length", min = 0.5, update = propertyChanged)
-    scale_f: FloatProperty(name = "Scale Factor", min = 0.5, max = 1, update = propertyChanged)
+    message   : StringProperty()
+    colName   : StringProperty(name="Collection",default="", update=propertyChanged)
+    suffix    : StringProperty(name="Suffix",default="key", update=propertyChanged)
+    bridgeLen : FloatProperty(name = "Bridge Length", min=0.5, update=propertyChanged)
+    scale_f   : FloatProperty(name = "Scale Factor", min=0.5, max=1, update=propertyChanged)
 
     def draw(self,layout):
         col = layout.column()
-        col.scale_y = 1.5
+        col.scale_y = 1.2
         self.invokeFunction(col, "impKeyb88", icon = "FILE_NEW",
             text = "Load Sys 88-Note Keyboard")
         self.invokeFunction(col, "impKeyb61", icon = "FILE_NEW",
             text = "Load Sys 61-Note Keyboard")
+        col.prop(self,"colName")
+        col.prop(self,"suffix")
+        self.invokeFunction(col, "renMesh", icon = "PREFERENCES",
+            text = "Rename Mesh Suffix")
         self.invokeSelector(col, "PATH", "impUdae", icon = "FILE_NEW",
             text = "Load User Selected .DAE file")
         self.invokeSelector(col, "PATH", "impUobj", icon = "FILE_NEW",
@@ -37,6 +43,19 @@ class MidiImpKBNode(bpy.types.Node, AnimationNode):
         self.use_custom_color = True
         self.useNetworkColor = False
         self.color = (0.85,0.75,0.5)
+
+    def renMesh(self):
+        if self.colName is not "" and self.suffix is not "":
+            if bpy.data.collections.get(self.colName) is not None:
+                for o in bpy.data.collections[self.colName].objects:
+                    if "_" in o.name:
+                        o.name = o.name.split("_")[0]+"_"+self.suffix
+                self.message = "Processed "+str(len(bpy.data.collections[self.colName].objects))+" Objects"
+            else:
+                self.message = "Collection Does Not Exist"
+                return
+        else:
+            self.message = "Enter Collection/Siffix"
 
     def impKeyb88(self):
         #for ob in bpy.data.objects:
