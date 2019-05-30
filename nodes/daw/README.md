@@ -1,4 +1,6 @@
-**DAW Functions**
+**Clockworx DAW Functions**
+
+These nodes use AudaSpace Python API, supplied as part of Blender and have been tested on the Blender 2.8 release dated 04/May/2019. I see no reason at the moment why they will not work on later versions, they will NOT work on previous versions due to additional functions built into AudaSpace at that time.
 
 These nodes are VERY Experimental! Expect some issues as of 30/05/2019.
 
