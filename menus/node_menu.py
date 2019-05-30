@@ -18,36 +18,37 @@ def drawMenu(self, context):
 
     layout.operator("an.node_search", text = "Search", icon = "VIEWZOOM")
     layout.separator()
-    layout.menu("an_clock_menu", text = "Clockworx", icon = "ERROR")
-    layout.menu("an_zeecee_menu", text = "ZeeCee MIDI", icon = "SPEAKER")
-    layout.menu("an_number_menu", text = "Number", icon = "LINENUMBERS_ON")
-    layout.menu("an_vector_menu", text = "Vector", icon = "EXPORT")
-    layout.menu("an_rotation_menu", text = "Rotation", icon = "FILE_REFRESH")
-    layout.menu("an_matrix_menu", text = "Matrix", icon = "GRID")
-    layout.menu("an_text_menu", text = "Text", icon = "SORTALPHA")
-    layout.menu("an_boolean_menu", text = "Boolean", icon = "CHECKBOX_HLT")
-    layout.menu("an_color_menu", text = "Color", icon = "COLOR")
-    layout.menu("an_list_menu", text = "List", icon = "WORDWRAP_ON")
+    layout.menu("AN_MT_clock_menu", text = "Clockworx General", icon = "ERROR")
+    layout.menu("AN_MT_zeecee_menu", text = "Clockworx MIDI", icon = "SPEAKER")
+    layout.menu("AN_MT_daw_menu", text = "Clockworx DAW", icon = "FILE_SOUND")
+    layout.menu("AN_MT_number_menu", text = "Number", icon = "LINENUMBERS_ON")
+    layout.menu("AN_MT_vector_menu", text = "Vector", icon = "EXPORT")
+    layout.menu("AN_MT_rotation_menu", text = "Rotation", icon = "FILE_REFRESH")
+    layout.menu("AN_MT_matrix_menu", text = "Matrix", icon = "GRID")
+    layout.menu("AN_MT_text_menu", text = "Text", icon = "SORTALPHA")
+    layout.menu("AN_MT_boolean_menu", text = "Boolean", icon = "CHECKBOX_HLT")
+    layout.menu("AN_MT_color_menu", text = "Color", icon = "COLOR")
+    layout.menu("AN_MT_list_menu", text = "List", icon = "WORDWRAP_ON")
     layout.separator()
-    layout.menu("an_object_menu", text = "Object", icon = "OBJECT_DATAMODE")
-    layout.menu("an_mesh_menu", text = "Mesh", icon = "MESH_DATA")
-    layout.menu("an_spline_menu", text = "Spline", icon = "CURVE_DATA")
-    layout.menu("an_particle_system_menu", text = "Particle System", icon = "PARTICLE_DATA")
+    layout.menu("AN_MT_object_menu", text = "Object", icon = "OBJECT_DATAMODE")
+    layout.menu("AN_MT_mesh_menu", text = "Mesh", icon = "MESH_DATA")
+    layout.menu("AN_MT_spline_menu", text = "Spline", icon = "CURVE_DATA")
+    layout.menu("AN_MT_particle_system_menu", text = "Particle System", icon = "PARTICLE_DATA")
     layout.separator()
-    layout.menu("an_animation_menu", text = "Animation", icon = "RENDER_ANIMATION")
-    layout.menu("an_interpolation_menu", text = "Interpolation", icon = "IPO_BEZIER")
-    layout.menu("an_falloff_menu", text = "Falloff", icon = "SMOOTHCURVE")
-    layout.menu("an_fcurve_menu", text = "FCurves", icon = "FCURVE")
-    layout.menu("an_material_menu", text = "Material", icon = "MATERIAL_DATA")
-    layout.menu("an_sound_menu", text = "Sound", icon = "SPEAKER")
-    layout.menu("an_sequence_menu", text = "Sequence", icon = "SEQUENCE")
+    layout.menu("AN_MT_animation_menu", text = "Animation", icon = "RENDER_ANIMATION")
+    layout.menu("AN_MT_interpolation_menu", text = "Interpolation", icon = "IPO_BEZIER")
+    layout.menu("AN_MT_falloff_menu", text = "Falloff", icon = "SMOOTHCURVE")
+    layout.menu("AN_MT_fcurve_menu", text = "FCurves", icon = "FCURVE")
+    layout.menu("AN_MT_material_menu", text = "Material", icon = "MATERIAL_DATA")
+    layout.menu("AN_MT_sound_menu", text = "Sound", icon = "SPEAKER")
+    layout.menu("AN_MT_sequence_menu", text = "Sequence", icon = "SEQUENCE")
     layout.separator()
-    layout.menu("an_geometry_menu", text = "Geometry", icon = "MOD_DISPLACE")
-    layout.menu("an_kdtree_bvhtree_menu", text = "KD & BVH Tree", icon = "STICKY_UVS_LOC")
+    layout.menu("AN_MT_geometry_menu", text = "Geometry", icon = "MOD_DISPLACE")
+    layout.menu("AN_MT_kdtree_bvhtree_menu", text = "KD & BVH Tree", icon = "STICKY_UVS_LOC")
     layout.separator()
-    layout.menu("an_viewer_menu", text = "Viewer", icon = "INFO")
-    layout.menu("an_subprograms_menu", text = "Subprograms", icon = "FILE_SCRIPT")
-    layout.menu("an_layout_menu", text = "Layout", icon = "IMGDISPLAY")
+    layout.menu("AN_MT_viewer_menu", text = "Viewer", icon = "INFO")
+    layout.menu("AN_MT_subprograms_menu", text = "Subprograms", icon = "FILE_SCRIPT")
+    layout.menu("AN_MT_layout_menu", text = "Layout", icon = "IMGDISPLAY")
 
 def drawNodeTreeChooser(layout, context):
     if len(getAnimationNodeTrees()) == 0:
@@ -63,8 +64,8 @@ def createNodeTree():
     bpy.context.space_data.node_tree = tree
 
 class clock_menu(bpy.types.Menu):
-    bl_idname = "an_clock_menu"
-    bl_label = "Clockworks"
+    bl_idname = "AN_MT_clock_menu"
+    bl_label = "Clockworx General"
 
     def draw(self, context):
         layout = self.layout
@@ -101,15 +102,20 @@ class clock_menu(bpy.types.Menu):
         insertNode(layout, "createCubeSphereNode", "Plot Spheres/Cubes in 3D View")
 
 class zeecee_menu(bpy.types.Menu):
-    bl_idname = "an_zeecee_menu"
-    bl_label = "ZeeCee MIDI"
+    bl_idname = "AN_MT_zeecee_menu"
+    bl_label = "Clockworx MIDI"
 
     def draw(self, context):
         layout = self.layout
+        insertNode(layout, "an_AudioSDNode", "AUDIO Server")
+        insertNode(layout, "an_AudioAMPNode", "AUDIO Amplitude Splitter")
+        insertNode(layout, "an_AudioPlayNode", "AUDIO Play Music File")
+        layout.separator()
         insertNode(layout, "an_MidiBakeNode", "MIDI Bake & Controls")
         insertNode(layout, "an_MidiCTMNode", "MIDI Controls to Meshes")
+        insertNode(layout, "an_midasNode", "MIDAS Animation Assistant")
         layout.separator()
-        insertNode(layout, "an_MidiInitNode", "MIDI Intit PyGame")
+        insertNode(layout, "an_MidiInitNode", "MIDI PyGame INIT")
         insertNode(layout, "an_ZodiacMidiHandlerNode", "MIDI Single-Event Handler")
         insertNode(layout, "an_ClockMidiHandlerNode","MIDI Multi-Event handler")
         insertNode(layout, "an_midiStoreParamsNode","MIDI Store Params")
@@ -121,8 +127,128 @@ class zeecee_menu(bpy.types.Menu):
         insertNode(layout, "an_MidiGuitarNode", "MIDI Guitar Strings/Frets")
         insertNode(layout, "an_guitarPlayNode", "MIDI Play Guitar")
 
+class daw_menu(bpy.types.Menu):
+    bl_idname = "AN_MT_daw_menu"
+    bl_label = "DAW"
+
+    def draw(self, context):
+        layout = self.layout
+        layout.menu("AN_MT_daw_func_menu", text = "DAW Functions")
+        layout.menu("AN_MT_se_func_menu", text = "SE Functions")
+        layout.separator()
+        layout.menu("AN_MT_play_func_menu", text = "SOUND Play/Record Functions")
+        layout.menu("AN_MT_gen_func_menu", text = "SOUND Generators")
+        layout.separator()
+        layout.menu("AN_MT_filta_func_menu", text = "SOUND Filters A-L")
+        layout.menu("AN_MT_filtb_func_menu", text = "SOUND Filters M-V")
+        layout.separator()
+        insertNode(layout, "an_setupDAW", "UTILS Setup")
+        insertNode(layout, "an_calcSound", "UTILS Calculator")
+        insertNode(layout, "an_UswitchNode", "UTILS Switch Out")
+        insertNode(layout, "an_UswitchNodeI", "UTILS Switch In")
+
+class DawFunctionsMenu(bpy.types.Menu):
+    bl_idname = "AN_MT_daw_func_menu"
+    bl_label = "DAW Functions Menu"
+
+    def draw(self, context):
+        layout = self.layout
+        insertNode(layout, "an_manageDAW", "DAW Manager")
+        layout.separator()
+        insertNode(layout, "an_arrayDAW", "DAW Array Manager")
+        insertNode(layout, "an_arrayMergeDAW", "DAW Array Merge")
+        layout.separator()
+        insertNode(layout, "an_arpeggioSound", "DAW Arpeggio")
+        insertNode(layout, "an_PlayScale", "DAW Play Basic Scales")
+        insertNode(layout, "an_chordSound", "DAW Play Chords")
+        insertNode(layout, "an_slicerSound", "DAW Slicer")
+        insertNode(layout, "an_readSound", "DAW Manage Slices")
+        layout.separator()
+        #insertNode(layout, "an_PlayedNotes", "DAW Sound Track Control")
+        #insertNode(layout, "an_PlayedFiles", "DAW File Track Control")
+        insertNode(layout, "an_indexFiles", "DAW Sound Index Control")
+        insertNode(layout, "an_soundList", "DAW Sound File List")
+        layout.separator()
+        insertNode(layout, "an_loadSoundDAW", "DAW Load Sound to VSE")
+        insertNode(layout, "an_objectSound", "DAW Play Sound From Object")
+        insertNode(layout, "an_FCurve", "DAW Object FCurve Value")
+
+class SoundFiltaFunctionsMenu(bpy.types.Menu):
+    bl_idname = "AN_MT_filta_func_menu"
+    bl_label = "SOUND Filters A-L Menu"
+
+    def draw(self, context):
+        layout = self.layout
+        insertNode(layout, "an_accumulateSound", "SOUND Accumulator")
+        insertNode(layout, "an_adsrSound", "SOUND ADSR")
+        insertNode(layout, "an_chorusSound", "SOUND Chorus")
+        insertNode(layout, "an_compressorFilter", "SOUND Compressor")
+        insertNode(layout, "an_DelaySound", "SOUND Delay")
+        insertNode(layout, "an_distortSound", "SOUND Distortion")
+        insertNode(layout, "an_dopplerSound", "SOUND Doppler")
+        insertNode(layout, "an_echoSound", "SOUND 10 Channel Echo Unit")
+        insertNode(layout, "an_envelopeSound", "SOUND Envelope")
+        insertNode(layout, "an_equalSound", "SOUND Equaliser")
+        insertNode(layout, "an_fadeSound", "SOUND Fader")
+        insertNode(layout, "an_flangerSound", "SOUND Flanger")
+        insertNode(layout, "an_modulateSound", "SOUND Modulator")
+        insertNode(layout, "an_iirFirFilter", "SOUND IIR/FIR Filter")
+        insertNode(layout, "an_joinSound", "SOUND Joiner")
+        insertNode(layout, "an_loopSound", "SOUND Looper")
+
+class SoundFiltbFunctionsMenu(bpy.types.Menu):
+    bl_idname = "AN_MT_filtb_func_menu"
+    bl_label = "SOUND Filters M-V Menu"
+
+    def draw(self, context):
+        layout = self.layout
+        insertNode(layout, "an_mixSound", "SOUND Multi-Channel Mixer")
+        insertNode(layout, "an_mutableSound", "SOUND Mutable")
+        insertNode(layout, "an_passFilter", "SOUND High/Low/Multi Pass Filter")
+        insertNode(layout, "an_phaserSound", "SOUND Phaser")
+        insertNode(layout, "an_pingpongSound", "SOUND PingPong")
+        insertNode(layout, "an_pitchSound", "SOUND Pitch Bender")
+        insertNode(layout, "an_pitchVarSound", "SOUND Variable Pitch")
+        insertNode(layout, "an_reverbSound", "SOUND Reverb")
+        insertNode(layout, "an_reverseSound", "SOUND Reverser")
+        insertNode(layout, "an_sidechainSound", "SOUND Side-Chainer")
+        insertNode(layout, "an_sumSound", "SOUND Sum")
+        insertNode(layout, "an_thresholdSound", "SOUND Threshold")
+        insertNode(layout, "an_vocoderSound", "SOUND VoCoder")
+        insertNode(layout, "an_volumeSound", "SOUND Volume")
+
+class SoundGenFunctionsMenu(bpy.types.Menu):
+    bl_idname = "AN_MT_gen_func_menu"
+    bl_label = "SOUND Generators Menu"
+
+    def draw(self, context):
+        layout = self.layout
+        insertNode(layout, "an_GenerateSound", "SOUND Generator")
+        insertNode(layout, "an_FMSynthDAW", "SOUND FM Synthesiser")
+
+class SoundPlayFunctionsMenu(bpy.types.Menu):
+    bl_idname = "AN_MT_play_func_menu"
+    bl_label = "SOUND Play/Record Functions Menu"
+
+    def draw(self, context):
+        layout = self.layout
+        insertNode(layout, "an_PlaySound", "SOUND Output Player")
+        insertNode(layout, "an_FileSound", "SOUND Play File")
+        insertNode(layout, "an_playFileSound", "SOUND Play File by Note Name")
+        insertNode(layout, "an_displaySound", "SOUND Display")
+        layout.separator()
+        insertNode(layout, "an_recordSound", "SOUND Recorder")
+
+class SeFunctionsMenu(bpy.types.Menu):
+    bl_idname = "AN_MT_se_func_menu"
+    bl_label = "SE Functions Menu"
+
+    def draw(self, context):
+        layout = self.layout
+        insertNode(layout, "an_managerSE", "SE Manager")
+
 class NumberMenu(bpy.types.Menu):
-    bl_idname = "an_number_menu"
+    bl_idname = "AN_MT_number_menu"
     bl_label = "Number Menu"
 
     def draw(self, context):
@@ -151,7 +277,7 @@ class NumberMenu(bpy.types.Menu):
         insertNode(layout, "an_FloatToTextNode", "Float to Text")
 
 class VectorMenu(bpy.types.Menu):
-    bl_idname = "an_vector_menu"
+    bl_idname = "AN_MT_vector_menu"
     bl_label = "Vector Menu"
 
     def draw(self, context):
@@ -179,7 +305,7 @@ class VectorMenu(bpy.types.Menu):
         insertNode(layout, "an_OffsetVectorNode", "Offset", {"useVectorList" : repr(True)})
 
 class RotationMenu(bpy.types.Menu):
-    bl_idname = "an_rotation_menu"
+    bl_idname = "AN_MT_rotation_menu"
     bl_label = "Rotation Menu"
 
     def draw(self, context):
@@ -211,7 +337,7 @@ class RotationMenu(bpy.types.Menu):
 
 
 class MatrixMenu(bpy.types.Menu):
-    bl_idname = "an_matrix_menu"
+    bl_idname = "AN_MT_matrix_menu"
     bl_label = "Matrix Menu"
 
     def draw(self, context):
@@ -234,7 +360,7 @@ class MatrixMenu(bpy.types.Menu):
         insertNode(layout, "an_OffsetMatrixNode", "Offset", {"useMatrixList" : repr(True)})
 
 class TextMenu(bpy.types.Menu):
-    bl_idname = "an_text_menu"
+    bl_idname = "AN_MT_text_menu"
     bl_label = "Text Menu"
 
     def draw(self, context):
@@ -264,7 +390,7 @@ class TextMenu(bpy.types.Menu):
         insertNode(layout, "an_TextObjectOutputNode", "Object Output")
 
 class BooleanMenu(bpy.types.Menu):
-    bl_idname = "an_boolean_menu"
+    bl_idname = "AN_MT_boolean_menu"
     bl_label = "Boolean Menu"
 
     def draw(self, context):
@@ -277,7 +403,7 @@ class BooleanMenu(bpy.types.Menu):
         insertNode(layout, "an_BooleanListLogicNode", "List Logic")
 
 class ColorMenu(bpy.types.Menu):
-    bl_idname = "an_color_menu"
+    bl_idname = "AN_MT_color_menu"
     bl_label = "Color Menu"
 
     def draw(self, context):
@@ -289,13 +415,13 @@ class ColorMenu(bpy.types.Menu):
         insertNode(layout, "an_SetVertexColorNode", "Set Vertex Color")
 
 class ListMenu(bpy.types.Menu):
-    bl_idname = "an_list_menu"
+    bl_idname = "AN_MT_list_menu"
     bl_label = "List Menu"
 
     def draw(self, context):
         layout = self.layout
-        layout.menu("an_create_list_menu", text = "Create")
-        layout.menu("an_combine_list_menu", text = "Combine")
+        layout.menu("AN_MT_create_list_menu", text = "Create")
+        layout.menu("AN_MT_combine_list_menu", text = "Combine")
         insertNode(layout, "an_AppendListNode", "Append")
         layout.separator()
         insertNode(layout, "an_GetListElementNode", "Get Element")
@@ -323,7 +449,7 @@ class ListMenu(bpy.types.Menu):
 
 
 class CreateListMenu(bpy.types.Menu):
-    bl_idname = "an_create_list_menu"
+    bl_idname = "AN_MT_create_list_menu"
     bl_label = "Create List Menu"
 
     def draw(self, context):
@@ -331,10 +457,10 @@ class CreateListMenu(bpy.types.Menu):
         for dataType in mainBaseDataTypes:
             insertNode(layout, "an_CreateListNode", dataType, {"assignedType" : repr(dataType)})
         layout.separator()
-        layout.menu("an_create_list_menu_extended", text = "More")
+        layout.menu("AN_MT_create_list_menu_extended", text = "More")
 
 class CreateListMenuExtended(bpy.types.Menu):
-    bl_idname = "an_create_list_menu_extended"
+    bl_idname = "AN_MT_create_list_menu_extended"
     bl_label = "Create List Menu Extended"
 
     def draw(self, context):
@@ -344,7 +470,7 @@ class CreateListMenuExtended(bpy.types.Menu):
                 insertNode(layout, "an_CreateListNode", dataType, {"assignedType" : repr(dataType)})
 
 class CombineListMenu(bpy.types.Menu):
-    bl_idname = "an_combine_list_menu"
+    bl_idname = "AN_MT_combine_list_menu"
     bl_label = "Combine List Menu"
 
     def draw(self, context):
@@ -352,10 +478,10 @@ class CombineListMenu(bpy.types.Menu):
         for dataType in mainBaseDataTypes:
             insertNode(layout, "an_CombineListsNode", dataType, {"assignedType" : repr(dataType)})
         layout.separator()
-        layout.menu("an_combine_list_menu_extended", text = "More")
+        layout.menu("AN_MT_combine_list_menu_extended", text = "More")
 
 class CombineListMenuExtended(bpy.types.Menu):
-    bl_idname = "an_combine_list_menu_extended"
+    bl_idname = "AN_MT_combine_list_menu_extended"
     bl_label = "Combine List Menu Extended"
 
     def draw(self, context):
@@ -365,7 +491,7 @@ class CombineListMenuExtended(bpy.types.Menu):
                 insertNode(layout, "an_CombineListsNode", dataType, {"assignedType" : repr(dataType)})
 
 class ObjectMenu(bpy.types.Menu):
-    bl_idname = "an_object_menu"
+    bl_idname = "AN_MT_object_menu"
     bl_label = "Object Menu"
 
     def draw(self, context):
@@ -393,12 +519,12 @@ class ObjectMenu(bpy.types.Menu):
         insertNode(layout, "an_CopyObjectDataNode", "Copy Data")
         insertNode(layout, "an_SetKeyframesNode", "Set Keyframes")
         insertNode(layout, "an_ArmatureInfoNode", "Armature Info")
-        layout.menu("an_object_utils_menu", text = "Utils")
+        layout.menu("AN_MT_object_utils_menu", text = "Utils")
         layout.separator()
         insertNode(layout, "an_ObjectInstancerNode", "Instancer")
 
 class ObjectUtilsMenu(bpy.types.Menu):
-    bl_idname = "an_object_utils_menu"
+    bl_idname = "AN_MT_object_utils_menu"
     bl_label = "Object Utils Menu"
 
     def draw(self, context):
@@ -412,7 +538,7 @@ class ObjectUtilsMenu(bpy.types.Menu):
         insertNode(layout, "an_GetActiveCameraNode", "Get Active Camera")
 
 class MeshMenu(bpy.types.Menu):
-    bl_idname = "an_mesh_menu"
+    bl_idname = "AN_MT_mesh_menu"
     bl_label = "Mesh Menu"
 
     def draw(self, context):
@@ -425,20 +551,20 @@ class MeshMenu(bpy.types.Menu):
         insertNode(layout, "an_OffsetPolygonsNode", "Offset Polygons")
         insertNode(layout, "an_SeparatePolygonsNode", "Separate Polygons")
         insertNode(layout, "an_ExtractPolygonTransformsNode", "Extract Polygon Transforms")
-        layout.menu("an_mesh_generators_menu", text = "Generators")
-        layout.menu("an_mesh_operators_menu", text = "Operators")
+        layout.menu("AN_MT_mesh_generators_menu", text = "Generators")
+        layout.menu("AN_MT_mesh_operators_menu", text = "Operators")
         layout.separator()
         insertNode(layout, "an_CreateListNode", "Mesh List", {"assignedType" : repr("Mesh")})
         insertNode(layout, "an_JoinMeshListNode", "Join Mesh List")
         insertNode(layout, "an_BMeshMeshNode", "BMesh Mesh")
         insertNode(layout, "an_CreateBMeshFromMeshNode", "BMesh from Mesh")
         insertNode(layout, "an_BMeshFromObjectNode", "BMesh from Object")
-        layout.menu("an_mesh_finalizing_menu", text = "Tools")
+        layout.menu("AN_MT_mesh_finalizing_menu", text = "Tools")
         layout.separator()
         insertNode(layout, "an_MeshObjectOutputNode", "Object Output")
 
 class MeshGeneratorsMenu(bpy.types.Menu):
-    bl_idname = "an_mesh_generators_menu"
+    bl_idname = "AN_MT_mesh_generators_menu"
     bl_label = "Mesh Generators Menu"
 
     def draw(self, context):
@@ -450,7 +576,7 @@ class MeshGeneratorsMenu(bpy.types.Menu):
         insertNode(layout, "an_UnityTriangleMeshNode", "Unity Triangle")
 
 class MeshOperatorsMenu(bpy.types.Menu):
-    bl_idname = "an_mesh_operators_menu"
+    bl_idname = "AN_MT_mesh_operators_menu"
     bl_label = "Mesh Operators Menu"
 
     def draw(self, context):
@@ -466,7 +592,7 @@ class MeshOperatorsMenu(bpy.types.Menu):
         insertNode(layout, "an_EdgeInfoNode", "Edge Info")
 
 class MeshFinalizingMenu(bpy.types.Menu):
-    bl_idname = "an_mesh_finalizing_menu"
+    bl_idname = "AN_MT_mesh_finalizing_menu"
     bl_label = "Mesh Finalizing Menu"
 
     def draw(self, context):
@@ -477,7 +603,7 @@ class MeshFinalizingMenu(bpy.types.Menu):
         insertNode(layout, "an_ShadeObjectSmoothNode", "Shade Object Smooth")
 
 class SplineMenu(bpy.types.Menu):
-    bl_idname = "an_spline_menu"
+    bl_idname = "AN_MT_spline_menu"
     bl_label = "Spline Menu"
 
     def draw(self, context):
@@ -508,7 +634,7 @@ class SplineMenu(bpy.types.Menu):
         insertNode(layout, "an_RevolveSplineNode", "Revolve")
 
 class AnimationMenu(bpy.types.Menu):
-    bl_idname = "an_animation_menu"
+    bl_idname = "AN_MT_animation_menu"
     bl_label = "Animation Menu"
 
     def draw(self, context):
@@ -525,7 +651,7 @@ class AnimationMenu(bpy.types.Menu):
         insertNode(layout, "an_AnimateDataNode", "Animate Color", {"dataType" : repr("Color")})
 
 class InterpolationMenu(bpy.types.Menu):
-    bl_idname = "an_interpolation_menu"
+    bl_idname = "AN_MT_interpolation_menu"
     bl_label = "Interpolation Menu"
 
     def draw(self, context):
@@ -539,7 +665,7 @@ class InterpolationMenu(bpy.types.Menu):
         insertNode(layout, "an_MapRangeNode", "Map Range", {"useInterpolation" : repr(True)})
 
 class FalloffMenu(bpy.types.Menu):
-    bl_idname = "an_falloff_menu"
+    bl_idname = "AN_MT_falloff_menu"
     bl_label = "Falloff Menu"
 
     def draw(self, context):
@@ -567,7 +693,7 @@ class FalloffMenu(bpy.types.Menu):
         insertNode(layout, "an_EvaluateFalloffNode", "Evaluate")
 
 class MaterialMenu(bpy.types.Menu):
-    bl_idname = "an_material_menu"
+    bl_idname = "AN_MT_material_menu"
     bl_label = "Material Menu"
 
     def draw(self, context):
@@ -577,7 +703,7 @@ class MaterialMenu(bpy.types.Menu):
         insertNode(layout, "an_MaterialOutputNode", "Material Output")
 
 class ParticleSystemMenu(bpy.types.Menu):
-    bl_idname = "an_particle_system_menu"
+    bl_idname = "AN_MT_particle_system_menu"
     bl_label = "Particle System Menu"
 
     def draw(self, context):
@@ -587,7 +713,7 @@ class ParticleSystemMenu(bpy.types.Menu):
         insertNode(layout, "an_ParticleSystemHairDataNode", "Hair Data")
 
 class FCurveMenu(bpy.types.Menu):
-    bl_idname = "an_fcurve_menu"
+    bl_idname = "AN_MT_fcurve_menu"
     bl_label = "FCurve Menu"
 
     def draw(self, context):
@@ -598,7 +724,7 @@ class FCurveMenu(bpy.types.Menu):
         insertNode(layout, "an_FCurveKeyframesNode", "Keyframes")
 
 class SoundMenu(bpy.types.Menu):
-    bl_idname = "an_sound_menu"
+    bl_idname = "AN_MT_sound_menu"
     bl_label = "Sound Menu"
 
     def draw(self, context):
@@ -607,7 +733,7 @@ class SoundMenu(bpy.types.Menu):
         insertNode(layout, "an_SoundSpectrumNode", "Sound Spectrum")
 
 class SequenceMenu(bpy.types.Menu):
-    bl_idname = "an_sequence_menu"
+    bl_idname = "AN_MT_sequence_menu"
     bl_label = "Sequence Menu"
 
     def draw(self, context):
@@ -618,7 +744,7 @@ class SequenceMenu(bpy.types.Menu):
         insertNode(layout, "an_SequenceInfoNode", "Sequence Info")
 
 class GeometryMenu(bpy.types.Menu):
-    bl_idname = "an_geometry_menu"
+    bl_idname = "AN_MT_geometry_menu"
     bl_label = "Geometry Menu"
 
     def draw(self, context):
@@ -640,7 +766,7 @@ class GeometryMenu(bpy.types.Menu):
         insertNode(layout, "an_BMeshTriangulateNode", "Triangulate BMesh")
 
 class KDTreeAndBVHTreeMenu(bpy.types.Menu):
-    bl_idname = "an_kdtree_bvhtree_menu"
+    bl_idname = "AN_MT_kdtree_bvhtree_menu"
     bl_label = "KDTree and BVHTree Menu"
 
     def draw(self, context):
@@ -656,7 +782,7 @@ class KDTreeAndBVHTreeMenu(bpy.types.Menu):
         insertNode(layout, "an_IsInsideVolumeBVHTreeNode", "Is Inside Volume")
 
 class ViewerMenu(bpy.types.Menu):
-    bl_idname = "an_viewer_menu"
+    bl_idname = "AN_MT_viewer_menu"
     bl_label = "Viewer Menu"
 
     def draw(self, context):
@@ -667,7 +793,7 @@ class ViewerMenu(bpy.types.Menu):
         insertNode(layout, "an_InterpolationViewerNode", "Interpolation Viewer")
 
 class SubprogramsMenu(bpy.types.Menu):
-    bl_idname = "an_subprograms_menu"
+    bl_idname = "AN_MT_subprograms_menu"
     bl_label = "Subprograms Menu"
 
     def draw(self, context):
@@ -687,7 +813,7 @@ class SubprogramsMenu(bpy.types.Menu):
         insertNode(layout, "an_ExpressionNode", "Expression")
 
 class LayoutMenu(bpy.types.Menu):
-    bl_idname = "an_layout_menu"
+    bl_idname = "AN_MT_layout_menu"
     bl_label = "Layout Menu"
 
     def draw(self, context):
