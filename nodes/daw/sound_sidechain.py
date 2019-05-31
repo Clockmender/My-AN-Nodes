@@ -26,7 +26,7 @@ class sidechainSound(bpy.types.Node, AnimationNode):
         self.useNetworkColor = False
         self.label = "SOUND Side-Chain"
         self.color = (0.65,1,1)
-        if isinstance(snd, aud.Sound):
+        if isinstance(snd, aud.Sound) and isinstance(sndC, aud.Sound):
             sndArrayI = snd.data()
             sndArrayA = sndC.data()
 
