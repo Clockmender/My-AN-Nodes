@@ -11,7 +11,7 @@ class pitchSound(bpy.types.Node, AnimationNode):
     bl_width_default = 150
 
     def create(self):
-        self.newInput("an_IntegerSocket","Samples","samples",value=44100,min=6000)
+        self.newInput("an_IntegerSocket","Samples","samples",value=44100,minValue=6000)
         self.newInput("an_BooleanSocket","High Quality","qSpec")
         self.newInput("an_SoundSocket","Sound I","snd")
         self.newOutput("an_SoundSocket","Sound O","sound")
