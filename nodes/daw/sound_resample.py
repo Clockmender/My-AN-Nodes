@@ -24,6 +24,9 @@ class pitchSound(bpy.types.Node, AnimationNode):
         if isinstance(snd, aud.Sound):
             if snd.specs[0] != samples:
                 snd = snd.resample(samples,qSpec)
+            else:
+                self.color = (0.75,1,0.75)
+                self.label = "SOUND Rs BYPASS (Samples Unchanged)"
         else:
             self.color = (0.75,1,0.75)
             self.label = "SOUND Rs BYPASS (No Sound)"
