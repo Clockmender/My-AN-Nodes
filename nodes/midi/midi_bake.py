@@ -19,7 +19,7 @@ class MidiNoteData(bpy.types.PropertyGroup):
 
 class MidiBakeNode(bpy.types.Node, AnimationNode):
     bl_idname = "an_MidiBakeNode"
-    bl_label = "MIDI Bake & Controls"
+    bl_label = "MIDI Bake Controls"
     bl_width_default = 300
 
     midC         : BoolProperty(name = "Middle C = C4", default = True, update = propertyChanged)
