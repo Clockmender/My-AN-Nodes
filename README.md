@@ -86,6 +86,10 @@ Switch node added - switches between two inputs either at a fixed frame, or on a
 
 There are still some bugs in the nodes that create geometry as Blender methods have changed... I will look at these over the next week, or so.
 
+# EDIT 3 June 2019:
+
+DAW Nodes and Base Blend file added, still experimental with no help files to date, _Caveat Emptor!_, but they have been checked to a reasonable degree. The containing folder, with its \_\_init\_\_.py file should be placed in the AN nodes directory.
+
 Cheers, Clock.
 
 PS. I am rebuilding my website: https://clockmender.uk but it will take some time. There will be a set of pages explaining how to use these nodes, I have started though!
