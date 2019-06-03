@@ -2,7 +2,7 @@ import bpy
 from ... base_types import AnimationNode
 from bpy.props import *
 from ... events import propertyChanged
-from . daw_functions import getIndex, getFreq
+from . daw_functions import getIndex, getFreq, findNote
 from . utils_setup import getSysData
 
 class calcSound(bpy.types.Node, AnimationNode):
@@ -47,6 +47,8 @@ class calcSound(bpy.types.Node, AnimationNode):
             else:
                 self.color = (0.75,1,0.75)
                 return "", 0, 0, 0, 0, cut, lenS
+        elif freqI != 0:
+            noteName = findNote(freqI)
         facO = 1
         if semiI > 0 and semiI < 12:
             outF = (1 / (0.5**(semiI/12))) * freqI

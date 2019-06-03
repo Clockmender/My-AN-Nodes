@@ -11,7 +11,9 @@ noteList = [
     'c6','cs6','d6','ds6','e6','f6','fs6','g6','gs6','a6','as6','b6',
     'c7','cs7','d7','ds7','e7','f7','fs7','g7','gs7','a7','as7','b7',
     'c8','cs8','d8','ds8','e8','f8','fs8','g8','gs8','a8','as8','b8',
-    'c9','cs9','d9','ds9','e9','f9','fs9','g9']
+    'c9','cs9','d9','ds9','e9','f9','fs9','g9','gs9','a9','as9','b9',
+    'c10','cs10','d10','ds10','e10','f10','fs10','g10','gs10','a10','as10','b10',
+    ]
 
 noteFreq = [
     16.35160,17.32393,18.35405,19.44544,20.60172,21.82676,23.12465,24.49971,25.95654,27.5,29.13524,30.86771,
@@ -31,6 +33,11 @@ def getNote(noteIdx, offSet):
         return noteList[noteIdx + offSet]
     else:
         return 'Not in Range'
+
+def findNote(freqI):
+    idx = next((i for i, x in enumerate(noteFreq) if x == freqI), -1)
+    noteName = noteList[idx] if idx > -1 else "Not a Note"
+    return noteName
 
 def getIndex(noteName):
     idx = next((i for i, x in enumerate(noteList) if x == noteName), -1)
