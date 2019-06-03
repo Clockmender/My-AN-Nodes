@@ -86,7 +86,8 @@ class FileSound(bpy.types.Node, AnimationNode):
                 return len, None
             duration = duration + startoff
             snd = snd.limit(startoff,duration).fadein(0,duration*0.03).fadeout((duration*0.97),(duration*0.03))
-            snd = snd.rechannel(2)
+            if snd.specs[1] != 2:
+                snd = snd.rechannel(2)
             self.label = "SOUND Play File"
         else:
             self.color = (0.75,1,0.75)

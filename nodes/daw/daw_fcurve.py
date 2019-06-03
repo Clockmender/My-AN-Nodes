@@ -59,11 +59,8 @@ class objectFCurve(bpy.types.Node, AnimationNode):
                 for r in self.notesP:
                     if r[0] >= frameC and r[0] < frameC+1:
                         durT = round(r[1] / bpy.context.scene.render.fps,3)
-
-            #return valO, kFrames, kValues, self.notesP
             return valO, self.notesP, object.name.split("_")[0], durT
         else:
             self.message = "No Animation Data"
             self.label = "DAW FCurve Value"
-            #return 0.0, DoubleList(), DoubleList(), self.notesP
             return 0.0, self.notesP, 0, 0

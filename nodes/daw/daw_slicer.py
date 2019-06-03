@@ -133,14 +133,16 @@ class slicerSound(bpy.types.Node, AnimationNode):
             self.message = "Playing Cut File"
             sndO = store['SoundCut']
             sndO = sndO.volume(self.volOut)
-            sndO = sndO.rechannel(2)
+            if sndO.specs[1] != 2:
+                sndO = sndO.rechannel(2)
             try: play = dev.play(sndO)
             except: self.message = "Invalid Sound File"
         elif data == "sliced" and "sndO" in store:
             self.message = "Playing Sliced/Re-Joined File"
             sndO = store['sndO']
             sndO = sndO.volume(self.volOut)
-            sndO = sndO.rechannel(2)
+            if sndO.specs[1] != 2:
+                sndO = sndO.rechannel(2)
             try: play = dev.play(sndO)
             except:self.message = "Invalid Sound File"
         else:
@@ -153,7 +155,8 @@ class slicerSound(bpy.types.Node, AnimationNode):
             self.message = ""
             self.message1 = "Not Valid Sound File"
             return
-        sndCut = sndCut.rechannel(2)
+        if sndCut.specs[1] != 2:
+            sndCut = sndCut.rechannel(2)
         store["SoundCut"] = sndCut
         self.message = "Cut Sound Stored - Slice Next, Length: "+str(sndCut.length / sndCut.specs[0])
         self.message1 = ""
@@ -174,7 +177,8 @@ class slicerSound(bpy.types.Node, AnimationNode):
             else:
                 cut = self.timeM / self.numbD
                 sndCut = sndCut.limit(self.timeS,(self.timeS+(self.numbD*cut)))
-            sndCut = sndCut.rechannel(2)
+            if sndCut.specs[1] != 2:
+                sndCut = sndCut.rechannel(2)
             store["SoundCut"] = sndCut
             self.message = "Cut Sound Stored Start: "+str(self.timeS)+", Cuts: "+str(self.numbD)+", Cut Time: "+str(cut)
             self.message1 = ""
@@ -205,7 +209,7 @@ class slicerSound(bpy.types.Node, AnimationNode):
             store["TimeS"] = round(cut,5)
             for i in range(1,(self.numbD+1)):
                 tot = tot + cut
-                snd = inSnd.limit((i*cut),(cut+(i*cut))).rechannel(2)
+                snd = inSnd.limit((i*cut),(cut+(i*cut)))
                 store["snd"+str(i)] = snd
             self.message = "Sound Sliced, Slice Time: "+str(round(cut,5))+"s, Total Time: "+str(round(tot,5))+"s"
             self.message1 = ""
@@ -246,7 +250,8 @@ class slicerSound(bpy.types.Node, AnimationNode):
                             sndO = sndO.join(snd)
                 if self.pitchV != 1:
                     sndO = sndO.pitch(self.pitchV)
-                sndO = sndO.rechannel(2)
+                if sndO.specs[1] != 2:
+                    sndO = sndO.rechannel(2)
                 store["sndO"] = sndO
                 self.message = "Slices Joined/Reversed/Pitched, Total Time: "+str(round(tot,5))+"s"
             else:
@@ -275,7 +280,8 @@ class slicerSound(bpy.types.Node, AnimationNode):
                 self.message1 = "File "+str(pathF)+" Exists, Enter New Name/Delete it"
                 return
             snd = snd.volume(self.volOut)
-            snd = snd.rechannel(2)
+            if snd.specs[1] != 2:
+                snd = snd.rechannel(2)
             sndW = snd.write(pathF,aud.RATE_16000,aud.CHANNELS_STEREO,aud.FORMAT_FLOAT32,aud.CONTAINER_FLAC,aud.CODEC_FLAC)
             self.message = "File Written "+pathF
             self.message1 = ""

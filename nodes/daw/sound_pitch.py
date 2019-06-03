@@ -11,8 +11,8 @@ class pitchSound(bpy.types.Node, AnimationNode):
     bl_width_default = 150
 
     def create(self):
-        self.newInput("an_IntegerSocket","Pitch Factor","pitch",value=1,minValue=0.25,maxValue=4)
-        self.newInput("an_FloatSocket","Samples","samples")
+        self.newInput("an_FloatSocket","Pitch Factor","pitch",value=1,minValue=0.25,maxValue=4)
+        self.newInput("an_IntegerSocket","Samples","samples")
         self.newInput("an_SoundSocket","Sound I","snd")
         self.newOutput("an_SoundSocket","Sound O","sound")
 

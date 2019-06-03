@@ -80,7 +80,9 @@ class GenerateSound(bpy.types.Node, AnimationNode):
             loop = int(duration)
             if loop > 0:
                 sndO = sndO.loop(loop)
-            sndO = sndO.limit(0,duration).rechannel(2).volume(10*volume)
+            sndO = sndO.limit(0,duration).volume(10*volume)
+            if sndO.specs[1] != 2:
+                sndO = sndO.rechannel(2)
             return duration, samples, sndO
         else:
             self.color = (0.75,1,0.75)
@@ -109,6 +111,8 @@ class GenerateSound(bpy.types.Node, AnimationNode):
                     sndM = osc(self.mode,freq,samples,durT,volM).fadein(0,durT*0.05).fadeout(durT*0.95,durT*0.05)
                 else:
                     sndM = sndM.mix(osc(self.mode,freq,samples,durT,volM).fadein(0,durT*0.05).fadeout(durT*0.95,durT*0.05))
+                if sndM.specs[1] != 2:
+                    sndM = sndM.rechannel(2)
             duration = sndM.length / sndM.specs[0]
             return 0, duration, samples, sndM
 
@@ -129,6 +133,8 @@ class GenerateSound(bpy.types.Node, AnimationNode):
             else:
                 return freq, duration, samples, None
             snd = snd.fadeout((duration*0.98),(duration*0.02))
+            if snd.specs[1] != 2:
+                snd = snd.rechannel(2)
             return freq, duration, samples, snd
         else:
             self.color = (0.75,1,0.75)

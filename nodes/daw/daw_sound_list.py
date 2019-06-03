@@ -117,7 +117,9 @@ class soundList(bpy.types.Node, AnimationNode):
         for i in range(0,len(sndList)):
             r = sndList[i][0]
             if r < lenST:
-                snd = self.sndStore[name][r].rechannel(2)
+                snd = self.sndStore[name][r]
+                if snd.specs[1] != 2:
+                    snd = snd.rechannel(2)
                 if sndList[i][1] > 0:
                     snd = snd.delay(sndList[i][1])
                 snd = snd.volume(sndList[i][2])

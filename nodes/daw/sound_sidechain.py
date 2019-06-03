@@ -42,7 +42,9 @@ class sidechainSound(bpy.types.Node, AnimationNode):
                     else:
                          sndArrayI[i][1] = sndArrayI[i][1] + abs(sndArrayA[i][1])
 
-            sndO = aud.Sound.buffer(sndArrayI,samples).rechannel(2)
+            sndO = aud.Sound.buffer(sndArrayI,samples)
+            if sndO.specs[1] != 2:
+                sndO = sndO.rechannel(2)
             return sndO
         else:
             self.color = (0.75,1,0.75)

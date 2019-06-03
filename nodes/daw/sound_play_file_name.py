@@ -51,7 +51,8 @@ class playFileSound(bpy.types.Node, AnimationNode):
                 snd = snd.volume(volume)
                 duration = duration + startoff
                 snd = snd.limit(startoff,duration).fadein(0,duration*0.03).fadeout((duration*0.97),(duration*0.03))
-                snd = snd.rechannel(2)
+                if snd.specs[1] != 2:
+                    snd = snd.rechannel(2)
                 if revB:
                     snd = snd.reverse()
             else:

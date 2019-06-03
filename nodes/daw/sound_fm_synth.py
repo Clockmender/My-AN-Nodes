@@ -135,7 +135,8 @@ class FMSynthDAW(bpy.types.Node, AnimationNode):
             sndO = snd1.mix(snd2).mix(snd3).mix(snd4).volume(soundV)
             if startT > 0:
                 sndO = sndO.delay(startT)
-            sndO = sndO.rechannel(2)
+            if sndO.specs[1] != 2:
+                sndO = sndO.rechannel(2)
             if i == 0:
                 sndM = sndO
             else:
@@ -144,5 +145,6 @@ class FMSynthDAW(bpy.types.Node, AnimationNode):
                 limit = startT + durT
 
         sndM = sndM.limit(0,limit)
-        sndM = sndM.rechannel(2)
+        if sndM.specs[1] != 2:
+            sndM = sndM.rechannel(2)
         return samples, sndM

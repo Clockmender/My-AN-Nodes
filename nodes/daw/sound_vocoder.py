@@ -81,10 +81,9 @@ class vocoderSound(bpy.types.Node, AnimationNode):
                 return samples, None
 
             durationF = duration + startT
-            sndV = sndV.limit(startT,durationF)
-            sndV = sndV.volume(volume)
-            sndV = sndV.rechannel(2)
-
+            sndV = sndV.limit(startT,durationF).volume(volume)
+            if sndV.specs[1] != 2:
+                sndV = sndV.rechannel(2)
             sndI = osc(self.mode,freq,samples,duration,volume)
             try:
                 sndO = sndV.modulate(sndI)

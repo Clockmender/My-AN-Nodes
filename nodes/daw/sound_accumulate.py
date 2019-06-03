@@ -21,8 +21,7 @@ class accumulateSound(bpy.types.Node, AnimationNode):
         self.label = "SOUND Accumulator"
         self.color = (0.65,1,1)
         if isinstance(snd, aud.Sound):
-            snd = snd.accumulate(addB)
-            snd = snd.limit(0,limit)
+            snd = snd.accumulate(addB).limit(0,limit)
         else:
             self.color = (0.75,1,0.75)
             self.label = "SOUND Ac BYPASS (No Sound)"

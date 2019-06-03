@@ -39,7 +39,8 @@ class dopplerSound(bpy.types.Node, AnimationNode):
                         sndO = sndS
                     else:
                         sndO = sndO.join(sndS)
-                sndO = sndO.rechannel(2)
+                if sndO.specs[1] != 2:
+                    sndO = sndO.rechannel(2)
                 if mixO:
                     sndO = sndO.mix(snd)
 
