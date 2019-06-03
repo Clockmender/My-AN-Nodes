@@ -66,6 +66,14 @@ Either clone the directory from here, or create a directory of this name and loa
 
 As of 18 April 2019, you will need to have PyGame and SoundDevice Python libraries loaded into Blender's Python area for the MIDI and Audio nodes to work. if you have these nodes installed and don't have these two libraries, Animation Nodes WILL NOT LOAD. Some day I will have a proper install for this, in the meantime I have added a zip file for MacOs ONLY that contains the site-packages directory for Blender 2.8, with the required libraries. Blender 2.8 now has pip so you can install these libraries much easier than in Blender 2.79.
 
+I believe that these commands will successfully install the libraries:
+
+python3.7m pip install sounddevice
+
+python3.7m pip install pygame
+
+Let me know, via "Issues" if this fails and I will investigate.
+
 # COMMENTS
 
 Have fun and mail me clockmender@icloud.com with any questions. Operation is fairly intuitive, but be aware that the MIDI nodes require MIDI files in CSV format, not generic MIDI - search the web for a good converter - there are several out there, but this is the one I use:
