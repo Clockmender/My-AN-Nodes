@@ -21,7 +21,7 @@ class calcSound(bpy.types.Node, AnimationNode):
         self.newInput("an_FloatSocket","Input Frequency","freqI")
         self.newInput("an_IntegerSocket","Semitone Offset","semiI",value=1,minValue=-12,maxValue=12)
         self.newInput("an_IntegerSocket","Samples","samples",value=44100,minValue=5000)
-        self.newOutput("an_TextSocket","note Name","noteO")
+        self.newOutput("an_TextSocket","Note Name","noteO")
         self.newOutput("an_FloatSocket","Factor","factor")
         self.newOutput("an_FloatSocket","Inverse Factor","factorI")
         self.newOutput("an_FloatSocket","Semitone Pitch Shift","offsetP")

@@ -35,7 +35,7 @@ def getNote(noteIdx, offSet):
         return 'Not in Range'
 
 def findNote(freqI):
-    idx = next((i for i, x in enumerate(noteFreq) if x == freqI), -1)
+    idx = min(range(len(noteFreq)), key=lambda i: abs(noteFreq[i]-freqI))
     noteName = noteList[idx] if idx > -1 else "Not a Note"
     return noteName
 
