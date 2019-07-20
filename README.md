@@ -72,6 +72,13 @@ python3.7m pip install sounddevice
 
 python3.7m pip install pygame
 
+DAW nodes require PyPinanoRoll and MatPlotLib:
+
+python3.7m pip install pypianoroll
+
+python3.7m pip install matplotlib
+
+
 Let me know, via "Issues" if this fails and I will investigate.
 
 # COMMENTS
