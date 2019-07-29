@@ -68,15 +68,15 @@ As of 18 April 2019, you will need to have PyGame and SoundDevice Python librari
 
 I believe that these commands will successfully install the libraries:
 
-python3.7m pip install sounddevice
+python3.7m -m pip install sounddevice
 
-python3.7m pip install pygame
+python3.7m -m pip install pygame
 
 NOTE! DAW nodes require PyPianoRoll and MatPlotLib:
 
-python3.7m pip install pypianoroll
+python3.7m -m pip install pypianoroll
 
-python3.7m pip install matplotlib
+python3.7m -m pip install matplotlib
 
 
 Let me know, via "Issues" if this fails and I will investigate.
