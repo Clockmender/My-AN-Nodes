@@ -213,7 +213,7 @@ class cadFunctions(bpy.types.Node, AnimationNode):
                         tst = ((p4 + p3) * ((100-self.pValue) / 100)) + p1
                     else:
                         tst = ((p4 + p3) * (self.pValue / 100)) + p1
-                    v4 = Vector((tst[0],tst[1],tst[2])) + oLoc
+                    v4 = Vector((tst[0],tst[1],tst[2]))# + oLoc
                     v3.co = v4
                     bmesh.update_edit_mesh(obj.data)
                     return
@@ -420,22 +420,15 @@ class cadFunctions(bpy.types.Node, AnimationNode):
                     if round(verts[0].co[a3],5) != round(verts[1].co[a3],5):
                         self.message = "Points Not Planar on "+ax+" Axis"
                         return
-                    # get angle of edge
-                    xin = abs(verts[0].co[a1] - verts[1].co[a1])
-                    zin = abs(verts[0].co[a2] - verts[1].co[a2])
                     if data == "ANGLE":
-                        hyp = sqrt(xin**2 + zin**2)
-                        self.ang = acos(xin/hyp) * 180 / pi
-                        if othV[a1] < actV[a1] and othV[a2] > actV[a2]:
-                            self.ang = 180 - self.ang
-                        elif othV[a1] < actV[a1] and othV[a2] < actV[a2]:
-                            self.ang = -180 + self.ang
-                        elif othV[a1] > actV[a1] and othV[a2] < actV[a2]:
-                            self.ang = -self.ang
-                        elif othV[a1] == actV[a1] and othV[a2] > actV[a2]:
-                            self.ang = 90
-                        elif othV[a1] == actV[a1] and othV[a2] < actV[a2]:
-                            self.ang = -90
+                        # get angle of edge
+                        p0 = [othV[a1]+1,othV[a2]]
+                        p1 = [othV[a1],othV[a2]]
+                        p2 = [actV[a1],actV[a2]]
+                        v0 = np.array(p0) - np.array(p1)
+                        v1 = np.array(p2) - np.array(p1)
+                        self.ang = np.rad2deg(np.arctan2(np.linalg.det([v0,v1]),np.dot(v0,v1)))
+                        return
                     elif data == "HALFWAY":
                         self.message = "Cursor moved to Midpoint"
                         for sc in bpy.data.scenes:
